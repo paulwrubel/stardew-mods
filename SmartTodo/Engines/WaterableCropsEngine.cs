@@ -13,7 +13,7 @@ namespace SmartTodo.Engines
             List<ITodoItem> items = [];
 
             // check if there are harvestable crops in various locations
-            foreach (GameLocation gameLocation in GameHelper.GetLocationsAndPhrases())
+            foreach (GameLocation gameLocation in GameHelper.GetLocations())
             {
                 if (gameLocation != null)
                 {

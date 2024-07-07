@@ -9,7 +9,7 @@ namespace SmartTodo.Components.TodoItems
     /// <summary>A todo item.</summary>
     /// <remarks>Initializes a new instance of the <see cref="BaseTodoItem"/> class.</remarks>
     /// <param name="text">The text of the todo item.</param>
-    internal abstract class BaseTodoItem(string text = "", bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null) : ITodoItem
+    internal abstract class BaseTodoItem(string text = "", bool isChecked = false, int priority = 0, Action<ITodoItem>? addToCompletedCache = null) : ITodoItem
     {
 
         /// <summary>The text of the todo item.</summary>
@@ -17,6 +17,9 @@ namespace SmartTodo.Components.TodoItems
 
         /// <summary>The checkbox state of the todo item.</summary>
         public bool IsChecked { get; set; } = isChecked;
+
+        /// <summary>The priority of the todo item. A higher number means a higher priority.</summary>
+        public int Priority { get; set; } = priority;
 
         internal Action<ITodoItem>? AddToCompletedCache { get; } = addToCompletedCache;
 

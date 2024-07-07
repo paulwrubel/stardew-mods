@@ -71,6 +71,11 @@ namespace SmartTodo
             {
                 this.Engines.Add(new WaterableCropsEngine(this.CompletedItemsCache.Add));
             }
+
+            if (this.Config.CheckToolPickup)
+            {
+                this.Engines.Add(new ToolPickupEngine(this.CompletedItemsCache.Add));
+            }
         }
 
         public void ClearAndRecheckForItems(bool reAddCompleted = true)
@@ -86,7 +91,15 @@ namespace SmartTodo
                 Items.AddRange(this.CompletedItemsCache);
             }
 
-            Items.Sort((a, b) => a.Text.CompareTo(b.Text));
+            Items.Sort((a, b) =>
+            {
+                var comp = a.Priority.CompareTo(b.Priority);
+                if (comp == 0)
+                {
+                    comp = a.Text.CompareTo(b.Text);
+                }
+                return comp;
+            });
 
             this.SmartTodoPanel = new(new Vector2(10, 100), () => Items);
         }

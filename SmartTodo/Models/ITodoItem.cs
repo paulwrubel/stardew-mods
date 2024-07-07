@@ -9,8 +9,12 @@ namespace SmartTodo.Models
 
         bool IsChecked { get; set; }
 
-        void Draw(SpriteBatch b, Vector2 position);
+        int Priority { get; set; }
 
         void OnUpdateTicked();
+
+        void Draw(SpriteBatch b, Vector2 position);
+
+
     }
 }

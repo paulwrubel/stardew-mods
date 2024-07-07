@@ -71,6 +71,13 @@ namespace SmartTodo
                 getValue: () => this.Config.CheckWaterableCrops,
                 setValue: value => this.Config.CheckWaterableCrops = value
             );
+            configMenu.AddBoolOption(
+                mod: this.Manifest,
+                name: () => "Check Tools Pickup",
+                tooltip: () => "Whether or not to add items for picking up upgraded tools from Clint",
+                getValue: () => this.Config.CheckToolPickup,
+                setValue: value => this.Config.CheckToolPickup = value
+            );
 
             if (this.Update is not null)
             {
@@ -94,6 +101,8 @@ namespace SmartTodo
 
             this.Config.CheckBirthdays = defaults.CheckBirthdays;
             this.Config.CheckHarvestableCrops = defaults.CheckHarvestableCrops;
+            this.Config.CheckWaterableCrops = defaults.CheckWaterableCrops;
+            this.Config.CheckToolPickup = defaults.CheckToolPickup;
         }
     }
 }

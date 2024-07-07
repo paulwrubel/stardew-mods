@@ -10,7 +10,8 @@ namespace SmartTodo.Components.TodoItems
     {
         private NPC NPC { get; set; }
 
-        public BirthdayTodoItem(NPC npc, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null) : base("", isChecked, addToCompletedCache)
+        public BirthdayTodoItem(NPC npc, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null)
+            : base("", isChecked, 100, addToCompletedCache)
         {
             this.NPC = npc;
             this.Text = $"Give {npc.getName()} a birthday gift";

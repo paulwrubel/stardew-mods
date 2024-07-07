@@ -12,7 +12,8 @@ namespace SmartTodo.Components.TodoItems
 
         private int RemainingUnwateredCount { get; set; }
 
-        public WaterableCropsTodoItem(GameLocation location, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null) : base("", isChecked, addToCompletedCache)
+        public WaterableCropsTodoItem(GameLocation location, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null)
+            : base("", isChecked, 5, addToCompletedCache)
         {
             this.Location = location;
             this.RemainingUnwateredCount = location.getTotalUnwateredCrops();
