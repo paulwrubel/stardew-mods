@@ -1,13 +1,7 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using StardewModdingAPI;
-using StardewModdingAPI.Events;
-using StardewModdingAPI.Utilities;
+using SmartTodo.Components;
 using StardewValley;
-using StardewValley.Menus;
-using StardewValley.SDKs.Steam;
-using xTile.Format;
 
 namespace SmartTodo
 {

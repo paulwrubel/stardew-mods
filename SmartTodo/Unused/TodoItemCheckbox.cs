@@ -1,12 +1,9 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewValley;
 using StardewValley.Menus;
-using Microsoft.Xna.Framework.Input;
-using StardewModdingAPI;
 
-namespace SmartTodo
+namespace SmartTodo.Unused
 {
     /// <summary>A checkbox UI option.</summary>
     internal class TodoItemCheckbox : OptionsCheckbox
