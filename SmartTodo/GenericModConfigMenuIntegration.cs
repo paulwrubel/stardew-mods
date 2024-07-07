@@ -9,7 +9,7 @@ namespace SmartTodo
     /// <param name="modRegistry">An API for fetching metadata about loaded mods.</param>
     /// <param name="config">Get the current mod config.</param>
     /// <param name="save">Save the mod's current config to the <c>config.json</c> file.</param>
-    internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry modRegistry, ModConfig config, Action save, Action<string, object> update)
+    internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry modRegistry, ModConfig config, Action save, Action<string, object>? update = null)
     {
         /*********
         ** Fields
@@ -27,7 +27,7 @@ namespace SmartTodo
         private readonly Action Save = save;
 
         /// <summary>A callback when the config was updated through the Generic Mod Config Menu.</summary>
-        private readonly Action<string, object> Update = update;
+        private readonly Action<string, object>? Update = update;
 
         /// <summary>Register the config menu if available.</summary>
         public void Register()
@@ -65,10 +65,13 @@ namespace SmartTodo
                 setValue: value => this.Config.CheckHarvestableCrops = value
             );
 
-            configMenu.OnFieldChanged(
-                mod: this.Manifest,
-                onChange: (fieldID, newValue) => this.Update(fieldID, newValue)
-            );
+            if (this.Update is not null)
+            {
+                configMenu.OnFieldChanged(
+                    mod: this.Manifest,
+                    onChange: this.Update
+                );
+            }
         }
 
 

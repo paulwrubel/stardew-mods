@@ -37,6 +37,8 @@ namespace SmartTodo
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
 
             helper.Events.Display.Rendered += this.OnRendered;
+
+            helper.Events.Display.MenuChanged += this.OnMenuChanged;
         }
 
 
@@ -52,8 +54,8 @@ namespace SmartTodo
                 manifest: this.ModManifest,
                 modRegistry: this.Helper.ModRegistry,
                 config: this.Config,
-                save: () => this.Helper.WriteConfig(this.Config),
-                update: (fieldID, newValue) => this.OnConfigChanged(fieldID, newValue)
+                save: () => this.Helper.WriteConfig(this.Config)
+                // update: this.OnConfigChanged
             );
             configMenu.Register();
         }
@@ -108,11 +110,22 @@ namespace SmartTodo
             }
         }
 
+        private void OnMenuChanged(object? sender, MenuChangedEventArgs e)
+        {
+            if (e.NewMenu is null) // menu closed
+            {
+                this.SmartTodoManager.UpdateEngines();
+                this.SmartTodoManager.ClearAndRecheckForItems();
+            }
+        }
+
         private void OnConfigChanged(string fieldID, object newValue)
         {
             // we ignore the specific field that was updated and just reload all engines anyways
             //
             // we could be smarter about this later, but it's unlikely to make a different in performance
+            this.SmartTodoManager.Config = this.Config;
+
             this.SmartTodoManager.UpdateEngines();
             this.SmartTodoManager.ClearAndRecheckForItems();
         }

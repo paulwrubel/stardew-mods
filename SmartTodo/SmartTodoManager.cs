@@ -12,13 +12,15 @@ namespace SmartTodo
     {
 
         /// <summary>The config for the mod.</summary>
-        private ModConfig Config { get; }
+        public ModConfig Config { get; set; }
 
         private List<IEngine> Engines { get; } = [];
 
         private SmartTodoPanel SmartTodoPanel { get; set; } = null!; // initialized in OnDayStarted
 
         private readonly List<ITodoItem> Items = [];
+
+        private readonly List<ITodoItem> CompletedItemsCache = [];
 
         private int GutterLength { get; }
 
@@ -32,7 +34,8 @@ namespace SmartTodo
 
         internal void OnDayStarted()
         {
-            this.ClearAndRecheckForItems();
+            this.ClearAndRecheckForItems(reAddCompleted: false);
+            this.CompletedItemsCache.Clear();
         }
 
         internal void OnUpdateTicked()
@@ -56,21 +59,26 @@ namespace SmartTodo
 
             if (this.Config.CheckBirthdays)
             {
-                this.Engines.Add(new BirthdayEngine());
+                this.Engines.Add(new BirthdayEngine(this.CompletedItemsCache.Add));
             }
 
             if (this.Config.CheckHarvestableCrops)
             {
-                this.Engines.Add(new HarvestableCropsEngine());
+                this.Engines.Add(new HarvestableCropsEngine(this.CompletedItemsCache.Add));
             }
         }
 
-        public void ClearAndRecheckForItems()
+        public void ClearAndRecheckForItems(bool reAddCompleted = true)
         {
             Items.Clear();
             foreach (IEngine engine in this.Engines)
             {
                 Items.AddRange(engine.GetTodos());
+            }
+
+            if (reAddCompleted)
+            {
+                Items.AddRange(this.CompletedItemsCache);
             }
 
             this.SmartTodoPanel = new(new Vector2(10, 100), () => Items);

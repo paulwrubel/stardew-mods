@@ -4,7 +4,7 @@ using StardewValley;
 
 namespace SmartTodo.Engines
 {
-    internal class HarvestableCropsEngine : IEngine
+    internal class HarvestableCropsEngine(Action<ITodoItem>? addToCompletedCache = null) : IEngine
     {
 
         private static readonly (string, string)[] Locations = [
@@ -22,6 +22,8 @@ namespace SmartTodo.Engines
             ("IslandFarmHouse", "in the Ginger Island Farmhouse")
         ];
 
+        private Action<ITodoItem>? AddToCompletedCache { get; } = addToCompletedCache;
+
         public List<ITodoItem> GetTodos()
         {
             List<ITodoItem> items = [];
@@ -35,7 +37,7 @@ namespace SmartTodo.Engines
                     int harvestableCount = gameLocation.getTotalCropsReadyForHarvest();
                     if (harvestableCount > 0)
                     {
-                        items.Add(new HarvestableCropsTodoItem(gameLocation, locationPhrase));
+                        items.Add(new HarvestableCropsTodoItem(gameLocation, locationPhrase, addToCompletedCache: AddToCompletedCache));
                     }
                 }
             }

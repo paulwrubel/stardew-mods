@@ -1,3 +1,4 @@
+using SmartTodo.Models;
 using StardewValley;
 
 namespace SmartTodo.Components.TodoItems
@@ -9,7 +10,7 @@ namespace SmartTodo.Components.TodoItems
     {
         private NPC NPC { get; set; }
 
-        public BirthdayTodoItem(NPC npc, bool isChecked = false) : base("", isChecked)
+        public BirthdayTodoItem(NPC npc, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null) : base("", isChecked, addToCompletedCache)
         {
             this.NPC = npc;
             this.Text = $"Give {npc.getName()} a birthday gift";
@@ -21,7 +22,7 @@ namespace SmartTodo.Components.TodoItems
             {
                 if (Game1.player.friendshipData[this.NPC.Name].GiftsToday > 0)
                 {
-                    this.IsChecked = true;
+                    this.MarkCompleted();
                 }
             }
         }

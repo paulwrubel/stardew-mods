@@ -9,7 +9,7 @@ namespace SmartTodo.Components.TodoItems
     /// <summary>A todo item.</summary>
     /// <remarks>Initializes a new instance of the <see cref="BaseTodoItem"/> class.</remarks>
     /// <param name="text">The text of the todo item.</param>
-    internal abstract class BaseTodoItem(string text = "", bool isChecked = false) : ITodoItem
+    internal abstract class BaseTodoItem(string text = "", bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null) : ITodoItem
     {
 
         /// <summary>The text of the todo item.</summary>
@@ -17,6 +17,8 @@ namespace SmartTodo.Components.TodoItems
 
         /// <summary>The checkbox state of the todo item.</summary>
         public bool IsChecked { get; set; } = isChecked;
+
+        internal Action<ITodoItem>? AddToCompletedCache { get; } = addToCompletedCache;
 
         private static readonly Lazy<Texture2D> LazyPixel = new(() =>
         {
@@ -27,6 +29,15 @@ namespace SmartTodo.Components.TodoItems
 
         /// <summary>A blank pixel which can be colorized and stretched to draw geometric shapes.</summary>
         public static Texture2D Pixel => LazyPixel.Value;
+
+        public virtual void MarkCompleted()
+        {
+            this.IsChecked = true;
+            if (this.AddToCompletedCache is not null)
+            {
+                this.AddToCompletedCache(this);
+            }
+        }
 
         public virtual void OnUpdateTicked() { }
 

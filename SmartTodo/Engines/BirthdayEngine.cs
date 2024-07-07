@@ -4,8 +4,10 @@ using StardewValley;
 
 namespace SmartTodo.Engines
 {
-    internal class BirthdayEngine : IEngine
+    internal class BirthdayEngine(Action<ITodoItem>? addToCompletedCache = null) : IEngine
     {
+
+        private Action<ITodoItem>? AddToCompletedCache { get; } = addToCompletedCache;
 
         public List<ITodoItem> GetTodos()
         {
@@ -16,7 +18,7 @@ namespace SmartTodo.Engines
             {
                 if (npc.isBirthday())
                 {
-                    items.Add(new BirthdayTodoItem(npc));
+                    items.Add(new BirthdayTodoItem(npc, addToCompletedCache: AddToCompletedCache));
                 }
 
                 return true;

@@ -1,3 +1,4 @@
+using SmartTodo.Models;
 using StardewValley;
 using xTile.Dimensions;
 
@@ -14,7 +15,7 @@ namespace SmartTodo.Components.TodoItems
 
         private int RemainingHarvestCount { get; set; }
 
-        public HarvestableCropsTodoItem(GameLocation location, string locationPhrase, bool isChecked = false) : base("", isChecked)
+        public HarvestableCropsTodoItem(GameLocation location, string locationPhrase, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null) : base("", isChecked, addToCompletedCache)
         {
             this.Location = location;
             this.LocationPhrase = locationPhrase;
@@ -35,7 +36,7 @@ namespace SmartTodo.Components.TodoItems
 
                     if (this.RemainingHarvestCount == 0)
                     {
-                        this.IsChecked = true;
+                        this.MarkCompleted();
                     }
                 }
             }
