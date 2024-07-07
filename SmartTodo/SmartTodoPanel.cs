@@ -11,28 +11,19 @@ using xTile.Format;
 namespace SmartTodo
 {
     /// <summary>Manages the Smart Todo List.</summary>
-    internal class SmartTodoPanel : IClickableMenu
+    /// <remarks>Initializes a new instance of the <see cref="SmartTodoPanel"/> class.</remarks>
+    internal class SmartTodoPanel(Vector2 position, TodoItem[] todoItems) : IClickableMenu
     {
         private static string TitleText { get; } = "Smart Todo List";
 
         private static string DividerText { get; } = "----------";
 
-        private Vector2 BoxPosition;
-        private readonly int GutterLength;
+        private Vector2 BoxPosition = position;
+        private readonly int GutterLength = 4 * Game1.pixelZoom;
 
         private int LineSpacing { get; } = 2;
 
-        private TodoItem[] Items { get; }
-
-
-        /// <summary>Initializes a new instance of the <see cref="SmartTodoPanel"/> class.</summary>
-        public SmartTodoPanel(Vector2 position, TodoItem[] todoItems)
-        {
-            this.BoxPosition = position;
-            this.GutterLength = 4 * Game1.pixelZoom;
-
-            Items = todoItems;
-        }
+        private TodoItem[] Items { get; } = todoItems;
 
         public override void draw(SpriteBatch b)
         {
@@ -50,10 +41,12 @@ namespace SmartTodo
                 }
             }
 
+            int width = maxWidth + (GutterLength * 2);
             int lineHeight = (int)spriteFont.MeasureString(TitleText).Y;
             int height = (GutterLength * 2) + (Items.Length + 2) * (lineHeight + LineSpacing);
 
-            this.DrawTextureBox(maxWidth, height);
+
+            this.DrawTextureBox(width, height);
             this.DrawTitleText(out int nextYPosition);
             this.DrawTodoItems(nextYPosition);
 
@@ -62,8 +55,6 @@ namespace SmartTodo
 
         private void DrawTextureBox(int width, int height)
         {
-            int outerWidth = width + 2 * GutterLength;
-            int outerHeight = height + Game1.tileSize / 3;
 
             drawTextureBox(
                 Game1.spriteBatch,
@@ -71,8 +62,8 @@ namespace SmartTodo
                 new Rectangle(0, 256, 60, 60),
                 (int)BoxPosition.X,
                 (int)BoxPosition.Y,
-                outerWidth,
-                outerHeight + Game1.tileSize / 16,
+                width,
+                height,
                 Color.White * 1
             );
         }
@@ -86,7 +77,7 @@ namespace SmartTodo
             Utility.drawTextWithShadow(spriteBatch, TitleText, spriteFont, titleTextPosition, Game1.textColor);
 
             int titleTextHeight = (int)spriteFont.MeasureString(TitleText).Y;
-            var dividerPosition = new Vector2(BoxPosition.X + GutterLength, BoxPosition.Y + GutterLength + titleTextHeight + LineSpacing);
+            var dividerPosition = new Vector2(titleTextPosition.X, titleTextPosition.Y + titleTextHeight + LineSpacing);
             Utility.drawTextWithShadow(spriteBatch, DividerText, spriteFont, dividerPosition, Game1.textColor);
 
             nextYPosition = (int)dividerPosition.Y + (int)spriteFont.MeasureString(DividerText).Y + this.LineSpacing;

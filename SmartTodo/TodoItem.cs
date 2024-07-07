@@ -6,14 +6,16 @@ namespace SmartTodo
 {
 
     /// <summary>A todo item.</summary>
-    public class TodoItem
+    /// <remarks>Initializes a new instance of the <see cref="TodoItem"/> class.</remarks>
+    /// <param name="text">The text of the todo item.</param>
+    public class TodoItem(string text, bool isChecked = false)
     {
 
         /// <summary>The text of the todo item.</summary>
-        public string Text { get; set; }
+        public string Text { get; set; } = text;
 
         /// <summary>The checkbox state of the todo item.</summary>
-        public bool IsChecked { get; set; }
+        public bool IsChecked { get; set; } = isChecked;
 
         private static readonly Lazy<Texture2D> LazyPixel = new(() =>
         {
@@ -24,14 +26,6 @@ namespace SmartTodo
 
         /// <summary>A blank pixel which can be colorized and stretched to draw geometric shapes.</summary>
         public static Texture2D Pixel => LazyPixel.Value;
-
-        /// <summary>Initializes a new instance of the <see cref="TodoItem"/> class.</summary>
-        /// <param name="text">The text of the todo item.</param>
-        public TodoItem(string text, bool isChecked = false)
-        {
-            this.Text = text;
-            this.IsChecked = isChecked;
-        }
 
         public void draw(SpriteBatch b, Vector2 position)
         {

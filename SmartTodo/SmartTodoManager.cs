@@ -28,12 +28,11 @@ namespace SmartTodo
             this.Config = config;
 
             // create test Todo Items string array
-            TodoItem[] items = new TodoItem[] {
-                new("Go to the store"),
+            TodoItem[] items = [
                 new("Go to the store"),
                 new("Give Morris a present (birthday)"),
                 new("Sleep!")
-            };
+            ];
 
             this.SmartTodoPanel = new(new Vector2(10, 100), items);
         }
