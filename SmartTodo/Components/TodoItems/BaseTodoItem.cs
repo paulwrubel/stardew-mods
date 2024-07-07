@@ -1,14 +1,15 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SmartTodo.Models;
 using StardewValley;
 
 namespace SmartTodo.Components.TodoItems
 {
 
     /// <summary>A todo item.</summary>
-    /// <remarks>Initializes a new instance of the <see cref="TodoItem"/> class.</remarks>
+    /// <remarks>Initializes a new instance of the <see cref="BaseTodoItem"/> class.</remarks>
     /// <param name="text">The text of the todo item.</param>
-    internal class BaseTodoItem(string text, bool isChecked = false)
+    internal abstract class BaseTodoItem(string text = "", bool isChecked = false) : ITodoItem
     {
 
         /// <summary>The text of the todo item.</summary>
@@ -26,6 +27,8 @@ namespace SmartTodo.Components.TodoItems
 
         /// <summary>A blank pixel which can be colorized and stretched to draw geometric shapes.</summary>
         public static Texture2D Pixel => LazyPixel.Value;
+
+        public virtual void OnUpdateTicked() { }
 
         public void Draw(SpriteBatch b, Vector2 position)
         {

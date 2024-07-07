@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SmartTodo.Components;
+using SmartTodo.Engines;
+using SmartTodo.Models;
 using StardewValley;
 
 namespace SmartTodo
@@ -12,7 +14,11 @@ namespace SmartTodo
         /// <summary>The config for the mod.</summary>
         private ModConfig Config { get; }
 
-        private SmartTodoPanel SmartTodoPanel { get; }
+        private IEngine[] Engines { get; }
+
+        private SmartTodoPanel SmartTodoPanel { get; set; } = null!; // initialized in OnDayStarted
+
+        private readonly List<ITodoItem> Items = [];
 
         private int GutterLength { get; }
 
@@ -21,14 +27,29 @@ namespace SmartTodo
         {
             this.Config = config;
 
-            // create test Todo Items string array
-            TodoItem[] items = [
-                new("Go to the store"),
-                new("Give Morris a present (birthday)"),
-                new("Sleep!")
+            this.Engines = [
+                new TestEngine(),
+                new BirthdayEngine()
             ];
+        }
 
-            this.SmartTodoPanel = new(new Vector2(10, 100), items);
+        internal void OnDayStarted()
+        {
+            Items.Clear();
+            foreach (IEngine engine in this.Engines)
+            {
+                Items.AddRange(engine.GetTodos());
+            }
+
+            this.SmartTodoPanel = new(new Vector2(10, 100), () => Items);
+        }
+
+        internal void OnUpdateTicked()
+        {
+            foreach (ITodoItem item in Items)
+            {
+                item.OnUpdateTicked();
+            }
         }
 
         internal void OnRendered()

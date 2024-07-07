@@ -28,6 +28,10 @@ namespace SmartTodo
 
             helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
 
+            helper.Events.GameLoop.DayStarted += this.OnDayStarted;
+
+            helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
+
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
 
             helper.Events.Display.Rendered += this.OnRendered;
@@ -49,6 +53,22 @@ namespace SmartTodo
                 save: () => this.Helper.WriteConfig(this.Config)
             );
             configMenu.Register();
+        }
+
+        /// <summary>Raised after the player begins a new day.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnDayStarted(object? sender, DayStartedEventArgs e)
+        {
+            this.SmartTodoManager.OnDayStarted();
+        }
+
+        /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnUpdateTicked(object? sender, UpdateTickedEventArgs e)
+        {
+            this.SmartTodoManager.OnUpdateTicked();
         }
 
         /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>

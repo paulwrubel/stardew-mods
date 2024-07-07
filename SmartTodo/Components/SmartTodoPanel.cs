@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SmartTodo.Models;
 using StardewValley;
 using StardewValley.Menus;
 
@@ -7,7 +8,7 @@ namespace SmartTodo.Components
 {
     /// <summary>Manages the Smart Todo List.</summary>
     /// <remarks>Initializes a new instance of the <see cref="SmartTodoPanel"/> class.</remarks>
-    internal class SmartTodoPanel(Vector2 position, TodoItem[] todoItems) : IClickableMenu
+    internal class SmartTodoPanel(Vector2 position, Func<List<ITodoItem>> getItems) : IClickableMenu
     {
         private static string TitleText { get; } = "Smart Todo List";
 
@@ -18,16 +19,17 @@ namespace SmartTodo.Components
 
         private int LineSpacing { get; } = 2;
 
-        private TodoItem[] Items { get; } = todoItems;
+        private Func<List<ITodoItem>> GetItems { get; set; } = getItems;
 
         public override void draw(SpriteBatch b)
         {
+            var items = GetItems();
 
             var spriteFont = Game1.smallFont;
 
             // find the longest text
             int maxWidth = (int)spriteFont.MeasureString(TitleText).X;
-            foreach (TodoItem item in Items)
+            foreach (ITodoItem item in items)
             {
                 int todoItemWidth = (int)spriteFont.MeasureString(item.Text).X;
                 if (todoItemWidth > maxWidth)
@@ -38,7 +40,7 @@ namespace SmartTodo.Components
 
             int width = maxWidth + (GutterLength * 2);
             int lineHeight = (int)spriteFont.MeasureString(TitleText).Y;
-            int height = (GutterLength * 2) + (Items.Length + 2) * (lineHeight + LineSpacing);
+            int height = (GutterLength * 2) + (items.Count + 2) * (lineHeight + LineSpacing);
 
 
             this.DrawTextureBox(width, height);
@@ -80,14 +82,16 @@ namespace SmartTodo.Components
 
         private void DrawTodoItems(int initialYPosition)
         {
+            var items = GetItems();
+
             var spriteBatch = Game1.spriteBatch;
             var spriteFont = Game1.smallFont;
 
             var currentPosition = new Vector2(BoxPosition.X + GutterLength, initialYPosition);
 
-            foreach (TodoItem item in Items)
+            foreach (ITodoItem item in items)
             {
-                item.draw(spriteBatch, currentPosition);
+                item.Draw(spriteBatch, currentPosition);
                 currentPosition.Y += (int)spriteFont.MeasureString(item.Text).Y + this.LineSpacing;
             }
         }
