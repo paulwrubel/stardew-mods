@@ -5,13 +5,13 @@ namespace SmartTodo.Engines
 {
     internal class TestEngine : IEngine
     {
-        public ITodoItem[] GetTodos()
+        public List<ITodoItem> GetTodos()
         {
-            return [
+            return new List<ITodoItem>([
                 new TestTodoItem("TEST: Go to the store"),
                 new TestTodoItem("TEST: Give Morris a present (birthday)"),
                 new TestTodoItem("TEST: Sleep!")
-            ];
+            ]);
         }
     }
 }
