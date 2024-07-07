@@ -54,7 +54,7 @@ namespace SmartTodo.Components.TodoItems
                         (int)textSize.X,
                         1
                     ),
-                    Color.White
+                    Color.Black
                 );
             }
         }

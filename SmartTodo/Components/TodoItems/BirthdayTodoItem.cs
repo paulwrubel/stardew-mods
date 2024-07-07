@@ -7,7 +7,7 @@ namespace SmartTodo.Components.TodoItems
     /// <param name="text">The text of the todo item.</param>
     internal class BirthdayTodoItem : BaseTodoItem
     {
-        NPC NPC { get; set; }
+        private NPC NPC { get; set; }
 
         public BirthdayTodoItem(NPC npc, bool isChecked = false) : base("", isChecked)
         {

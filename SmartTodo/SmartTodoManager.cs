@@ -14,7 +14,7 @@ namespace SmartTodo
         /// <summary>The config for the mod.</summary>
         private ModConfig Config { get; }
 
-        private IEngine[] Engines { get; }
+        private List<IEngine> Engines { get; } = [];
 
         private SmartTodoPanel SmartTodoPanel { get; set; } = null!; // initialized in OnDayStarted
 
@@ -27,21 +27,12 @@ namespace SmartTodo
         {
             this.Config = config;
 
-            this.Engines = [
-                new TestEngine(),
-                new BirthdayEngine()
-            ];
+            this.UpdateEngines();
         }
 
         internal void OnDayStarted()
         {
-            Items.Clear();
-            foreach (IEngine engine in this.Engines)
-            {
-                Items.AddRange(engine.GetTodos());
-            }
-
-            this.SmartTodoPanel = new(new Vector2(10, 100), () => Items);
+            this.ClearAndRecheckForItems();
         }
 
         internal void OnUpdateTicked()
@@ -57,6 +48,32 @@ namespace SmartTodo
             SpriteBatch b = Game1.spriteBatch;
 
             this.SmartTodoPanel.draw(b);
+        }
+
+        public void UpdateEngines()
+        {
+            this.Engines.Clear();
+
+            if (this.Config.CheckBirthdays)
+            {
+                this.Engines.Add(new BirthdayEngine());
+            }
+
+            if (this.Config.CheckHarvestableCrops)
+            {
+                this.Engines.Add(new HarvestableCropsEngine());
+            }
+        }
+
+        public void ClearAndRecheckForItems()
+        {
+            Items.Clear();
+            foreach (IEngine engine in this.Engines)
+            {
+                Items.AddRange(engine.GetTodos());
+            }
+
+            this.SmartTodoPanel = new(new Vector2(10, 100), () => Items);
         }
     }
 }

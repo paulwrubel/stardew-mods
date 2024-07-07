@@ -6,5 +6,9 @@ namespace SmartTodo
     public sealed class ModConfig
     {
         public KeybindList ToggleTodoListKeybind { get; set; } = new(SButton.L);
+
+        public bool CheckBirthdays { get; set; } = true;
+
+        public bool CheckHarvestableCrops { get; set; } = true;
     }
 }

@@ -53,7 +53,7 @@ namespace SmartTodo.Integrations
         /// <param name="name">The label text to show in the form.</param>
         /// <param name="tooltip">The tooltip text shown when the cursor hovers on the field, or <c>null</c> to disable the tooltip.</param>
         /// <param name="fieldId">The unique field ID for use with <see cref="OnFieldChanged"/>, or <c>null</c> to auto-generate a randomized ID.</param>
-        // void AddBoolOption(IManifest mod, Func<bool> getValue, Action<bool> setValue, Func<string> name, Func<string> tooltip = null, string fieldId = null);
+        void AddBoolOption(IManifest mod, Func<bool> getValue, Action<bool> setValue, Func<string> name, Func<string>? tooltip = null, string? fieldId = null);
 
         /// <summary>Add an integer option at the current position in the form.</summary>
         /// <param name="mod">The mod's manifest.</param>
@@ -158,7 +158,7 @@ namespace SmartTodo.Integrations
         /// <param name="mod">The mod's manifest.</param>
         /// <param name="onChange">The method to call with the option's unique field ID and new value.</param>
         /// <remarks>Options use a randomized ID by default; you'll likely want to specify the <c>fieldId</c> argument when adding options if you use this.</remarks>
-        // void OnFieldChanged(IManifest mod, Action<string, object> onChange);
+        void OnFieldChanged(IManifest mod, Action<string, object> onChange);
 
         /// <summary>Open the config UI for a specific mod.</summary>
         /// <param name="mod">The mod's manifest.</param>

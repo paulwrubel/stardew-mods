@@ -1,5 +1,7 @@
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
+using StardewValley;
+using StardewValley.Menus;
 
 namespace SmartTodo
 {
@@ -50,7 +52,8 @@ namespace SmartTodo
                 manifest: this.ModManifest,
                 modRegistry: this.Helper.ModRegistry,
                 config: this.Config,
-                save: () => this.Helper.WriteConfig(this.Config)
+                save: () => this.Helper.WriteConfig(this.Config),
+                update: (fieldID, newValue) => this.OnConfigChanged(fieldID, newValue)
             );
             configMenu.Register();
         }
@@ -103,6 +106,15 @@ namespace SmartTodo
             {
                 SmartTodoManager.OnRendered();
             }
+        }
+
+        private void OnConfigChanged(string fieldID, object newValue)
+        {
+            // we ignore the specific field that was updated and just reload all engines anyways
+            //
+            // we could be smarter about this later, but it's unlikely to make a different in performance
+            this.SmartTodoManager.UpdateEngines();
+            this.SmartTodoManager.ClearAndRecheckForItems();
         }
     }
 }

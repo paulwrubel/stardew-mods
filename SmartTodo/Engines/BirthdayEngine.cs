@@ -11,7 +11,7 @@ namespace SmartTodo.Engines
         {
             List<ITodoItem> items = [];
 
-            // check if it is anyones birthday today
+            // check if it is anyone's birthday today
             Utility.ForEachCharacter((npc) =>
             {
                 if (npc.isBirthday())

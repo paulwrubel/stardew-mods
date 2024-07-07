@@ -9,7 +9,7 @@ namespace SmartTodo
     /// <param name="modRegistry">An API for fetching metadata about loaded mods.</param>
     /// <param name="config">Get the current mod config.</param>
     /// <param name="save">Save the mod's current config to the <c>config.json</c> file.</param>
-    internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry modRegistry, ModConfig config, Action save)
+    internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry modRegistry, ModConfig config, Action save, Action<string, object> update)
     {
         /*********
         ** Fields
@@ -25,6 +25,9 @@ namespace SmartTodo
 
         /// <summary>Save the mod's current config to the <c>config.json</c> file.</summary>
         private readonly Action Save = save;
+
+        /// <summary>A callback when the config was updated through the Generic Mod Config Menu.</summary>
+        private readonly Action<string, object> Update = update;
 
         /// <summary>Register the config menu if available.</summary>
         public void Register()
@@ -45,6 +48,27 @@ namespace SmartTodo
                 getValue: () => this.Config.ToggleTodoListKeybind,
                 setValue: value => this.Config.ToggleTodoListKeybind = value
             );
+
+            // engines
+            configMenu.AddBoolOption(
+                mod: this.Manifest,
+                name: () => "Check Birthdays",
+                tooltip: () => "Whether or not to add todo items for gifting villagers on their birthdays",
+                getValue: () => this.Config.CheckBirthdays,
+                setValue: value => this.Config.CheckBirthdays = value
+            );
+            configMenu.AddBoolOption(
+                mod: this.Manifest,
+                name: () => "Check Harvestable Crops",
+                tooltip: () => "Whether or not to add items for harvesting crops in various locations",
+                getValue: () => this.Config.CheckHarvestableCrops,
+                setValue: value => this.Config.CheckHarvestableCrops = value
+            );
+
+            configMenu.OnFieldChanged(
+                mod: this.Manifest,
+                onChange: (fieldID, newValue) => this.Update(fieldID, newValue)
+            );
         }
 
 
@@ -57,6 +81,9 @@ namespace SmartTodo
             ModConfig defaults = new();
 
             this.Config.ToggleTodoListKeybind = defaults.ToggleTodoListKeybind;
+
+            this.Config.CheckBirthdays = defaults.CheckBirthdays;
+            this.Config.CheckHarvestableCrops = defaults.CheckHarvestableCrops;
         }
     }
 }
