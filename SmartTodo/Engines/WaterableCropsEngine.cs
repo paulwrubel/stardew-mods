@@ -6,22 +6,6 @@ namespace SmartTodo.Engines
 {
     internal class WaterableCropsEngine(Action<ITodoItem>? addToCompletedCache = null) : IEngine
     {
-
-        private static readonly (string, string)[] Locations = [
-            ("Farm", "on the Farm"),
-            ("FarmHouse", "in the Farmhouse"),
-            ("Greenhouse", "in the Greenhouse"),
-            ("Town", "in Town"),
-            ("Beach", "on the Beach"),
-            ("Mountain", "at the Mountains"),
-            ("Forest", "in Cindersap Forest"), // cindersap forest
-            ("Desert", "in the Desert"),
-            ("Woods", "in the Secret Woods"), // secret woods
-            ("Backwoods", "in the Backwoods"), // farm <--> mountains
-            ("IslandWest", "on the Ginger Island Farm"), // the farm region of Ginger Island
-            ("IslandFarmHouse", "in the Ginger Island Farmhouse")
-        ];
-
         private Action<ITodoItem>? AddToCompletedCache { get; } = addToCompletedCache;
 
         public List<ITodoItem> GetTodos()
@@ -29,7 +13,7 @@ namespace SmartTodo.Engines
             List<ITodoItem> items = [];
 
             // check if there are harvestable crops in various locations
-            foreach ((string location, string locationPhrase) in Locations)
+            foreach ((string location, string locationPhrase) in GameHelper.GetLocationsAndPhrases())
             {
                 GameLocation gameLocation = Game1.getLocationFromName(location);
                 if (gameLocation != null)
