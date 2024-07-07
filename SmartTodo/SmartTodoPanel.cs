@@ -22,30 +22,28 @@ namespace SmartTodo
 
         private int LineSpacing { get; } = 2;
 
+        private TodoItem[] Items { get; }
+
 
         /// <summary>Initializes a new instance of the <see cref="SmartTodoPanel"/> class.</summary>
-        public SmartTodoPanel(Vector2 position)
+        public SmartTodoPanel(Vector2 position, TodoItem[] todoItems)
         {
             this.BoxPosition = position;
             this.GutterLength = 4 * Game1.pixelZoom;
+
+            Items = todoItems;
         }
 
         public override void draw(SpriteBatch b)
         {
-            // create test Todo Items string array
-            string[] todoItems = new string[] {
-                "Go to the store",
-                "Give Morris a present (birthday)",
-                "Sleep!"
-            };
 
             var spriteFont = Game1.smallFont;
 
             // find the longest text
             int maxWidth = (int)spriteFont.MeasureString(TitleText).X;
-            foreach (string todoItem in todoItems)
+            foreach (TodoItem item in Items)
             {
-                int todoItemWidth = (int)spriteFont.MeasureString(todoItem).X;
+                int todoItemWidth = (int)spriteFont.MeasureString(item.Text).X;
                 if (todoItemWidth > maxWidth)
                 {
                     maxWidth = todoItemWidth;
@@ -53,11 +51,11 @@ namespace SmartTodo
             }
 
             int lineHeight = (int)spriteFont.MeasureString(TitleText).Y;
-            int height = (GutterLength * 2) + (todoItems.Length + 2) * (lineHeight + LineSpacing);
+            int height = (GutterLength * 2) + (Items.Length + 2) * (lineHeight + LineSpacing);
 
             this.DrawTextureBox(maxWidth, height);
             this.DrawTitleText(out int nextYPosition);
-            this.DrawTodoItems(nextYPosition, todoItems);
+            this.DrawTodoItems(nextYPosition);
 
             base.draw(b);
         }
@@ -94,17 +92,17 @@ namespace SmartTodo
             nextYPosition = (int)dividerPosition.Y + (int)spriteFont.MeasureString(DividerText).Y + this.LineSpacing;
         }
 
-        private void DrawTodoItems(int initialYPosition, string[] items)
+        private void DrawTodoItems(int initialYPosition)
         {
             var spriteBatch = Game1.spriteBatch;
             var spriteFont = Game1.smallFont;
 
             var currentPosition = new Vector2(BoxPosition.X + GutterLength, initialYPosition);
 
-            foreach (string item in items)
+            foreach (TodoItem item in Items)
             {
-                Utility.drawTextWithShadow(spriteBatch, item, spriteFont, currentPosition, Game1.textColor);
-                currentPosition.Y += (int)spriteFont.MeasureString(item).Y + this.LineSpacing;
+                item.draw(spriteBatch, currentPosition);
+                currentPosition.Y += (int)spriteFont.MeasureString(item.Text).Y + this.LineSpacing;
             }
         }
     }
