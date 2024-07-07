@@ -10,14 +10,11 @@ namespace SmartTodo.Components.TodoItems
     {
         private readonly GameLocation Location;
 
-        private readonly string LocationPhrase;
-
         private int RemainingHarvestCount { get; set; }
 
-        public HarvestableCropsTodoItem(GameLocation location, string locationPhrase, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null) : base("", isChecked, addToCompletedCache)
+        public HarvestableCropsTodoItem(GameLocation location, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null) : base("", isChecked, addToCompletedCache)
         {
             this.Location = location;
-            this.LocationPhrase = locationPhrase;
             this.RemainingHarvestCount = location.getTotalCropsReadyForHarvest();
 
             this.UpdateText();
@@ -44,7 +41,7 @@ namespace SmartTodo.Components.TodoItems
 
         private void UpdateText()
         {
-            this.Text = $"Harvest crops {this.LocationPhrase} ({this.RemainingHarvestCount} remaining)";
+            this.Text = $"Harvest crops ({this.Location.GetDisplayName() ?? this.Location.Name}) ({this.RemainingHarvestCount} remaining)";
         }
     }
 }

@@ -13,15 +13,14 @@ namespace SmartTodo.Engines
             List<ITodoItem> items = [];
 
             // check if there are harvestable crops in various locations
-            foreach ((string location, string locationPhrase) in GameHelper.GetLocationsAndPhrases())
+            foreach (GameLocation gameLocation in GameHelper.GetLocationsAndPhrases())
             {
-                GameLocation gameLocation = Game1.getLocationFromName(location);
                 if (gameLocation != null)
                 {
                     int harvestableCount = gameLocation.getTotalCropsReadyForHarvest();
                     if (harvestableCount > 0)
                     {
-                        items.Add(new HarvestableCropsTodoItem(gameLocation, locationPhrase, addToCompletedCache: AddToCompletedCache));
+                        items.Add(new HarvestableCropsTodoItem(gameLocation, addToCompletedCache: AddToCompletedCache));
                     }
                 }
             }

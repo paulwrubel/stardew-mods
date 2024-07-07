@@ -10,14 +10,11 @@ namespace SmartTodo.Components.TodoItems
     {
         private readonly GameLocation Location;
 
-        private readonly string LocationPhrase;
-
         private int RemainingUnwateredCount { get; set; }
 
-        public WaterableCropsTodoItem(GameLocation location, string locationPhrase, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null) : base("", isChecked, addToCompletedCache)
+        public WaterableCropsTodoItem(GameLocation location, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null) : base("", isChecked, addToCompletedCache)
         {
             this.Location = location;
-            this.LocationPhrase = locationPhrase;
             this.RemainingUnwateredCount = location.getTotalUnwateredCrops();
 
             this.UpdateText();
@@ -44,7 +41,7 @@ namespace SmartTodo.Components.TodoItems
 
         private void UpdateText()
         {
-            this.Text = $"Water crops {this.LocationPhrase} ({this.RemainingUnwateredCount} remaining)";
+            this.Text = $"Water crops ({this.Location.GetDisplayName() ?? this.Location.Name}) ({this.RemainingUnwateredCount} remaining)";
         }
     }
 }
