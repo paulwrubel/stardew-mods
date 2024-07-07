@@ -1,6 +1,5 @@
 using SmartTodo.Models;
 using StardewValley;
-using xTile.Dimensions;
 
 namespace SmartTodo.Components.TodoItems
 {
@@ -28,9 +27,10 @@ namespace SmartTodo.Components.TodoItems
         {
             if (!IsChecked)
             {
-                if (this.Location.getTotalCropsReadyForHarvest() != this.RemainingHarvestCount)
+                var unharvestedCount = this.Location.getTotalCropsReadyForHarvest();
+                if (unharvestedCount != this.RemainingHarvestCount)
                 {
-                    this.RemainingHarvestCount = this.Location.getTotalCropsReadyForHarvest();
+                    this.RemainingHarvestCount = unharvestedCount;
 
                     this.UpdateText();
 

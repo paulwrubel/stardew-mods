@@ -93,6 +93,11 @@ namespace SmartTodo
             if (this.Config.ToggleTodoListKeybind.JustPressed())
             {
                 showTodoList = !showTodoList;
+                if (showTodoList)
+                {
+                    this.SmartTodoManager.UpdateEngines();
+                    this.SmartTodoManager.ClearAndRecheckForItems();
+                }
             }
         }
 

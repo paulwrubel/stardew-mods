@@ -16,7 +16,7 @@ namespace SmartTodo.Engines
             // check if it is anyone's birthday today
             Utility.ForEachCharacter((npc) =>
             {
-                if (npc.isBirthday())
+                if (npc.isBirthday() && Game1.player.friendshipData[npc.Name].GiftsToday == 0)
                 {
                     items.Add(new BirthdayTodoItem(npc, addToCompletedCache: AddToCompletedCache));
                 }

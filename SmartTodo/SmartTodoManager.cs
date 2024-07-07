@@ -66,6 +66,11 @@ namespace SmartTodo
             {
                 this.Engines.Add(new HarvestableCropsEngine(this.CompletedItemsCache.Add));
             }
+
+            if (this.Config.CheckWaterableCrops)
+            {
+                this.Engines.Add(new WaterableCropsEngine(this.CompletedItemsCache.Add));
+            }
         }
 
         public void ClearAndRecheckForItems(bool reAddCompleted = true)
@@ -80,6 +85,8 @@ namespace SmartTodo
             {
                 Items.AddRange(this.CompletedItemsCache);
             }
+
+            Items.Sort((a, b) => a.Text.CompareTo(b.Text));
 
             this.SmartTodoPanel = new(new Vector2(10, 100), () => Items);
         }

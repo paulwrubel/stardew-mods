@@ -10,5 +10,7 @@ namespace SmartTodo
         public bool CheckBirthdays { get; set; } = true;
 
         public bool CheckHarvestableCrops { get; set; } = true;
+
+        public bool CheckWaterableCrops { get; set; } = true;
     }
 }

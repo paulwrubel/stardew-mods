@@ -64,6 +64,13 @@ namespace SmartTodo
                 getValue: () => this.Config.CheckHarvestableCrops,
                 setValue: value => this.Config.CheckHarvestableCrops = value
             );
+            configMenu.AddBoolOption(
+                mod: this.Manifest,
+                name: () => "Check Waterable Crops",
+                tooltip: () => "Whether or not to add items for watering crops in various locations",
+                getValue: () => this.Config.CheckWaterableCrops,
+                setValue: value => this.Config.CheckWaterableCrops = value
+            );
 
             if (this.Update is not null)
             {
