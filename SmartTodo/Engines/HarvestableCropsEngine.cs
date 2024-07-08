@@ -4,18 +4,21 @@ using StardewValley;
 
 namespace SmartTodo.Engines
 {
-    internal class HarvestableCropsEngine(Action<ITodoItem>? addToCompletedCache = null) : IEngine
+    internal class HarvestableCropsEngine(
+        Action<string, StardewModdingAPI.LogLevel> log,
+        Action<ITodoItem>? addToCompletedCache = null
+    ) : BaseEngine(log)
     {
         private Action<ITodoItem>? AddToCompletedCache { get; } = addToCompletedCache;
 
-        public List<ITodoItem> GetTodos()
+        public override List<ITodoItem> GetTodos()
         {
             List<ITodoItem> items = [];
 
             // check if there are harvestable crops in various locations
             foreach (GameLocation gameLocation in GameHelper.GetLocations())
             {
-                if (gameLocation != null)
+                if (gameLocation is not null)
                 {
                     int harvestableCount = gameLocation.getTotalCropsReadyForHarvest();
                     if (harvestableCount > 0)

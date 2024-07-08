@@ -11,6 +11,8 @@ namespace SmartTodo.Models
 
         int Priority { get; set; }
 
+        void OnTimeChanged();
+
         void OnUpdateTicked();
 
         void Draw(SpriteBatch b, Vector2 position);

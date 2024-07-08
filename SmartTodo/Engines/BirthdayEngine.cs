@@ -4,12 +4,15 @@ using StardewValley;
 
 namespace SmartTodo.Engines
 {
-    internal class BirthdayEngine(Action<ITodoItem>? addToCompletedCache = null) : IEngine
+    internal class BirthdayEngine(
+        Action<string, StardewModdingAPI.LogLevel> log,
+        Action<ITodoItem>? addToCompletedCache = null
+    ) : BaseEngine(log)
     {
 
         private Action<ITodoItem>? AddToCompletedCache { get; } = addToCompletedCache;
 
-        public List<ITodoItem> GetTodos()
+        public override List<ITodoItem> GetTodos()
         {
             List<ITodoItem> items = [];
 

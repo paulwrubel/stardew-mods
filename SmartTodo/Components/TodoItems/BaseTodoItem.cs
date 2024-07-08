@@ -9,7 +9,13 @@ namespace SmartTodo.Components.TodoItems
     /// <summary>A todo item.</summary>
     /// <remarks>Initializes a new instance of the <see cref="BaseTodoItem"/> class.</remarks>
     /// <param name="text">The text of the todo item.</param>
-    internal abstract class BaseTodoItem(string text = "", bool isChecked = false, int priority = 0, Action<ITodoItem>? addToCompletedCache = null) : ITodoItem
+    internal abstract class BaseTodoItem(
+        string text = "",
+        bool isChecked = false,
+        int priority = 0,
+        Action<ITodoItem>? addToCompletedCache = null,
+        Func<ITodoItem, bool>? removeFromCompletedCache = null
+    ) : ITodoItem
     {
 
         /// <summary>The text of the todo item.</summary>
@@ -22,6 +28,8 @@ namespace SmartTodo.Components.TodoItems
         public int Priority { get; set; } = priority;
 
         internal Action<ITodoItem>? AddToCompletedCache { get; } = addToCompletedCache;
+
+        internal Func<ITodoItem, bool>? RemoveFromCompletedCache { get; } = removeFromCompletedCache;
 
         private static readonly Lazy<Texture2D> LazyPixel = new(() =>
         {
@@ -41,6 +49,17 @@ namespace SmartTodo.Components.TodoItems
                 this.AddToCompletedCache(this);
             }
         }
+
+        public virtual void MarkUncompleted()
+        {
+            this.IsChecked = false;
+            if (this.RemoveFromCompletedCache is not null)
+            {
+                this.RemoveFromCompletedCache(this);
+            }
+        }
+
+        public virtual void OnTimeChanged() { }
 
         public virtual void OnUpdateTicked() { }
 

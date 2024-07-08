@@ -26,18 +26,14 @@ namespace SmartTodo
         public override void Entry(IModHelper helper)
         {
             this.Config = Helper.ReadConfig<ModConfig>();
-            this.SmartTodoManager = new(this.Config);
+            this.SmartTodoManager = new(this.Config, this.Monitor.Log);
 
             helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
-
             helper.Events.GameLoop.DayStarted += this.OnDayStarted;
-
+            helper.Events.GameLoop.TimeChanged += this.OnTimeChanged;
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
-
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
-
             helper.Events.Display.Rendered += this.OnRendered;
-
             helper.Events.Display.MenuChanged += this.OnMenuChanged;
         }
 
@@ -68,6 +64,14 @@ namespace SmartTodo
             this.SmartTodoManager.OnDayStarted();
         }
 
+        /// <summary>Raised after the game time changes.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnTimeChanged(object? sender, TimeChangedEventArgs e)
+        {
+            this.SmartTodoManager.OnTimeChanged();
+        }
+
         /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event arguments.</param>
@@ -95,7 +99,7 @@ namespace SmartTodo
                 showTodoList = !showTodoList;
                 if (showTodoList)
                 {
-                    this.SmartTodoManager.UpdateEngines();
+                    this.SmartTodoManager.ResetEngines();
                     this.SmartTodoManager.ClearAndRecheckForItems();
                 }
             }
@@ -119,7 +123,7 @@ namespace SmartTodo
         {
             if (e.NewMenu is null) // menu closed
             {
-                this.SmartTodoManager.UpdateEngines();
+                this.SmartTodoManager.ResetEngines();
                 this.SmartTodoManager.ClearAndRecheckForItems();
             }
         }
@@ -131,7 +135,7 @@ namespace SmartTodo
             // we could be smarter about this later, but it's unlikely to make a different in performance
             this.SmartTodoManager.Config = this.Config;
 
-            this.SmartTodoManager.UpdateEngines();
+            this.SmartTodoManager.ResetEngines();
             this.SmartTodoManager.ClearAndRecheckForItems();
         }
     }

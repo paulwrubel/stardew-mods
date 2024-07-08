@@ -13,6 +13,8 @@ namespace SmartTodo
 
         public bool CheckWaterableCrops { get; set; } = true;
 
+        public bool CheckHarvestableMachines { get; set; } = true;
+
         public bool CheckToolPickup { get; set; } = true;
     }
 }

@@ -4,18 +4,21 @@ using StardewValley;
 
 namespace SmartTodo.Engines
 {
-    internal class ToolPickupEngine(Action<ITodoItem>? addToCompletedCache = null) : IEngine
+    internal class ToolPickupEngine(
+        Action<string, StardewModdingAPI.LogLevel> log,
+        Action<ITodoItem>? addToCompletedCache = null
+    ) : BaseEngine(log)
     {
 
         private Action<ITodoItem>? AddToCompletedCache { get; } = addToCompletedCache;
 
-        public List<ITodoItem> GetTodos()
+        public override List<ITodoItem> GetTodos()
         {
             List<ITodoItem> items = [];
 
             // check if a tool is ready
             if (
-                Game1.player.toolBeingUpgraded.Value != null && // check if there's a tool that we're upgrading right now...
+                Game1.player.toolBeingUpgraded.Value is not null && // check if there's a tool that we're upgrading right now...
                 (int)Game1.player.daysLeftForToolUpgrade.Value <= 0 && // ...and if that tool is ready
                 !Utility.isFestivalDay() && // we can't pick up tools during festivals
                     (!Game1.player.hasCompletedCommunityCenter() ||                     // if the player hasn't completed the CC, then Clint's schedule is normal...
