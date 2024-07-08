@@ -6,10 +6,13 @@ namespace SmartTodo.Engines
 {
     internal class HarvestableMachinesEngine(
         Action<string, StardewModdingAPI.LogLevel> log,
+        Action<List<ITodoItem>>? addNewItems = null,
         Action<ITodoItem>? addToCompletedCache = null,
         Func<ITodoItem, bool>? removeFromCompletedCache = null
     ) : BaseEngine(log)
     {
+
+        private Action<List<ITodoItem>>? AddNewItems { get; } = addNewItems;
 
         private Action<ITodoItem>? AddToCompletedCache { get; } = addToCompletedCache;
 
@@ -46,13 +49,13 @@ namespace SmartTodo.Engines
             return items;
         }
 
-        public override void OnTimeChanged(Action<List<ITodoItem>>? addNewItems)
+        public override void OnTimeChanged()
         {
-            base.OnTimeChanged(addNewItems);
+            base.OnTimeChanged();
 
-            if (addNewItems is not null)
+            if (AddNewItems is not null)
             {
-                addNewItems(GetTodos());
+                AddNewItems(GetTodos());
             }
         }
     }

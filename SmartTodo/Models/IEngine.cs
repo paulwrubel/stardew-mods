@@ -4,7 +4,7 @@ namespace SmartTodo.Models
     {
         List<ITodoItem> GetTodos();
 
-        void OnTimeChanged(Action<List<ITodoItem>>? addNewItems = null);
+        void OnTimeChanged();
 
         void OnUpdateTicked();
 

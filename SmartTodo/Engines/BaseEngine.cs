@@ -9,7 +9,7 @@ namespace SmartTodo.Engines
 
         public abstract List<ITodoItem> GetTodos();
 
-        public virtual void OnTimeChanged(Action<List<ITodoItem>>? addNewItems = null) { }
+        public virtual void OnTimeChanged() { }
 
         public virtual void OnUpdateTicked() { }
 

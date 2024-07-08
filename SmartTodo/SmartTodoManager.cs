@@ -46,7 +46,7 @@ namespace SmartTodo
         {
             foreach (IEngine engine in this.Engines)
             {
-                engine.OnTimeChanged(addNewItems: Items.AddRange);
+                engine.OnTimeChanged();
             }
 
             foreach (ITodoItem item in Items)
@@ -98,7 +98,13 @@ namespace SmartTodo
 
             if (this.Config.CheckHarvestableMachines)
             {
-                this.Engines.Add(new HarvestableMachinesEngine(Log, this.CompletedItemsCache.Add, this.CompletedItemsCache.Remove));
+                void addAndSort(List<ITodoItem> newItems)
+                {
+                    this.Items.AddRange(newItems);
+                    SortItems();
+                }
+
+                this.Engines.Add(new HarvestableMachinesEngine(Log, addAndSort, this.CompletedItemsCache.Add, this.CompletedItemsCache.Remove));
             }
 
             if (this.Config.CheckToolPickup)
@@ -120,17 +126,22 @@ namespace SmartTodo
                 Items.AddRange(this.CompletedItemsCache);
             }
 
+            SortItems();
+
+            this.SmartTodoPanel = new(new Vector2(10, 100), () => Items);
+        }
+
+        private void SortItems()
+        {
             Items.Sort((a, b) =>
             {
-                var comp = a.Priority.CompareTo(b.Priority);
+                var comp = b.Priority.CompareTo(a.Priority);
                 if (comp == 0)
                 {
                     comp = a.Text.CompareTo(b.Text);
                 }
                 return comp;
             });
-
-            this.SmartTodoPanel = new(new Vector2(10, 100), () => Items);
         }
     }
 }
