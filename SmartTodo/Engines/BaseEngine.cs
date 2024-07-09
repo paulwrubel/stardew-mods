@@ -15,11 +15,6 @@ namespace SmartTodo.Engines
         {
             get
             {
-                if (!IsEnabled())
-                {
-                    return [];
-                }
-
                 UpdateItems();
 
                 return (IEnumerable<ITodoItem>)items;

@@ -30,7 +30,7 @@ namespace SmartTodo.Components.TodoItems
 
         public override bool Equals(object? obj)
         {
-            return obj is BirthdayTodoItem item && this.NPC.Name == item.NPC.Name;
+            return obj is BirthdayTodoItem otherItem && this.NPC.Name == otherItem.NPC.Name;
         }
 
         public override int GetHashCode()

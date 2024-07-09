@@ -1,48 +1,58 @@
-// using SmartTodo.Models;
-// using StardewValley;
+using SmartTodo.Models;
+using StardewValley;
 
-// namespace SmartTodo.Components.TodoItems
-// {
-//     /// <summary>A HarvestableCropsTodoItem todo item.</summary>
-//     /// <remarks>Initializes a new instance of the <see cref="HarvestableCropsTodoItem"/> class.</remarks>
-//     /// <param name="text">The text of the todo item.</param>
-//     internal class HarvestableCropsTodoItem : BaseTodoItem
-//     {
-//         private readonly GameLocation Location;
+namespace SmartTodo.Components.TodoItems
+{
+    /// <summary>A HarvestableCropsTodoItem todo item.</summary>
+    /// <remarks>Initializes a new instance of the <see cref="HarvestableCropsTodoItem"/> class.</remarks>
+    /// <param name="text">The text of the todo item.</param>
+    internal class HarvestableCropsTodoItem : BaseTodoItem
+    {
+        internal readonly GameLocation Location;
 
-//         private int RemainingHarvestCount { get; set; }
+        private int RemainingHarvestCount { get; set; }
 
-//         public HarvestableCropsTodoItem(GameLocation location, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null)
-//             : base("", isChecked, 20, addToCompletedCache)
-//         {
-//             this.Location = location;
-//             this.RemainingHarvestCount = location.getTotalCropsReadyForHarvest();
+        public HarvestableCropsTodoItem(GameLocation location, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null)
+            : base("", isChecked, 20, addToCompletedCache)
+        {
+            this.Location = location;
+            this.RemainingHarvestCount = location.getTotalCropsReadyForHarvest();
 
-//             this.UpdateText();
-//         }
+            this.UpdateText();
+        }
 
-//         public override void OnUpdateTicked()
-//         {
-//             if (!IsChecked)
-//             {
-//                 var unharvestedCount = this.Location.getTotalCropsReadyForHarvest();
-//                 if (unharvestedCount != this.RemainingHarvestCount)
-//                 {
-//                     this.RemainingHarvestCount = unharvestedCount;
+        public override void OnUpdateTicked()
+        {
+            if (!IsChecked)
+            {
+                var unharvestedCount = this.Location.getTotalCropsReadyForHarvest();
+                if (unharvestedCount != this.RemainingHarvestCount)
+                {
+                    this.RemainingHarvestCount = unharvestedCount;
 
-//                     this.UpdateText();
+                    this.UpdateText();
 
-//                     if (this.RemainingHarvestCount == 0)
-//                     {
-//                         this.MarkCompleted();
-//                     }
-//                 }
-//             }
-//         }
+                    if (this.RemainingHarvestCount == 0)
+                    {
+                        this.MarkCompleted();
+                    }
+                }
+            }
+        }
 
-//         private void UpdateText()
-//         {
-//             this.Text = $"Harvest crops ({this.Location.GetDisplayName() ?? this.Location.Name}) ({this.RemainingHarvestCount} remaining)";
-//         }
-//     }
-// }
+        public override bool Equals(object? obj)
+        {
+            return obj is HarvestableCropsTodoItem otherItem && this.Location.Name == otherItem.Location.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return (this.GetType(), this.Location.Name).GetHashCode();
+        }
+
+        private void UpdateText()
+        {
+            this.Text = $"Harvest crops ({this.Location.GetDisplayName() ?? this.Location.Name}) ({this.RemainingHarvestCount} remaining)";
+        }
+    }
+}

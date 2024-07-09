@@ -1,23 +1,30 @@
-// using SmartTodo.Components.TodoItems;
-// using SmartTodo.Models;
+using SmartTodo.Components.TodoItems;
+using SmartTodo.Models;
 
-// namespace SmartTodo.Engines
-// {
-//     internal class TestEngine(
-//         Action<string, StardewModdingAPI.LogLevel> log,
-//         Action<ITodoItem>? addToCompletedCache = null
-//     ) : BaseEngine(log, () => false)
-//     {
+namespace SmartTodo.Engines
+{
+    internal class TestEngine(
+        Action<string, StardewModdingAPI.LogLevel> log,
+        Func<bool> isEnabled
+    ) : BaseEngine<TestTodoItem>(log, isEnabled)
+    {
+        private static readonly List<TestTodoItem> testTodoItems = [
+            new TestTodoItem("TEST: Go to the store"),
+            new TestTodoItem("TEST: Give Morris a present (birthday)"),
+            new TestTodoItem("TEST: Sleep!")
+        ];
 
-//         private Action<ITodoItem>? AddToCompletedCache { get; } = addToCompletedCache;
+        public override void UpdateItems()
+        {
+            foreach (TestTodoItem item in testTodoItems)
+            {
+                if (items.Any(i => i.Text == item.Text))
+                {
+                    continue;
+                }
 
-//         public override List<ITodoItem> GetTodos()
-//         {
-//             return new List<ITodoItem>([
-//                 new TestTodoItem("TEST: Go to the store", addToCompletedCache: AddToCompletedCache),
-//                 new TestTodoItem("TEST: Give Morris a present (birthday)", addToCompletedCache: AddToCompletedCache),
-//                 new TestTodoItem("TEST: Sleep!", addToCompletedCache: AddToCompletedCache)
-//             ]);
-//         }
-//     }
-// }
+                items.Add(item);
+            }
+        }
+    }
+}

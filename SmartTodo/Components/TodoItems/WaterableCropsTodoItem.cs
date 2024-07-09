@@ -1,48 +1,58 @@
-// using SmartTodo.Models;
-// using StardewValley;
+using SmartTodo.Models;
+using StardewValley;
 
-// namespace SmartTodo.Components.TodoItems
-// {
-//     /// <summary>A WaterableCropsTodoItem todo item.</summary>
-//     /// <remarks>Initializes a new instance of the <see cref="WaterableCropsTodoItem"/> class.</remarks>
-//     /// <param name="text">The text of the todo item.</param>
-//     internal class WaterableCropsTodoItem : BaseTodoItem
-//     {
-//         private readonly GameLocation Location;
+namespace SmartTodo.Components.TodoItems
+{
+    /// <summary>A WaterableCropsTodoItem todo item.</summary>
+    /// <remarks>Initializes a new instance of the <see cref="WaterableCropsTodoItem"/> class.</remarks>
+    /// <param name="text">The text of the todo item.</param>
+    internal class WaterableCropsTodoItem : BaseTodoItem
+    {
+        internal readonly GameLocation Location;
 
-//         private int RemainingUnwateredCount { get; set; }
+        private int RemainingUnwateredCount { get; set; }
 
-//         public WaterableCropsTodoItem(GameLocation location, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null)
-//             : base("", isChecked, 19, addToCompletedCache)
-//         {
-//             this.Location = location;
-//             this.RemainingUnwateredCount = location.getTotalUnwateredCrops();
+        public WaterableCropsTodoItem(GameLocation location, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null)
+            : base("", isChecked, 19, addToCompletedCache)
+        {
+            this.Location = location;
+            this.RemainingUnwateredCount = location.getTotalUnwateredCrops();
 
-//             this.UpdateText();
-//         }
+            this.UpdateText();
+        }
 
-//         public override void OnUpdateTicked()
-//         {
-//             if (!IsChecked)
-//             {
-//                 var unwateredCount = this.Location.getTotalUnwateredCrops();
-//                 if (unwateredCount != this.RemainingUnwateredCount)
-//                 {
-//                     this.RemainingUnwateredCount = unwateredCount;
+        public override void OnUpdateTicked()
+        {
+            if (!IsChecked)
+            {
+                var unwateredCount = this.Location.getTotalUnwateredCrops();
+                if (unwateredCount != this.RemainingUnwateredCount)
+                {
+                    this.RemainingUnwateredCount = unwateredCount;
 
-//                     this.UpdateText();
+                    this.UpdateText();
 
-//                     if (this.RemainingUnwateredCount == 0)
-//                     {
-//                         this.MarkCompleted();
-//                     }
-//                 }
-//             }
-//         }
+                    if (this.RemainingUnwateredCount == 0)
+                    {
+                        this.MarkCompleted();
+                    }
+                }
+            }
+        }
 
-//         private void UpdateText()
-//         {
-//             this.Text = $"Water crops ({this.Location.GetDisplayName() ?? this.Location.Name}) ({this.RemainingUnwateredCount} remaining)";
-//         }
-//     }
-// }
+        public override bool Equals(object? obj)
+        {
+            return obj is WaterableCropsTodoItem otherItem && this.Location.Name == otherItem.Location.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return (this.GetType(), this.Location.Name).GetHashCode();
+        }
+
+        private void UpdateText()
+        {
+            this.Text = $"Water crops ({this.Location.GetDisplayName() ?? this.Location.Name}) ({this.RemainingUnwateredCount} remaining)";
+        }
+    }
+}

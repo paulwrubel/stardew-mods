@@ -108,40 +108,31 @@ namespace SmartTodo
 
         internal void OnMenuChanged(MenuChangedEventArgs e)
         {
-            // if (e.NewMenu is null) // menu closed
-            // {
-            //     this.ResetEngines();
-            //     this.ClearAndRecheckForItems();
-            // }
+            // Empty for now
         }
-
-        // public void RecheckEngines()
-        // {
-        //     foreach (IEngine engine in this.Engines)
-        //     {
-        //         bool isEngineActive = engine switch
-        //         {
-        //             BirthdayEngine => this.Config.CheckBirthdays,
-        //             HarvestableCropsEngine => this.Config.CheckHarvestableCrops,
-        //             WaterableCropsEngine => this.Config.CheckHarvestableCrops,
-        //             HarvestableMachinesEngine => this.Config.CheckHarvestableMachines,
-        //             ToolPickupEngine => this.Config.CheckToolPickup,
-        //             BulletinBoardEngine => this.Config.CheckDailyQuestBulletinBoard,
-        //             SpecialOrdersBoardEngine => this.Config.CheckSpecialOrdersBoard,
-        //             _ => false
-        //         };
-
-        //         engine.IsActive = isEngineActive;
-        //     }
-        // }
 
         private ICollection<ITodoItem> GatherItems()
         {
-            return this.engines.Aggregate(new List<ITodoItem>(), (gatheredItems, engine) =>
+            var gatheredItems = this.engines.Aggregate(new List<ITodoItem>(), (gatheredItems, engine) =>
             {
-                gatheredItems.AddRange(engine.Items);
+                if (engine.IsEnabled())
+                {
+                    gatheredItems.AddRange(engine.Items);
+                }
                 return gatheredItems;
             });
+
+            gatheredItems.Sort((a, b) =>
+            {
+                var comp = b.Priority.CompareTo(a.Priority);
+                if (comp == 0)
+                {
+                    comp = a.Text.CompareTo(b.Text);
+                }
+                return comp;
+            });
+
+            return gatheredItems;
         }
 
         public void InitEngines(bool forceReset = false)
@@ -154,9 +145,10 @@ namespace SmartTodo
 
             this.engines.Clear();
 
+            this.engines.Add(new TestEngine(Log, () => false));
             this.engines.Add(new BirthdayEngine(Log, () => this.Config.CheckBirthdays));
-            // this.Engines.Add(new HarvestableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
-            // this.Engines.Add(new WaterableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
+            this.engines.Add(new HarvestableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
+            this.engines.Add(new WaterableCropsEngine(Log, () => this.Config.CheckWaterableCrops));
             // this.Engines.Add(new HarvestableMachinesEngine(Log, () => this.Config.CheckHarvestableMachines));
             // this.Engines.Add(new ToolPickupEngine(Log, () => this.Config.CheckToolPickup));
             // this.Engines.Add(new BulletinBoardEngine(Log, () => this.Config.CheckDailyQuestBulletinBoard));
