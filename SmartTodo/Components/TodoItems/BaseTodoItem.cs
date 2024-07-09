@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SmartTodo.Models;
+using StardewModdingAPI.Events;
 using StardewValley;
 
 namespace SmartTodo.Components.TodoItems
@@ -59,11 +60,13 @@ namespace SmartTodo.Components.TodoItems
             }
         }
 
-        public virtual void OnDayStarted() { }
+        public virtual void OnDayStarted(DayStartedEventArgs e) { }
 
-        public virtual void OnTimeChanged() { }
+        public virtual void OnTimeChanged(TimeChangedEventArgs e) { }
 
-        public virtual void OnUpdateTicked() { }
+        public virtual void OnOneSecondUpdateTicked(OneSecondUpdateTickedEventArgs e) { }
+
+        public virtual void OnUpdateTicked(UpdateTickedEventArgs e) { }
 
         public void Draw(SpriteBatch b, Vector2 position)
         {

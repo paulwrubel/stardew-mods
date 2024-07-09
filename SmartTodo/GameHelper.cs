@@ -2,6 +2,14 @@ using StardewValley;
 
 namespace SmartTodo
 {
+    public enum UpdateFrequency
+    {
+        OnceADay,
+        EveryTimeChange,
+        EverySecond,
+        EveryTick,
+    }
+
     public enum SpecialOrderType
     {
         Standard,
@@ -10,12 +18,6 @@ namespace SmartTodo
 
     internal static class GameHelper
     {
-
-        public static IList<GameLocation> GetLocations()
-        {
-            return Game1.locations;
-        }
-
         public static string ToStardewSpecialOrderTypeString(this SpecialOrderType type)
         {
             return type switch

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using StardewModdingAPI.Events;
 
 namespace SmartTodo.Models
 {
@@ -11,11 +12,13 @@ namespace SmartTodo.Models
 
         int Priority { get; set; }
 
-        void OnDayStarted();
+        void OnDayStarted(DayStartedEventArgs e);
 
-        void OnTimeChanged();
+        void OnTimeChanged(TimeChangedEventArgs e);
 
-        void OnUpdateTicked();
+        void OnOneSecondUpdateTicked(OneSecondUpdateTickedEventArgs e);
+
+        void OnUpdateTicked(UpdateTickedEventArgs e);
 
         void Draw(SpriteBatch b, Vector2 position);
 

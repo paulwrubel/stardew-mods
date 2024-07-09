@@ -7,7 +7,7 @@ namespace SmartTodo.Engines
     internal class BirthdayEngine(
         Action<string, StardewModdingAPI.LogLevel> log,
         Func<bool> isEnabled
-    ) : BaseEngine<BirthdayTodoItem>(log, isEnabled)
+    ) : BaseEngine<BirthdayTodoItem>(log, isEnabled, UpdateFrequency.OnceADay)
     {
 
         public override void UpdateItems()

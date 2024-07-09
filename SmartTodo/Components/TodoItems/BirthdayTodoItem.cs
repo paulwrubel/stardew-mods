@@ -1,4 +1,5 @@
 using SmartTodo.Models;
+using StardewModdingAPI.Events;
 using StardewValley;
 
 namespace SmartTodo.Components.TodoItems
@@ -17,7 +18,7 @@ namespace SmartTodo.Components.TodoItems
             this.Text = $"Give {npc.getName()} a birthday gift";
         }
 
-        public override void OnUpdateTicked()
+        public override void OnUpdateTicked(UpdateTickedEventArgs e)
         {
             if (!IsChecked)
             {

@@ -7,22 +7,16 @@ namespace SmartTodo.Engines
     internal class HarvestableCropsEngine(
         Action<string, StardewModdingAPI.LogLevel> log,
         Func<bool> isEnabled
-    ) : BaseEngine<HarvestableCropsTodoItem>(log, isEnabled)
+    ) : BaseEngine<HarvestableCropsTodoItem>(log, isEnabled, UpdateFrequency.OnceADay)
     {
         public override void UpdateItems()
         {
             // check if there are harvestable crops in various locations
-            foreach (GameLocation gameLocation in GameHelper.GetLocations())
+            Utility.ForEachLocation((gameLocation) =>
             {
                 if (gameLocation is null)
                 {
-                    continue;
-                }
-
-                // check if we already made an item for this location
-                if (items.Any(item => item.Location.Name == gameLocation.Name))
-                {
-                    continue;
+                    return true;
                 }
 
                 int harvestableCount = gameLocation.getTotalCropsReadyForHarvest();
@@ -30,7 +24,9 @@ namespace SmartTodo.Engines
                 {
                     items.Add(new HarvestableCropsTodoItem(gameLocation));
                 }
-            }
+
+                return true;
+            });
         }
     }
 }

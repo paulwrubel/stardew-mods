@@ -39,7 +39,7 @@ namespace SmartTodo
             this.InitEngines();
         }
 
-        internal void OnGameLaunched()
+        internal void OnGameLaunched(GameLaunchedEventArgs e)
         {
             this.smartTodoPanel = new(
                 initialSmartTodoPanelPosition,
@@ -47,22 +47,22 @@ namespace SmartTodo
             );
         }
 
-        internal void OnDayStarted()
+        internal void OnDayStarted(DayStartedEventArgs e)
         {
             foreach (IEngine engine in this.engines)
             {
-                engine.OnDayStarted();
+                engine.OnDayStarted(e);
             }
             // this.ResetEngines();
             // this.ClearAndRecheckForItems(reAddCompleted: false);
             // this.CompletedItemsCache.Clear();
         }
 
-        internal void OnTimeChanged()
+        internal void OnTimeChanged(TimeChangedEventArgs e)
         {
             foreach (IEngine engine in this.engines)
             {
-                engine.OnTimeChanged();
+                engine.OnTimeChanged(e);
             }
 
             // foreach (ITodoItem item in Items)
@@ -73,11 +73,19 @@ namespace SmartTodo
             // this.ClearAndRecheckForItems();
         }
 
-        internal void OnUpdateTicked()
+        internal void OnOneSecondUpdateTicked(OneSecondUpdateTickedEventArgs e)
         {
             foreach (IEngine engine in this.engines)
             {
-                engine.OnUpdateTicked();
+                engine.OnOneSecondUpdateTicked(e);
+            }
+        }
+
+        internal void OnUpdateTicked(UpdateTickedEventArgs e)
+        {
+            foreach (IEngine engine in this.engines)
+            {
+                engine.OnUpdateTicked(e);
             }
 
             // foreach (ITodoItem item in Items)
@@ -86,7 +94,7 @@ namespace SmartTodo
             // }
         }
 
-        internal void OnRendered()
+        internal void OnRendered(RenderedEventArgs e)
         {
             if (isPanelOpen && this.smartTodoPanel is not null)
             {
@@ -99,10 +107,6 @@ namespace SmartTodo
             if (this.Config.ToggleTodoListKeybind.JustPressed())
             {
                 isPanelOpen = !isPanelOpen;
-                // if (IsPanelOpen)
-                // {
-                //     this.RecheckEngines();
-                // }
             }
         }
 
@@ -113,16 +117,16 @@ namespace SmartTodo
 
         private ICollection<ITodoItem> GatherItems()
         {
-            var gatheredItems = this.engines.Aggregate(new List<ITodoItem>(), (gatheredItems, engine) =>
+            var allItems = this.engines.Aggregate(new List<ITodoItem>(), (accumulatedItems, engine) =>
             {
                 if (engine.IsEnabled())
                 {
-                    gatheredItems.AddRange(engine.Items);
+                    accumulatedItems.AddRange(engine.Items);
                 }
-                return gatheredItems;
+                return accumulatedItems;
             });
 
-            gatheredItems.Sort((a, b) =>
+            allItems.Sort((a, b) =>
             {
                 var comp = b.Priority.CompareTo(a.Priority);
                 if (comp == 0)
@@ -132,7 +136,7 @@ namespace SmartTodo
                 return comp;
             });
 
-            return gatheredItems;
+            return allItems;
         }
 
         public void InitEngines(bool forceReset = false)

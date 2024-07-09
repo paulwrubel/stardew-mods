@@ -29,6 +29,7 @@ namespace SmartTodo
             helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
             helper.Events.GameLoop.DayStarted += this.OnDayStarted;
             helper.Events.GameLoop.TimeChanged += this.OnTimeChanged;
+            helper.Events.GameLoop.OneSecondUpdateTicked += this.OnOneSecondUpdateTicked;
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
             helper.Events.Display.Rendered += this.OnRendered;
@@ -53,7 +54,7 @@ namespace SmartTodo
             );
             configMenu.Register();
 
-            this.SmartTodoManager.OnGameLaunched();
+            this.SmartTodoManager.OnGameLaunched(e);
         }
 
         /// <summary>Raised after the player begins a new day.</summary>
@@ -61,7 +62,7 @@ namespace SmartTodo
         /// <param name="e">The event arguments.</param>
         private void OnDayStarted(object? sender, DayStartedEventArgs e)
         {
-            this.SmartTodoManager.OnDayStarted();
+            this.SmartTodoManager.OnDayStarted(e);
         }
 
         /// <summary>Raised after the game time changes.</summary>
@@ -69,7 +70,15 @@ namespace SmartTodo
         /// <param name="e">The event arguments.</param>
         private void OnTimeChanged(object? sender, TimeChangedEventArgs e)
         {
-            this.SmartTodoManager.OnTimeChanged();
+            this.SmartTodoManager.OnTimeChanged(e);
+        }
+
+        /// <summary>Raised before/after the game state is updated, once per second.</summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event arguments.</param>
+        private void OnOneSecondUpdateTicked(object? sender, OneSecondUpdateTickedEventArgs e)
+        {
+            this.SmartTodoManager.OnOneSecondUpdateTicked(e);
         }
 
         /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
@@ -77,7 +86,7 @@ namespace SmartTodo
         /// <param name="e">The event arguments.</param>
         private void OnUpdateTicked(object? sender, UpdateTickedEventArgs e)
         {
-            this.SmartTodoManager.OnUpdateTicked();
+            this.SmartTodoManager.OnUpdateTicked(e);
         }
 
         /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
@@ -102,7 +111,7 @@ namespace SmartTodo
                 return;
             }
 
-            SmartTodoManager.OnRendered();
+            SmartTodoManager.OnRendered(e);
         }
 
         private void OnMenuChanged(object? sender, MenuChangedEventArgs e)
