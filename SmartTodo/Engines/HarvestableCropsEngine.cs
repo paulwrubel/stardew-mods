@@ -12,6 +12,8 @@ namespace SmartTodo.Engines
         public override void UpdateItems()
         {
             // check if there are harvestable crops in various locations
+            //
+            // this operation hurts, but it only happens once per day so it's mostly ok
             Utility.ForEachLocation((gameLocation) =>
             {
                 if (gameLocation is null)

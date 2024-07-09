@@ -10,10 +10,12 @@ namespace SmartTodo.Engines
     ) : BaseEngine<WaterableCropsTodoItem>(log, isEnabled, UpdateFrequency.EveryTick)
     {
 
+        // get an endless enumerator of all game locations
         private readonly IEnumerator<GameLocation?> locations = GameHelper.EndlessLocationsEnumerator();
 
         public override void UpdateItems()
         {
+            // only try to check one location each update, for performance reasons
             if (!locations.MoveNext() || locations.Current is null)
             {
                 // try again next time!
