@@ -16,5 +16,9 @@ namespace SmartTodo
         public bool CheckHarvestableMachines { get; set; } = true;
 
         public bool CheckToolPickup { get; set; } = true;
+
+        public bool CheckDailyQuestBulletinBoard { get; set; } = true;
+
+        public bool CheckSpecialOrdersBoard { get; set; } = true;
     }
 }

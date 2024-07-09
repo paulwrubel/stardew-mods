@@ -2,7 +2,11 @@ namespace SmartTodo.Models
 {
     public interface IEngine
     {
-        List<ITodoItem> GetTodos();
+        IEnumerable<ITodoItem> Items { get; }
+
+        void UpdateItems();
+
+        void OnDayStarted();
 
         void OnTimeChanged();
 

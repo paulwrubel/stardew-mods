@@ -59,6 +59,8 @@ namespace SmartTodo.Components.TodoItems
             }
         }
 
+        public virtual void OnDayStarted() { }
+
         public virtual void OnTimeChanged() { }
 
         public virtual void OnUpdateTicked() { }
@@ -91,5 +93,9 @@ namespace SmartTodo.Components.TodoItems
                 );
             }
         }
+
+        public abstract override bool Equals(object? obj);
+
+        public abstract override int GetHashCode();
     }
 }

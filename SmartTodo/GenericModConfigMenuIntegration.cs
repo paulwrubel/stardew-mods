@@ -85,6 +85,20 @@ namespace SmartTodo
                 getValue: () => this.Config.CheckToolPickup,
                 setValue: value => this.Config.CheckToolPickup = value
             );
+            configMenu.AddBoolOption(
+                mod: this.Manifest,
+                name: () => "Check Bulletin Board",
+                tooltip: () => "Whether or not to add todo items to accept the daily quest from the bulletin board outside Pierre's General Store",
+                getValue: () => this.Config.CheckDailyQuestBulletinBoard,
+                setValue: value => this.Config.CheckDailyQuestBulletinBoard = value
+            );
+            configMenu.AddBoolOption(
+                mod: this.Manifest,
+                name: () => "Check Special Orders Boards",
+                tooltip: () => "Whether or not to add todo items to accept special orders from special orders boards",
+                getValue: () => this.Config.CheckSpecialOrdersBoard,
+                setValue: value => this.Config.CheckSpecialOrdersBoard = value
+            );
 
             if (this.Update is not null)
             {

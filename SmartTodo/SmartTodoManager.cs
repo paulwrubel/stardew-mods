@@ -1,8 +1,10 @@
+using System.Collections.ObjectModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SmartTodo.Components;
 using SmartTodo.Engines;
 using SmartTodo.Models;
+using StardewModdingAPI.Events;
 using StardewValley;
 
 namespace SmartTodo
@@ -16,15 +18,17 @@ namespace SmartTodo
 
         private readonly Action<string, StardewModdingAPI.LogLevel> Log;
 
-        private List<IEngine> Engines { get; } = [];
+        private readonly HashSet<IEngine> engines = [];
 
-        private SmartTodoPanel SmartTodoPanel { get; set; } = null!; // initialized in OnDayStarted
+        private static readonly Vector2 initialSmartTodoPanelPosition = new(10, 100);
+        private SmartTodoPanel smartTodoPanel = null!; // initialized in OnGameLaunched
+        // private readonly List<ITodoItem> Items = [];
 
-        private readonly List<ITodoItem> Items = [];
+        // private readonly List<ITodoItem> CompletedItemsCache = [];
 
-        private readonly List<ITodoItem> CompletedItemsCache = [];
+        // private int GutterLength { get; }
 
-        private int GutterLength { get; }
+        private bool isPanelOpen = true;
 
         /// <summary>Initializes a new instance of the <see cref="SmartTodoManager"/> class.</summary>
         public SmartTodoManager(ModConfig config, Action<string, StardewModdingAPI.LogLevel> log)
@@ -32,116 +36,211 @@ namespace SmartTodo
             this.Config = config;
             this.Log = log;
 
-            this.ResetEngines();
+            this.InitEngines();
+        }
+
+        internal void OnGameLaunched()
+        {
+            this.smartTodoPanel = new(
+                initialSmartTodoPanelPosition,
+                this.GatherItems
+            );
         }
 
         internal void OnDayStarted()
         {
-            this.ResetEngines();
-            this.ClearAndRecheckForItems(reAddCompleted: false);
-            this.CompletedItemsCache.Clear();
+            foreach (IEngine engine in this.engines)
+            {
+                engine.OnDayStarted();
+            }
+            // this.ResetEngines();
+            // this.ClearAndRecheckForItems(reAddCompleted: false);
+            // this.CompletedItemsCache.Clear();
         }
 
         internal void OnTimeChanged()
         {
-            foreach (IEngine engine in this.Engines)
+            foreach (IEngine engine in this.engines)
             {
                 engine.OnTimeChanged();
             }
 
-            foreach (ITodoItem item in Items)
-            {
-                item.OnTimeChanged();
-            }
+            // foreach (ITodoItem item in Items)
+            // {
+            //     item.OnTimeChanged();
+            // }
 
             // this.ClearAndRecheckForItems();
         }
 
         internal void OnUpdateTicked()
         {
-            foreach (IEngine engine in this.Engines)
+            foreach (IEngine engine in this.engines)
             {
                 engine.OnUpdateTicked();
             }
 
-            foreach (ITodoItem item in Items)
-            {
-                item.OnUpdateTicked();
-            }
+            // foreach (ITodoItem item in Items)
+            // {
+            //     item.OnUpdateTicked();
+            // }
         }
 
         internal void OnRendered()
         {
-            SpriteBatch b = Game1.spriteBatch;
-
-            this.SmartTodoPanel.draw(b);
-        }
-
-        public void ResetEngines()
-        {
-            this.Engines.Clear();
-
-            if (this.Config.CheckBirthdays)
+            if (isPanelOpen && this.smartTodoPanel is not null)
             {
-                this.Engines.Add(new BirthdayEngine(Log, this.CompletedItemsCache.Add));
-            }
-
-            if (this.Config.CheckHarvestableCrops)
-            {
-                this.Engines.Add(new HarvestableCropsEngine(Log, this.CompletedItemsCache.Add));
-            }
-
-            if (this.Config.CheckWaterableCrops)
-            {
-                this.Engines.Add(new WaterableCropsEngine(Log, this.CompletedItemsCache.Add));
-            }
-
-            if (this.Config.CheckHarvestableMachines)
-            {
-                void addAndSort(List<ITodoItem> newItems)
-                {
-                    this.Items.AddRange(newItems);
-                    SortItems();
-                }
-
-                this.Engines.Add(new HarvestableMachinesEngine(Log, addAndSort, this.CompletedItemsCache.Add, this.CompletedItemsCache.Remove));
-            }
-
-            if (this.Config.CheckToolPickup)
-            {
-                this.Engines.Add(new ToolPickupEngine(Log, this.CompletedItemsCache.Add));
+                this.smartTodoPanel.draw(Game1.spriteBatch);
             }
         }
 
-        public void ClearAndRecheckForItems(bool reAddCompleted = true)
+        internal void OnButtonPressed(ButtonPressedEventArgs e)
         {
-            Items.Clear();
-            foreach (IEngine engine in this.Engines)
+            if (this.Config.ToggleTodoListKeybind.JustPressed())
             {
-                Items.AddRange(engine.GetTodos());
+                isPanelOpen = !isPanelOpen;
+                // if (IsPanelOpen)
+                // {
+                //     this.RecheckEngines();
+                // }
             }
-
-            if (reAddCompleted)
-            {
-                Items.AddRange(this.CompletedItemsCache);
-            }
-
-            SortItems();
-
-            this.SmartTodoPanel = new(new Vector2(10, 100), () => Items);
         }
 
-        private void SortItems()
+        internal void OnMenuChanged(MenuChangedEventArgs e)
         {
-            Items.Sort((a, b) =>
+            // if (e.NewMenu is null) // menu closed
+            // {
+            //     this.ResetEngines();
+            //     this.ClearAndRecheckForItems();
+            // }
+        }
+
+        // public void RecheckEngines()
+        // {
+        //     foreach (IEngine engine in this.Engines)
+        //     {
+        //         bool isEngineActive = engine switch
+        //         {
+        //             BirthdayEngine => this.Config.CheckBirthdays,
+        //             HarvestableCropsEngine => this.Config.CheckHarvestableCrops,
+        //             WaterableCropsEngine => this.Config.CheckHarvestableCrops,
+        //             HarvestableMachinesEngine => this.Config.CheckHarvestableMachines,
+        //             ToolPickupEngine => this.Config.CheckToolPickup,
+        //             BulletinBoardEngine => this.Config.CheckDailyQuestBulletinBoard,
+        //             SpecialOrdersBoardEngine => this.Config.CheckSpecialOrdersBoard,
+        //             _ => false
+        //         };
+
+        //         engine.IsActive = isEngineActive;
+        //     }
+        // }
+
+        private ICollection<ITodoItem> GatherItems()
+        {
+            return this.engines.Aggregate(new List<ITodoItem>(), (gatheredItems, engine) =>
             {
-                var comp = b.Priority.CompareTo(a.Priority);
-                if (comp == 0)
-                {
-                    comp = a.Text.CompareTo(b.Text);
-                }
-                return comp;
+                gatheredItems.AddRange(engine.Items);
+                return gatheredItems;
             });
         }
+
+        public void InitEngines(bool forceReset = false)
+        {
+            if (this.engines.Count > 0 && !forceReset)
+            {
+                // we already initialized the engines
+                return;
+            }
+
+            this.engines.Clear();
+
+            this.engines.Add(new BirthdayEngine(Log, () => this.Config.CheckBirthdays));
+            // this.Engines.Add(new HarvestableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
+            // this.Engines.Add(new WaterableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
+            // this.Engines.Add(new HarvestableMachinesEngine(Log, () => this.Config.CheckHarvestableMachines));
+            // this.Engines.Add(new ToolPickupEngine(Log, () => this.Config.CheckToolPickup));
+            // this.Engines.Add(new BulletinBoardEngine(Log, () => this.Config.CheckDailyQuestBulletinBoard));
+            // this.Engines.Add(new SpecialOrdersBoardEngine(Log, () => this.Config.CheckSpecialOrdersBoard));
+
+
+            //  // if (this.Config.CheckBirthdays)
+            // // {
+            // //     // this.Engines.Add(new BirthdayEngine(Log, this.CompletedItemsCache.Add));
+            // this.Engines.Add(new BirthdayEngine(Log, () => this.Config.CheckBirthdays));
+            // // }
+
+            // // if (this.Config.CheckHarvestableCrops)
+            // // {
+            // // this.Engines.Add(new HarvestableCropsEngine(Log, this.CompletedItemsCache.Add));
+            // this.Engines.Add(new HarvestableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
+            // // }
+
+            // // if (this.Config.CheckHarvestableCrops)
+            // // {
+            // // this.Engines.Add(new WaterableCropsEngine(Log, this.CompletedItemsCache.Add));
+            // this.Engines.Add(new WaterableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
+            // // }
+
+            // // if (this.Config.CheckHarvestableMachines)
+            // // {
+            // // void addAndSort(List<ITodoItem> newItems)
+            // // {
+            // //     this.Items.AddRange(newItems);
+            // //     SortItems();
+            // // }
+
+            // // this.Engines.Add(new HarvestableMachinesEngine(Log, addAndSort, this.CompletedItemsCache.Add, this.CompletedItemsCache.Remove));
+            // this.Engines.Add(new HarvestableMachinesEngine(Log, () => this.Config.CheckHarvestableMachines));
+            // // }
+
+            // // if (this.Config.CheckToolPickup)
+            // // {
+            // // this.Engines.Add(new ToolPickupEngine(Log, this.CompletedItemsCache.Add));
+            // this.Engines.Add(new ToolPickupEngine(Log, () => this.Config.CheckToolPickup));
+            // // }
+
+            // // if (this.Config.CheckDailyQuestBulletinBoard)
+            // // {
+            // // this.Engines.Add(new BulletinBoardEngine(Log, this.CompletedItemsCache.Add));
+            // this.Engines.Add(new BulletinBoardEngine(Log, () => this.Config.CheckDailyQuestBulletinBoard));
+            // // }
+
+            // // if (this.Config.CheckSpecialOrdersBoard)
+            // // {
+            // // this.Engines.Add(new SpecialOrdersBoardEngine(Log, this.CompletedItemsCache.Add));
+            // this.Engines.Add(new SpecialOrdersBoardEngine(Log, () => this.Config.CheckSpecialOrdersBoard));
+            // // }
+        }
+
+        // public void ClearAndRecheckForItems(bool reAddCompleted = true)
+        // {
+        //     Items.Clear();
+        //     foreach (IEngine engine in this.Engines)
+        //     {
+        //         Items.AddRange(engine.GetTodos());
+        //     }
+
+        //     if (reAddCompleted)
+        //     {
+        //         Items.AddRange(this.CompletedItemsCache);
+        //     }
+
+        //     SortItems();
+
+        //     this.SmartTodoPanel = new(new Vector2(10, 100), () => Items);
+        // }
+
+        // private void SortItems()
+        // {
+        //     Items.Sort((a, b) =>
+        //     {
+        //         var comp = b.Priority.CompareTo(a.Priority);
+        //         if (comp == 0)
+        //         {
+        //             comp = a.Text.CompareTo(b.Text);
+        //         }
+        //         return comp;
+        //     });
+        // }
     }
 }

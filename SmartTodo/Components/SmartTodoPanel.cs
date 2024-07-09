@@ -8,7 +8,7 @@ namespace SmartTodo.Components
 {
     /// <summary>Manages the Smart Todo List.</summary>
     /// <remarks>Initializes a new instance of the <see cref="SmartTodoPanel"/> class.</remarks>
-    internal class SmartTodoPanel(Vector2 position, Func<List<ITodoItem>> getItems) : IClickableMenu
+    internal class SmartTodoPanel(Vector2 position, Func<ICollection<ITodoItem>> getItems) : IClickableMenu
     {
         private static string TitleText { get; } = "Smart Todo List";
 
@@ -19,11 +19,9 @@ namespace SmartTodo.Components
 
         private int LineSpacing { get; } = 2;
 
-        private Func<List<ITodoItem>> GetItems { get; set; } = getItems;
-
         public override void draw(SpriteBatch b)
         {
-            var items = GetItems();
+            var items = getItems();
 
             var spriteFont = Game1.smallFont;
 
@@ -45,7 +43,7 @@ namespace SmartTodo.Components
 
             this.DrawTextureBox(width, height);
             this.DrawTitleText(out int nextYPosition);
-            this.DrawTodoItems(nextYPosition);
+            this.DrawTodoItems(nextYPosition, items);
 
             base.draw(b);
         }
@@ -80,10 +78,8 @@ namespace SmartTodo.Components
             nextYPosition = (int)dividerPosition.Y + (int)spriteFont.MeasureString(DividerText).Y + this.LineSpacing;
         }
 
-        private void DrawTodoItems(int initialYPosition)
+        private void DrawTodoItems(int initialYPosition, ICollection<ITodoItem> items)
         {
-            var items = GetItems();
-
             var spriteBatch = Game1.spriteBatch;
             var spriteFont = Game1.smallFont;
 

@@ -14,8 +14,6 @@ namespace SmartTodo
         /// <summary>The mod configuration from the player.</summary>
         private ModConfig Config = null!; // set in Entry()
 
-        private bool showTodoList = true;
-
         private SmartTodoManager SmartTodoManager = null!; // set in Entry()
 
         /*********
@@ -54,6 +52,8 @@ namespace SmartTodo
                 // update: this.OnConfigChanged
             );
             configMenu.Register();
+
+            this.SmartTodoManager.OnGameLaunched();
         }
 
         /// <summary>Raised after the player begins a new day.</summary>
@@ -91,18 +91,7 @@ namespace SmartTodo
                 return;
             }
 
-            // print button presses to the console window
-            // this.Monitor.Log($"{Game1.player.Name} pressed {e.Button}.", LogLevel.Debug);
-
-            if (this.Config.ToggleTodoListKeybind.JustPressed())
-            {
-                showTodoList = !showTodoList;
-                if (showTodoList)
-                {
-                    this.SmartTodoManager.ResetEngines();
-                    this.SmartTodoManager.ClearAndRecheckForItems();
-                }
-            }
+            this.SmartTodoManager.OnButtonPressed(e);
         }
 
         private void OnRendered(object? sender, RenderedEventArgs e)
@@ -113,19 +102,18 @@ namespace SmartTodo
                 return;
             }
 
-            if (showTodoList)
-            {
-                SmartTodoManager.OnRendered();
-            }
+            SmartTodoManager.OnRendered();
         }
 
         private void OnMenuChanged(object? sender, MenuChangedEventArgs e)
         {
-            if (e.NewMenu is null) // menu closed
+            // ignore if player hasn't loaded a save yet
+            if (!Context.IsWorldReady)
             {
-                this.SmartTodoManager.ResetEngines();
-                this.SmartTodoManager.ClearAndRecheckForItems();
+                return;
             }
+
+            this.SmartTodoManager.OnMenuChanged(e);
         }
 
         private void OnConfigChanged(string fieldID, object newValue)
@@ -133,10 +121,10 @@ namespace SmartTodo
             // we ignore the specific field that was updated and just reload all engines anyways
             //
             // we could be smarter about this later, but it's unlikely to make a different in performance
-            this.SmartTodoManager.Config = this.Config;
+            // this.SmartTodoManager.Config = this.Config;
 
-            this.SmartTodoManager.ResetEngines();
-            this.SmartTodoManager.ClearAndRecheckForItems();
+            // this.SmartTodoManager.ResetEngines();
+            // this.SmartTodoManager.ClearAndRecheckForItems();
         }
     }
 }

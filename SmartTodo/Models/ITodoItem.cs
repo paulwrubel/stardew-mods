@@ -11,6 +11,8 @@ namespace SmartTodo.Models
 
         int Priority { get; set; }
 
+        void OnDayStarted();
+
         void OnTimeChanged();
 
         void OnUpdateTicked();

@@ -8,7 +8,7 @@ namespace SmartTodo.Components.TodoItems
     /// <param name="text">The text of the todo item.</param>
     internal class BirthdayTodoItem : BaseTodoItem
     {
-        private NPC NPC { get; set; }
+        internal NPC NPC { get; }
 
         public BirthdayTodoItem(NPC npc, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null)
             : base("", isChecked, 100, addToCompletedCache)
@@ -26,6 +26,16 @@ namespace SmartTodo.Components.TodoItems
                     this.MarkCompleted();
                 }
             }
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is BirthdayTodoItem item && this.NPC.Name == item.NPC.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return (this.GetType(), this.NPC.Name).GetHashCode();
         }
     }
 }
