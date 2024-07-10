@@ -59,14 +59,14 @@ namespace SmartTodo.Components.TodoItems
             SpriteFont font = Game1.smallFont;
             Color textColor = Game1.textColor;
 
-            // if (this.IsChecked)
-            // {
-            //     Utility.drawBoldText(b, Text, font, position, textColor);
-            // }
-            // else
-            // {
-            Utility.drawTextWithShadow(b, Text, font, position, textColor);
-            // }
+            if (!this.IsChecked)
+            {
+                Utility.drawBoldText(b, Text, font, position, textColor);
+            }
+            else
+            {
+                Utility.drawTextWithShadow(b, Text, font, position, textColor);
+            }
 
 
             if (this.IsChecked)
