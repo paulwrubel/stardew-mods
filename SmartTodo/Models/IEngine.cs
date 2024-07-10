@@ -10,6 +10,8 @@ namespace SmartTodo.Models
 
         void UpdateItems();
 
+        void Reset();
+
         void OnDayStarted(DayStartedEventArgs e);
 
         void OnTimeChanged(TimeChangedEventArgs e);

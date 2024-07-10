@@ -6,7 +6,8 @@ namespace SmartTodo.Engines
     internal abstract class BaseEngine<T>(
         Action<string, StardewModdingAPI.LogLevel> log,
         Func<bool> isEnabled,
-        UpdateFrequency updateFrequency
+        Frequency updateFrequency,
+        Frequency resetFrequency = Frequency.OnceADay
     ) : IEngine where T : ITodoItem
     {
 
@@ -22,12 +23,14 @@ namespace SmartTodo.Engines
 
         public abstract void UpdateItems();
 
+        public virtual void Reset()
+        {
+            items.Clear();
+        }
+
         public virtual void OnDayStarted(DayStartedEventArgs e)
         {
-            if (updateFrequency == UpdateFrequency.OnceADay)
-            {
-                this.UpdateItems();
-            }
+            CheckActions(Frequency.OnceADay);
 
             foreach (T item in items)
             {
@@ -37,10 +40,7 @@ namespace SmartTodo.Engines
 
         public virtual void OnTimeChanged(TimeChangedEventArgs e)
         {
-            if (updateFrequency == UpdateFrequency.EveryTimeChange)
-            {
-                this.UpdateItems();
-            }
+            CheckActions(Frequency.EveryTimeChange);
 
             foreach (T item in items)
             {
@@ -50,10 +50,7 @@ namespace SmartTodo.Engines
 
         public virtual void OnOneSecondUpdateTicked(OneSecondUpdateTickedEventArgs e)
         {
-            if (updateFrequency == UpdateFrequency.EverySecond)
-            {
-                this.UpdateItems();
-            }
+            CheckActions(Frequency.EverySecond);
 
             foreach (T item in items)
             {
@@ -63,10 +60,7 @@ namespace SmartTodo.Engines
 
         public virtual void OnUpdateTicked(UpdateTickedEventArgs e)
         {
-            if (updateFrequency == UpdateFrequency.EveryTick)
-            {
-                this.UpdateItems();
-            }
+            CheckActions(Frequency.EveryTick);
 
             foreach (T item in items)
             {
@@ -75,5 +69,18 @@ namespace SmartTodo.Engines
         }
 
         public void Log(string message, StardewModdingAPI.LogLevel level = StardewModdingAPI.LogLevel.Debug) => log(message, level);
+
+        private void CheckActions(Frequency frequency)
+        {
+            if (resetFrequency == frequency)
+            {
+                this.Reset();
+            }
+
+            if (updateFrequency == frequency)
+            {
+                this.UpdateItems();
+            }
+        }
     }
 }

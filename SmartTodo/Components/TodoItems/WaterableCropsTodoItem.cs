@@ -13,8 +13,8 @@ namespace SmartTodo.Components.TodoItems
 
         private int RemainingUnwateredCount { get; set; }
 
-        public WaterableCropsTodoItem(GameLocation location, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null)
-            : base("", isChecked, 19, addToCompletedCache)
+        public WaterableCropsTodoItem(GameLocation location, bool isChecked = false)
+            : base("", isChecked, 19)
         {
             this.Location = location;
             this.RemainingUnwateredCount = location.getTotalUnwateredCrops();
@@ -22,11 +22,11 @@ namespace SmartTodo.Components.TodoItems
             this.UpdateText();
         }
 
-        public override void OnUpdateTicked(UpdateTickedEventArgs e)
+        public override void OnOneSecondUpdateTicked(OneSecondUpdateTickedEventArgs e)
         {
             if (!IsChecked)
             {
-                var unwateredCount = this.Location.getTotalUnwateredCrops();
+                var unwateredCount = this.Location.GetTotalUnwateredCropsExcludingGinger();
                 if (unwateredCount != this.RemainingUnwateredCount)
                 {
                     this.RemainingUnwateredCount = unwateredCount;

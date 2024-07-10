@@ -11,8 +11,8 @@ namespace SmartTodo.Components.TodoItems
     {
         internal NPC NPC { get; }
 
-        public BirthdayTodoItem(NPC npc, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null)
-            : base("", isChecked, 100, addToCompletedCache)
+        public BirthdayTodoItem(NPC npc, bool isChecked = false)
+            : base("", isChecked, 100)
         {
             this.NPC = npc;
             this.Text = $"Give {npc.getName()} a birthday gift";

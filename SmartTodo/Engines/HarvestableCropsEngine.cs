@@ -7,7 +7,7 @@ namespace SmartTodo.Engines
     internal class HarvestableCropsEngine(
         Action<string, StardewModdingAPI.LogLevel> log,
         Func<bool> isEnabled
-    ) : BaseEngine<HarvestableCropsTodoItem>(log, isEnabled, UpdateFrequency.OnceADay)
+    ) : BaseEngine<HarvestableCropsTodoItem>(log, isEnabled, Frequency.OnceADay)
     {
         public override void UpdateItems()
         {

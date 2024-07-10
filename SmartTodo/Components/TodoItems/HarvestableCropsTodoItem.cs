@@ -13,8 +13,8 @@ namespace SmartTodo.Components.TodoItems
 
         private int RemainingHarvestCount { get; set; }
 
-        public HarvestableCropsTodoItem(GameLocation location, bool isChecked = false, Action<ITodoItem>? addToCompletedCache = null)
-            : base("", isChecked, 20, addToCompletedCache)
+        public HarvestableCropsTodoItem(GameLocation location, bool isChecked = false)
+            : base("", isChecked, 20)
         {
             this.Location = location;
             this.RemainingHarvestCount = location.getTotalCropsReadyForHarvest();

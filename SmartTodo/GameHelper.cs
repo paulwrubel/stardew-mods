@@ -1,8 +1,10 @@
 using StardewValley;
+using StardewValley.Locations;
+using StardewValley.TerrainFeatures;
 
 namespace SmartTodo
 {
-    public enum UpdateFrequency
+    public enum Frequency
     {
         OnceADay,
         EveryTimeChange,
@@ -18,14 +20,6 @@ namespace SmartTodo
 
     internal static class GameHelper
     {
-        public static IEnumerator<GameLocation> LocationsEnumerator()
-        {
-            foreach (GameLocation location in Game1.locations)
-            {
-                yield return location;
-            }
-        }
-
         public static IEnumerator<GameLocation?> EndlessLocationsEnumerator()
         {
             while (true)
@@ -43,6 +37,42 @@ namespace SmartTodo
                     }
                 }
             }
+        }
+
+        public static int GetTotalUnwateredCropsExcludingGinger(this GameLocation location)
+        {
+            if (location.IsGingerIslandLocation())
+            {
+                int num = 0;
+                foreach (TerrainFeature feature in location.terrainFeatures.Values)
+                {
+                    if (feature is HoeDirt hoeDirt &&
+                        hoeDirt.crop is not null &&
+                        hoeDirt.needsWatering() &&
+                        !hoeDirt.isWatered() &&
+                        !hoeDirt.crop.IsGinger()
+                    )
+                    {
+                        num++;
+                    }
+                }
+
+                return num;
+            }
+            else
+            {
+                return location.getTotalUnwateredCrops();
+            }
+        }
+
+        public static bool IsGingerIslandLocation(this GameLocation location)
+        {
+            return location is IslandLocation;
+        }
+
+        public static bool IsGinger(this Crop crop)
+        {
+            return crop is not null && crop.forageCrop.Value && crop.whichForageCrop.Value == "2";
         }
 
         public static string ToStardewSpecialOrderTypeString(this SpecialOrderType type)

@@ -1,45 +1,35 @@
-// using SmartTodo.Components.TodoItems;
-// using SmartTodo.Models;
-// using StardewValley;
-// using StardewValley.SpecialOrders;
+using SmartTodo.Components.TodoItems;
+using SmartTodo.Models;
+using StardewValley;
+using StardewValley.SpecialOrders;
 
-// namespace SmartTodo.Engines
-// {
-//     internal class SpecialOrdersBoardEngine(
-//         Action<string, StardewModdingAPI.LogLevel> log,
-//         Action<ITodoItem>? addToCompletedCache = null
-//     ) : BaseEngine(log, () => false)
-//     {
+namespace SmartTodo.Engines
+{
+    internal class SpecialOrdersBoardEngine(
+        Action<string, StardewModdingAPI.LogLevel> log,
+        Func<bool> isEnabled
+    ) : BaseEngine<SpecialOrdersBoardTodoItem>(log, isEnabled, Frequency.OnceADay)
+    {
+        public override void UpdateItems()
+        {
+            SpecialOrderType[] typesToCheck = [
+                SpecialOrderType.Standard,
+                SpecialOrderType.Qi
+            ];
 
-//         private Action<ITodoItem>? AddToCompletedCache { get; } = addToCompletedCache;
+            foreach (SpecialOrderType type in typesToCheck)
+            {
+                SpecialOrder leftOrder = Game1.player.team.GetAvailableSpecialOrder(0, type.ToStardewSpecialOrderTypeString());
+                SpecialOrder rightOrder = Game1.player.team.GetAvailableSpecialOrder(1, type.ToStardewSpecialOrderTypeString());
 
-//         public override List<ITodoItem> GetTodos()
-//         {
-//             List<ITodoItem> items = [];
+                bool anyOrderIsAvailable = leftOrder is not null || rightOrder is not null;
+                bool alreadyAcceptedOrder = Game1.player.team.acceptedSpecialOrderTypes.Contains(type.ToStardewSpecialOrderTypeString());
 
-//             SpecialOrderType[] typesToCheck = [
-//                 SpecialOrderType.Standard,
-//                 SpecialOrderType.Qi
-//             ];
-
-//             foreach (SpecialOrderType type in typesToCheck)
-//             {
-//                 SpecialOrder leftOrder = Game1.player.team.GetAvailableSpecialOrder(0, type.ToStardewSpecialOrderTypeString());
-//                 SpecialOrder rightOrder = Game1.player.team.GetAvailableSpecialOrder(1, type.ToStardewSpecialOrderTypeString());
-
-//                 bool anyOrderIsAvailable = leftOrder is not null || rightOrder is not null;
-//                 bool alreadyAcceptedOrder = Game1.player.team.acceptedSpecialOrderTypes.Contains(type.ToStardewSpecialOrderTypeString());
-
-//                 if (anyOrderIsAvailable && !alreadyAcceptedOrder)
-//                 {
-//                     items.Add(new SpecialOrdersBoardTodoItem(
-//                         type: type,
-//                         addToCompletedCache: AddToCompletedCache
-//                     ));
-//                 }
-//             }
-
-//             return items;
-//         }
-//     }
-// }
+                if (anyOrderIsAvailable && !alreadyAcceptedOrder)
+                {
+                    items.Add(new SpecialOrdersBoardTodoItem(type));
+                }
+            }
+        }
+    }
+}

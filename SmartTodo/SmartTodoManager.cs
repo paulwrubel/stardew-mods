@@ -22,11 +22,6 @@ namespace SmartTodo
 
         private static readonly Vector2 initialSmartTodoPanelPosition = new(10, 100);
         private SmartTodoPanel smartTodoPanel = null!; // initialized in OnGameLaunched
-        // private readonly List<ITodoItem> Items = [];
-
-        // private readonly List<ITodoItem> CompletedItemsCache = [];
-
-        // private int GutterLength { get; }
 
         private bool isPanelOpen = true;
 
@@ -53,9 +48,6 @@ namespace SmartTodo
             {
                 engine.OnDayStarted(e);
             }
-            // this.ResetEngines();
-            // this.ClearAndRecheckForItems(reAddCompleted: false);
-            // this.CompletedItemsCache.Clear();
         }
 
         internal void OnTimeChanged(TimeChangedEventArgs e)
@@ -64,13 +56,6 @@ namespace SmartTodo
             {
                 engine.OnTimeChanged(e);
             }
-
-            // foreach (ITodoItem item in Items)
-            // {
-            //     item.OnTimeChanged();
-            // }
-
-            // this.ClearAndRecheckForItems();
         }
 
         internal void OnOneSecondUpdateTicked(OneSecondUpdateTickedEventArgs e)
@@ -87,11 +72,6 @@ namespace SmartTodo
             {
                 engine.OnUpdateTicked(e);
             }
-
-            // foreach (ITodoItem item in Items)
-            // {
-            //     item.OnUpdateTicked();
-            // }
         }
 
         internal void OnRendered(RenderedEventArgs e)
@@ -128,12 +108,19 @@ namespace SmartTodo
 
             allItems.Sort((a, b) =>
             {
-                var comp = b.Priority.CompareTo(a.Priority);
-                if (comp == 0)
+                int checkedComp = a.IsChecked.CompareTo(b.IsChecked);
+                if (checkedComp != 0)
                 {
-                    comp = a.Text.CompareTo(b.Text);
+                    return checkedComp;
                 }
-                return comp;
+
+                int priorityComp = -a.Priority.CompareTo(b.Priority);
+                if (priorityComp != 0)
+                {
+                    return priorityComp;
+                }
+
+                return a.Text.CompareTo(b.Text);
             });
 
             return allItems;
@@ -154,89 +141,9 @@ namespace SmartTodo
             this.engines.Add(new HarvestableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
             this.engines.Add(new WaterableCropsEngine(Log, () => this.Config.CheckWaterableCrops));
             // this.Engines.Add(new HarvestableMachinesEngine(Log, () => this.Config.CheckHarvestableMachines));
-            // this.Engines.Add(new ToolPickupEngine(Log, () => this.Config.CheckToolPickup));
-            // this.Engines.Add(new BulletinBoardEngine(Log, () => this.Config.CheckDailyQuestBulletinBoard));
-            // this.Engines.Add(new SpecialOrdersBoardEngine(Log, () => this.Config.CheckSpecialOrdersBoard));
-
-
-            //  // if (this.Config.CheckBirthdays)
-            // // {
-            // //     // this.Engines.Add(new BirthdayEngine(Log, this.CompletedItemsCache.Add));
-            // this.Engines.Add(new BirthdayEngine(Log, () => this.Config.CheckBirthdays));
-            // // }
-
-            // // if (this.Config.CheckHarvestableCrops)
-            // // {
-            // // this.Engines.Add(new HarvestableCropsEngine(Log, this.CompletedItemsCache.Add));
-            // this.Engines.Add(new HarvestableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
-            // // }
-
-            // // if (this.Config.CheckHarvestableCrops)
-            // // {
-            // // this.Engines.Add(new WaterableCropsEngine(Log, this.CompletedItemsCache.Add));
-            // this.Engines.Add(new WaterableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
-            // // }
-
-            // // if (this.Config.CheckHarvestableMachines)
-            // // {
-            // // void addAndSort(List<ITodoItem> newItems)
-            // // {
-            // //     this.Items.AddRange(newItems);
-            // //     SortItems();
-            // // }
-
-            // // this.Engines.Add(new HarvestableMachinesEngine(Log, addAndSort, this.CompletedItemsCache.Add, this.CompletedItemsCache.Remove));
-            // this.Engines.Add(new HarvestableMachinesEngine(Log, () => this.Config.CheckHarvestableMachines));
-            // // }
-
-            // // if (this.Config.CheckToolPickup)
-            // // {
-            // // this.Engines.Add(new ToolPickupEngine(Log, this.CompletedItemsCache.Add));
-            // this.Engines.Add(new ToolPickupEngine(Log, () => this.Config.CheckToolPickup));
-            // // }
-
-            // // if (this.Config.CheckDailyQuestBulletinBoard)
-            // // {
-            // // this.Engines.Add(new BulletinBoardEngine(Log, this.CompletedItemsCache.Add));
-            // this.Engines.Add(new BulletinBoardEngine(Log, () => this.Config.CheckDailyQuestBulletinBoard));
-            // // }
-
-            // // if (this.Config.CheckSpecialOrdersBoard)
-            // // {
-            // // this.Engines.Add(new SpecialOrdersBoardEngine(Log, this.CompletedItemsCache.Add));
-            // this.Engines.Add(new SpecialOrdersBoardEngine(Log, () => this.Config.CheckSpecialOrdersBoard));
-            // // }
+            this.engines.Add(new ToolPickupEngine(Log, () => this.Config.CheckToolPickup));
+            this.engines.Add(new BulletinBoardEngine(Log, () => this.Config.CheckDailyQuestBulletinBoard));
+            this.engines.Add(new SpecialOrdersBoardEngine(Log, () => this.Config.CheckSpecialOrdersBoard));
         }
-
-        // public void ClearAndRecheckForItems(bool reAddCompleted = true)
-        // {
-        //     Items.Clear();
-        //     foreach (IEngine engine in this.Engines)
-        //     {
-        //         Items.AddRange(engine.GetTodos());
-        //     }
-
-        //     if (reAddCompleted)
-        //     {
-        //         Items.AddRange(this.CompletedItemsCache);
-        //     }
-
-        //     SortItems();
-
-        //     this.SmartTodoPanel = new(new Vector2(10, 100), () => Items);
-        // }
-
-        // private void SortItems()
-        // {
-        //     Items.Sort((a, b) =>
-        //     {
-        //         var comp = b.Priority.CompareTo(a.Priority);
-        //         if (comp == 0)
-        //         {
-        //             comp = a.Text.CompareTo(b.Text);
-        //         }
-        //         return comp;
-        //     });
-        // }
     }
 }

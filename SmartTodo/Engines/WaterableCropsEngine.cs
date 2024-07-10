@@ -7,7 +7,7 @@ namespace SmartTodo.Engines
     internal class WaterableCropsEngine(
         Action<string, StardewModdingAPI.LogLevel> log,
         Func<bool> isEnabled
-    ) : BaseEngine<WaterableCropsTodoItem>(log, isEnabled, UpdateFrequency.EveryTick)
+    ) : BaseEngine<WaterableCropsTodoItem>(log, isEnabled, Frequency.EveryTick)
     {
 
         // get an endless enumerator of all game locations
@@ -26,7 +26,7 @@ namespace SmartTodo.Engines
 
             this.Log($"Checking waterable crops in {thisLocation.Name}");
 
-            int waterableCount = thisLocation.getTotalUnwateredCrops();
+            int waterableCount = thisLocation.GetTotalUnwateredCropsExcludingGinger();
             if (waterableCount > 0)
             {
                 items.Add(new WaterableCropsTodoItem(thisLocation));

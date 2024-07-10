@@ -6,7 +6,7 @@ namespace SmartTodo.Engines
     internal class TestEngine(
         Action<string, StardewModdingAPI.LogLevel> log,
         Func<bool> isEnabled
-    ) : BaseEngine<TestTodoItem>(log, isEnabled, UpdateFrequency.OnceADay)
+    ) : BaseEngine<TestTodoItem>(log, isEnabled, Frequency.OnceADay)
     {
         private static readonly List<TestTodoItem> testTodoItems = [
             new TestTodoItem("TEST: Go to the store"),

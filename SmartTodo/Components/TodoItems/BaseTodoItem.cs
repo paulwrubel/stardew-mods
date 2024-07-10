@@ -13,9 +13,7 @@ namespace SmartTodo.Components.TodoItems
     internal abstract class BaseTodoItem(
         string text = "",
         bool isChecked = false,
-        int priority = 0,
-        Action<ITodoItem>? addToCompletedCache = null,
-        Func<ITodoItem, bool>? removeFromCompletedCache = null
+        int priority = 0
     ) : ITodoItem
     {
 
@@ -27,10 +25,6 @@ namespace SmartTodo.Components.TodoItems
 
         /// <summary>The priority of the todo item. A higher number means a higher priority.</summary>
         public int Priority { get; set; } = priority;
-
-        internal Action<ITodoItem>? AddToCompletedCache { get; } = addToCompletedCache;
-
-        internal Func<ITodoItem, bool>? RemoveFromCompletedCache { get; } = removeFromCompletedCache;
 
         private static readonly Lazy<Texture2D> LazyPixel = new(() =>
         {
@@ -45,19 +39,11 @@ namespace SmartTodo.Components.TodoItems
         public virtual void MarkCompleted()
         {
             this.IsChecked = true;
-            if (this.AddToCompletedCache is not null)
-            {
-                this.AddToCompletedCache(this);
-            }
         }
 
         public virtual void MarkUncompleted()
         {
             this.IsChecked = false;
-            if (this.RemoveFromCompletedCache is not null)
-            {
-                this.RemoveFromCompletedCache(this);
-            }
         }
 
         public virtual void OnDayStarted(DayStartedEventArgs e) { }
@@ -73,13 +59,15 @@ namespace SmartTodo.Components.TodoItems
             SpriteFont font = Game1.smallFont;
             Color textColor = Game1.textColor;
 
-            Utility.drawTextWithShadow(
-                b,
-                this.Text,
-                font,
-                position,
-                textColor
-            );
+            // if (this.IsChecked)
+            // {
+            //     Utility.drawBoldText(b, Text, font, position, textColor);
+            // }
+            // else
+            // {
+            Utility.drawTextWithShadow(b, Text, font, position, textColor);
+            // }
+
 
             if (this.IsChecked)
             {
