@@ -140,7 +140,7 @@ namespace SmartTodo
             this.engines.Add(new BirthdayEngine(Log, () => this.Config.CheckBirthdays));
             this.engines.Add(new HarvestableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
             this.engines.Add(new WaterableCropsEngine(Log, () => this.Config.CheckWaterableCrops));
-            // this.Engines.Add(new HarvestableMachinesEngine(Log, () => this.Config.CheckHarvestableMachines));
+            this.engines.Add(new HarvestableMachinesEngine(Log, () => this.Config.CheckHarvestableMachines));
             this.engines.Add(new ToolPickupEngine(Log, () => this.Config.CheckToolPickup));
             this.engines.Add(new BulletinBoardEngine(Log, () => this.Config.CheckDailyQuestBulletinBoard));
             this.engines.Add(new SpecialOrdersBoardEngine(Log, () => this.Config.CheckSpecialOrdersBoard));
