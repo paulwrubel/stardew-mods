@@ -10,7 +10,7 @@ namespace SmartTodo.Components
     /// <remarks>Initializes a new instance of the <see cref="SmartTodoPanel"/> class.</remarks>
     internal class SmartTodoPanel(Vector2 position, Func<ICollection<ITodoItem>> getItems) : IClickableMenu
     {
-        private static string TitleText { get; } = "Smart Todo List";
+        private static string TitleText { get; } = "Todo List";
 
         private static string DividerText { get; } = "----------";
 
@@ -38,11 +38,11 @@ namespace SmartTodo.Components
 
             int width = maxWidth + (GutterLength * 2);
             int lineHeight = (int)spriteFont.MeasureString(TitleText).Y;
-            int height = (GutterLength * 2) + (items.Count + 2) * (lineHeight + LineSpacing);
+            int height = (GutterLength * 2) + (items.Count + 1) * (lineHeight + LineSpacing) + 4;
 
 
             this.DrawTextureBox(width, height);
-            this.DrawTitleText(out int nextYPosition);
+            this.DrawTitleText(maxWidth, out int nextYPosition);
             this.DrawTodoItems(nextYPosition, items);
 
             base.draw(b);
@@ -50,7 +50,6 @@ namespace SmartTodo.Components
 
         private void DrawTextureBox(int width, int height)
         {
-
             drawTextureBox(
                 Game1.spriteBatch,
                 Game1.menuTexture,
@@ -62,20 +61,31 @@ namespace SmartTodo.Components
                 Color.White * 1
             );
         }
-        private void DrawTitleText(out int nextYPosition)
+        private void DrawTitleText(int totalWidth, out int nextYPosition)
         {
             var spriteBatch = Game1.spriteBatch;
-            var spriteFont = Game1.smallFont;
+            var titleFont = Game1.smallFont;
 
-            var titleTextPosition = new Vector2(BoxPosition.X + GutterLength, BoxPosition.Y + GutterLength);
+            Vector2 titleTextSize = titleFont.MeasureString(TitleText);
 
-            Utility.drawTextWithShadow(spriteBatch, TitleText, spriteFont, titleTextPosition, Game1.textColor);
+            int xOffset = (totalWidth - (int)titleTextSize.X) / 2;
 
-            int titleTextHeight = (int)spriteFont.MeasureString(TitleText).Y;
-            var dividerPosition = new Vector2(titleTextPosition.X, titleTextPosition.Y + titleTextHeight + LineSpacing);
-            Utility.drawTextWithShadow(spriteBatch, DividerText, spriteFont, dividerPosition, Game1.textColor);
+            var titleTextPosition = new Vector2(BoxPosition.X + GutterLength + xOffset, BoxPosition.Y + GutterLength);
 
-            nextYPosition = (int)dividerPosition.Y + (int)spriteFont.MeasureString(DividerText).Y + this.LineSpacing;
+            Utility.drawTextWithShadow(spriteBatch, TitleText, titleFont, titleTextPosition, Game1.textColor);
+
+            var dividerPosition = new Vector2(BoxPosition.X + GutterLength, titleTextPosition.Y + (int)titleTextSize.Y + LineSpacing);
+
+            Utility.drawLineWithScreenCoordinates(
+                (int)dividerPosition.X, (int)dividerPosition.Y,
+                (int)dividerPosition.X + totalWidth, (int)dividerPosition.Y,
+                spriteBatch,
+                Game1.textColor,
+                thickness: 1
+            );
+            // Utility.drawTextWithShadow(spriteBatch, DividerText, spriteFont, dividerPosition, Game1.textColor);
+
+            nextYPosition = (int)dividerPosition.Y + (int)4 + this.LineSpacing;
         }
 
         private void DrawTodoItems(int initialYPosition, ICollection<ITodoItem> items)

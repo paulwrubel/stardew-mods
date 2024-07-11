@@ -82,9 +82,9 @@ namespace SmartTodo
             }
         }
 
-        internal void OnButtonPressed(ButtonPressedEventArgs e)
+        internal void OnButtonsChanged(ButtonsChangedEventArgs e)
         {
-            if (this.Config.ToggleTodoListKeybind.JustPressed())
+            if (this.Config.ToggleTodoList.JustPressed())
             {
                 isPanelOpen = !isPanelOpen;
             }

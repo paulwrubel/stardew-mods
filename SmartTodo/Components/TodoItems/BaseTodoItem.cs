@@ -57,20 +57,17 @@ namespace SmartTodo.Components.TodoItems
         public void Draw(SpriteBatch b, Vector2 position)
         {
             SpriteFont font = Game1.smallFont;
-            Color textColor = Game1.textColor;
+            Color textColor = this.IsChecked ? Color.DarkSlateGray : Color.Black;
 
             if (!this.IsChecked)
             {
-                Utility.drawBoldText(b, Text, font, position, textColor);
+                // Utility.drawBoldText(b, Text, font, position, textColor);
+                Utility.drawTextWithShadow(b, Text, font, position, textColor);
             }
             else
             {
                 Utility.drawTextWithShadow(b, Text, font, position, textColor);
-            }
 
-
-            if (this.IsChecked)
-            {
                 Vector2 textSize = font.MeasureString(this.Text);
                 b.Draw(
                     Pixel,

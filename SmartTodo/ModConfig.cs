@@ -5,7 +5,7 @@ namespace SmartTodo
 {
     public sealed class ModConfig
     {
-        public KeybindList ToggleTodoListKeybind { get; set; } = new(SButton.L);
+        public KeybindList ToggleTodoList { get; set; } = KeybindList.Parse($"{SButton.LeftShift} + {SButton.L}");
 
         public bool CheckBirthdays { get; set; } = true;
 

@@ -41,15 +41,23 @@ namespace SmartTodo
             configMenu.Register(this.Manifest, this.Reset, this.Save);
 
             // controls
+            configMenu.AddSectionTitle(
+                mod: this.Manifest,
+                text: () => "Controls"
+            );
             configMenu.AddKeybindList(
                 mod: this.Manifest,
                 name: () => "Toggle Smart Todo List",
                 tooltip: () => "Start or stop displaying the smart todo list panel in the HUD",
-                getValue: () => this.Config.ToggleTodoListKeybind,
-                setValue: value => this.Config.ToggleTodoListKeybind = value
+                getValue: () => this.Config.ToggleTodoList,
+                setValue: value => this.Config.ToggleTodoList = value
             );
 
             // engines
+            configMenu.AddSectionTitle(
+                mod: this.Manifest,
+                text: () => "Checks"
+            );
             configMenu.AddBoolOption(
                 mod: this.Manifest,
                 name: () => "Check Birthdays",
@@ -118,7 +126,7 @@ namespace SmartTodo
         {
             ModConfig defaults = new();
 
-            this.Config.ToggleTodoListKeybind = defaults.ToggleTodoListKeybind;
+            this.Config.ToggleTodoList = defaults.ToggleTodoList;
 
             this.Config.CheckBirthdays = defaults.CheckBirthdays;
             this.Config.CheckHarvestableCrops = defaults.CheckHarvestableCrops;

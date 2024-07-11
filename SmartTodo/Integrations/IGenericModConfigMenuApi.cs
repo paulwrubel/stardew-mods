@@ -32,7 +32,7 @@ namespace SmartTodo.Integrations
         /// <param name="mod">The mod's manifest.</param>
         /// <param name="text">The title text shown in the form.</param>
         /// <param name="tooltip">The tooltip text shown when the cursor hovers on the title, or <c>null</c> to disable the tooltip.</param>
-        // void AddSectionTitle(IManifest mod, Func<string> text, Func<string> tooltip = null);
+        void AddSectionTitle(IManifest mod, Func<string> text, Func<string>? tooltip = null);
 
         /// <summary>Add a paragraph of text at the current position in the form.</summary>
         /// <param name="mod">The mod's manifest.</param>

@@ -31,7 +31,7 @@ namespace SmartTodo
             helper.Events.GameLoop.TimeChanged += this.OnTimeChanged;
             helper.Events.GameLoop.OneSecondUpdateTicked += this.OnOneSecondUpdateTicked;
             helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
-            helper.Events.Input.ButtonPressed += this.OnButtonPressed;
+            helper.Events.Input.ButtonsChanged += this.OnButtonsChanged;
             helper.Events.Display.Rendered += this.OnRendered;
             helper.Events.Display.MenuChanged += this.OnMenuChanged;
         }
@@ -89,10 +89,11 @@ namespace SmartTodo
             this.SmartTodoManager.OnUpdateTicked(e);
         }
 
-        /// <summary>Raised after the player presses a button on the keyboard, controller, or mouse.</summary>
+        /// <summary>Raised after the player pressed/released any buttons on the keyboard, mouse, or controller. 
+        /// This includes mouse clicks. If the player pressed/released multiple keys at once, this is only raised once.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event data.</param>
-        private void OnButtonPressed(object? sender, ButtonPressedEventArgs e)
+        private void OnButtonsChanged(object? sender, ButtonsChangedEventArgs e)
         {
             // ignore if player hasn't loaded a save yet
             if (!Context.IsWorldReady)
@@ -100,7 +101,7 @@ namespace SmartTodo
                 return;
             }
 
-            this.SmartTodoManager.OnButtonPressed(e);
+            this.SmartTodoManager.OnButtonsChanged(e);
         }
 
         private void OnRendered(object? sender, RenderedEventArgs e)
