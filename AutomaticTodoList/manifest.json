@@ -6,5 +6,5 @@
     "UniqueID": "VoxaelFox.AutomaticTodoList",
     "EntryDll": "AutomaticTodoList.dll",
     "MinimumApiVersion": "4.0.0",
-    "UpdateKeys": [ ]
+    "UpdateKeys": [ "Nexus:26008" ]
 }
