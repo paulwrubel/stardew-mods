@@ -30,5 +30,8 @@ Each task type can be toggled off or on individually in the settings. All settin
 
 ## Compatibility
 
-- Works with Stardew Valley 1.6.8 on Linux/macOS/Windows.
-- Works in single player, multiplayer, and split-screen mode. In a multiplayer game, world actions (such as accepting a special order from a board) will update all players' to-do lists.
+- Tested against Stardew Valley 1.6.8 on Linux.
+  - Should work on any 1.6.x version on macOS/Windows.
+- Tested in single player on a heavily modded save file.
+  - Multiplayer should work correctly. In a multiplayer game, world actions (such as accepting a special order from a board) will update all players' to-do lists.
+  - Split-screen is untested and probably will not work.
