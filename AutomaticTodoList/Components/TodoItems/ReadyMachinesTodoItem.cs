@@ -19,7 +19,7 @@ namespace AutomaticTodoList.Components.TodoItems
         ) : base("", isChecked, TaskPriority.ReadyMachines)
         {
             this.Location = location;
-            this.ReadyMachinesCount = location.getNumberOfMachinesReadyForHarvest();
+            this.ReadyMachinesCount = location.GetNumberOfReadyMachinesExcludingBuildings();
 
             this.UpdateText();
         }
@@ -28,7 +28,7 @@ namespace AutomaticTodoList.Components.TodoItems
         {
             if (IsChecked)
             {
-                var machineCount = this.Location.getNumberOfMachinesReadyForHarvest();
+                var machineCount = this.Location.GetNumberOfReadyMachinesExcludingBuildings();
                 if (machineCount != this.ReadyMachinesCount)
                 {
                     this.ReadyMachinesCount = machineCount;

@@ -55,6 +55,24 @@ namespace AutomaticTodoList
                 }
             }
         }
+    }
+
+    internal static class GameExtensions
+    {
+
+        public static int GetNumberOfReadyMachinesExcludingBuildings(this GameLocation location)
+        {
+            int num = 0;
+            foreach (StardewValley.Object value in location.objects.Values)
+            {
+                if (value.IsConsideredReadyMachineForComputer())
+                {
+                    num++;
+                }
+            }
+
+            return num;
+        }
 
         public static int GetTotalUnwateredCropsExcludingGinger(this GameLocation location)
         {
