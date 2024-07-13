@@ -7,25 +7,23 @@ namespace AutomaticTodoList.Components.TodoItems
     /// <summary>A birthday todo item.</summary>
     /// <remarks>Initializes a new instance of the <see cref="BirthdayTodoItem"/> class.</remarks>
     /// <param name="text">The text of the todo item.</param>
-    internal class BirthdayTodoItem : BaseTodoItem
+    internal class BirthdayTodoItem(
+        NPC npc,
+        bool isChecked = false
+    ) : BaseTodoItem($"Give {npc.getName()} a birthday gift", isChecked, TaskPriority.Birthday)
     {
-        internal NPC NPC { get; }
-
-        public BirthdayTodoItem(NPC npc, bool isChecked = false)
-            : base("", isChecked, TaskPriority.Birthday)
-        {
-            this.NPC = npc;
-            this.Text = $"Give {npc.getName()} a birthday gift";
-        }
+        internal NPC NPC { get; } = npc;
 
         public override void OnUpdateTicked(UpdateTickedEventArgs e)
         {
-            if (!IsChecked)
+            if (IsChecked)
             {
-                if (Game1.player.friendshipData[this.NPC.Name].GiftsToday > 0)
-                {
-                    this.MarkCompleted();
-                }
+                return;
+            }
+
+            if (Game1.player.friendshipData.TryGetValue(this.NPC.Name, out Friendship friendship) && friendship.GiftsToday > 0)
+            {
+                this.MarkCompleted();
             }
         }
 

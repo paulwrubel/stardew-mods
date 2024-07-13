@@ -11,7 +11,7 @@ An automatically updating to-do list for common repeating tasks. Never forget to
 
 ## How to use
 
-By default, the to-do list will appear in the top right corner of your screen. The default (configurable) hotkey to show/hide the list is `LeftShift + L``. Items will appear and be checked off automatically depending on different conditions.
+By default, the to-do list will appear in the top right corner of your screen. The default (configurable) hotkey to show/hide the list is `LeftShift + L`. Items will appear and be checked off automatically depending on different conditions.
 
 For example, the morning of a villager's birthday, an item labelled "Give XYZ a birthday gift" will appear. Gifting the villager that day checks off the item.
 
