@@ -68,6 +68,14 @@ namespace AutomaticTodoList.Engines
             }
         }
 
+        public virtual void OnMenuChanged(MenuChangedEventArgs e)
+        {
+            foreach (T item in items)
+            {
+                item.OnMenuChanged(e);
+            }
+        }
+
         public void Log(string message, StardewModdingAPI.LogLevel level = StardewModdingAPI.LogLevel.Debug) => log(message, level);
 
         private void CheckActions(Frequency frequency)

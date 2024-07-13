@@ -20,6 +20,8 @@ namespace AutomaticTodoList.Models
 
         void OnUpdateTicked(UpdateTickedEventArgs e);
 
+        void OnMenuChanged(MenuChangedEventArgs e);
+
         void Log(string message, StardewModdingAPI.LogLevel level = StardewModdingAPI.LogLevel.Debug);
     }
 }

@@ -14,7 +14,7 @@ namespace AutomaticTodoList.Components.TodoItems
         private int RemainingUnwateredCount { get; set; }
 
         public WaterableCropsTodoItem(GameLocation location, bool isChecked = false)
-            : base("", isChecked, 19)
+            : base("", isChecked, TaskPriority.WaterableCrops)
         {
             this.Location = location;
             this.RemainingUnwateredCount = location.getTotalUnwateredCrops();

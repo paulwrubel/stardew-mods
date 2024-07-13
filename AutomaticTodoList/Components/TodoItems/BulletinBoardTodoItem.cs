@@ -12,7 +12,7 @@ namespace AutomaticTodoList.Components.TodoItems
     ) : BaseTodoItem(
         "Check the daily quest bulletin board",
         isChecked,
-        10
+        TaskPriority.BulletinBoard
     )
     {
         public override void OnUpdateTicked(UpdateTickedEventArgs e)

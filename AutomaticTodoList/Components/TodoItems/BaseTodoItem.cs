@@ -11,9 +11,9 @@ namespace AutomaticTodoList.Components.TodoItems
     /// <remarks>Initializes a new instance of the <see cref="BaseTodoItem"/> class.</remarks>
     /// <param name="text">The text of the todo item.</param>
     internal abstract class BaseTodoItem(
-        string text = "",
+        string text,
         bool isChecked = false,
-        int priority = 0
+        TaskPriority priority = TaskPriority.Default
     ) : ITodoItem
     {
 
@@ -24,7 +24,7 @@ namespace AutomaticTodoList.Components.TodoItems
         public bool IsChecked { get; set; } = isChecked;
 
         /// <summary>The priority of the todo item. A higher number means a higher priority.</summary>
-        public int Priority { get; set; } = priority;
+        public TaskPriority Priority { get; set; } = priority;
 
         private static readonly Lazy<Texture2D> LazyPixel = new(() =>
         {
@@ -53,6 +53,8 @@ namespace AutomaticTodoList.Components.TodoItems
         public virtual void OnOneSecondUpdateTicked(OneSecondUpdateTickedEventArgs e) { }
 
         public virtual void OnUpdateTicked(UpdateTickedEventArgs e) { }
+
+        public virtual void OnMenuChanged(MenuChangedEventArgs e) { }
 
         public void Draw(SpriteBatch b, Vector2 position)
         {

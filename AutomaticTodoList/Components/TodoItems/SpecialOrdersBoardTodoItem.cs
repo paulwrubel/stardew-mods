@@ -19,7 +19,7 @@ namespace AutomaticTodoList.Components.TodoItems
     ) : base(
         "",
         isChecked,
-        11
+        TaskPriority.SpecialOrders
     )
         {
             this.Type = type;

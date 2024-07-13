@@ -5,10 +5,10 @@ using StardewValley;
 
 namespace AutomaticTodoList.Engines
 {
-    internal class HarvestableMachinesEngine(
+    internal class ReadyMachinesEngine(
         Action<string, StardewModdingAPI.LogLevel> log,
         Func<bool> isEnabled
-    ) : BaseEngine<HarvestableMachinesTodoItem>(log, isEnabled, Frequency.EveryTimeChange)
+    ) : BaseEngine<ReadyMachinesTodoItem>(log, isEnabled, Frequency.EveryTimeChange)
     {
 
         public override void UpdateItems()
@@ -24,7 +24,7 @@ namespace AutomaticTodoList.Engines
                 int harvestableCount = gameLocation.getNumberOfMachinesReadyForHarvest();
                 if (harvestableCount > 0)
                 {
-                    items.Add(new HarvestableMachinesTodoItem(gameLocation));
+                    items.Add(new ReadyMachinesTodoItem(gameLocation));
                 }
 
                 return true;

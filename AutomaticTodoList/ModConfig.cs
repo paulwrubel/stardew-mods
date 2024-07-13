@@ -20,5 +20,7 @@ namespace AutomaticTodoList
         public bool CheckDailyQuestBulletinBoard { get; set; } = true;
 
         public bool CheckSpecialOrdersBoard { get; set; } = true;
+
+        public bool CheckTravelingMerchant { get; set; } = true;
     }
 }

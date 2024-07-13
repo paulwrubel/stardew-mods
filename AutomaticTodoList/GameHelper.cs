@@ -4,6 +4,23 @@ using StardewValley.TerrainFeatures;
 
 namespace AutomaticTodoList
 {
+
+    public enum TaskPriority
+    {
+        // high
+        Birthday,
+        ToolPickup,
+        ReadyMachines,
+        HarvestableCrops,
+        WaterableCrops,
+        TravelingMerchant,
+        SpecialOrders,
+        BulletinBoard,
+        Test,
+        Default,
+        // low
+    }
+
     public enum Frequency
     {
         OnceADay,

@@ -12,7 +12,7 @@ namespace AutomaticTodoList.Components.TodoItems
         internal NPC NPC { get; }
 
         public BirthdayTodoItem(NPC npc, bool isChecked = false)
-            : base("", isChecked, 100)
+            : base("", isChecked, TaskPriority.Birthday)
         {
             this.NPC = npc;
             this.Text = $"Give {npc.getName()} a birthday gift";

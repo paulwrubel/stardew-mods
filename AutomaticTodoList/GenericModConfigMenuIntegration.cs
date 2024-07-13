@@ -107,6 +107,13 @@ namespace AutomaticTodoList
                 getValue: () => this.Config.CheckSpecialOrdersBoard,
                 setValue: value => this.Config.CheckSpecialOrdersBoard = value
             );
+            configMenu.AddBoolOption(
+                mod: this.Manifest,
+                name: () => "Check Traveling Merchant",
+                tooltip: () => "Whether or not to add todo items to visit the Traveling Merchant's cart",
+                getValue: () => this.Config.CheckTravelingMerchant,
+                setValue: value => this.Config.CheckTravelingMerchant = value
+            );
 
             if (this.Update is not null)
             {

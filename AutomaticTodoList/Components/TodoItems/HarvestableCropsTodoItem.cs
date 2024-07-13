@@ -14,7 +14,7 @@ namespace AutomaticTodoList.Components.TodoItems
         private int RemainingHarvestCount { get; set; }
 
         public HarvestableCropsTodoItem(GameLocation location, bool isChecked = false)
-            : base("", isChecked, 20)
+            : base("", isChecked, TaskPriority.HarvestableCrops)
         {
             this.Location = location;
             this.RemainingHarvestCount = location.getTotalCropsReadyForHarvest();

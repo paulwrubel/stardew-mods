@@ -12,7 +12,7 @@ namespace AutomaticTodoList.Components.TodoItems
         private Item ReadyTool { get; set; }
 
         public ToolPickupTodoItem(Tool tool, bool isChecked = false)
-            : base("", isChecked, 90)
+            : base("", isChecked, TaskPriority.ToolPickup)
         {
             this.ReadyTool = tool;
             this.Text = $"Pick up {tool.DisplayName} from Clint";

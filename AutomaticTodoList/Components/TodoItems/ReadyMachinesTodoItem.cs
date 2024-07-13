@@ -4,22 +4,22 @@ using StardewValley;
 
 namespace AutomaticTodoList.Components.TodoItems
 {
-    /// <summary>A HarvestableMachinesTodoItem todo item.</summary>
-    /// <remarks>Initializes a new instance of the <see cref="HarvestableMachinesTodoItem"/> class.</remarks>
+    /// <summary>A ReadyMachinesTodoItem todo item.</summary>
+    /// <remarks>Initializes a new instance of the <see cref="ReadyMachinesTodoItem"/> class.</remarks>
     /// <param name="text">The text of the todo item.</param>
-    internal class HarvestableMachinesTodoItem : BaseTodoItem
+    internal class ReadyMachinesTodoItem : BaseTodoItem
     {
         public readonly GameLocation Location;
 
-        private int RemainingMachinesCount { get; set; }
+        private int ReadyMachinesCount { get; set; }
 
-        public HarvestableMachinesTodoItem(
+        public ReadyMachinesTodoItem(
             GameLocation location,
             bool isChecked = false
-        ) : base("", isChecked, 30)
+        ) : base("", isChecked, TaskPriority.ReadyMachines)
         {
             this.Location = location;
-            this.RemainingMachinesCount = location.getNumberOfMachinesReadyForHarvest();
+            this.ReadyMachinesCount = location.getNumberOfMachinesReadyForHarvest();
 
             this.UpdateText();
         }
@@ -29,13 +29,13 @@ namespace AutomaticTodoList.Components.TodoItems
             if (IsChecked)
             {
                 var machineCount = this.Location.getNumberOfMachinesReadyForHarvest();
-                if (machineCount != this.RemainingMachinesCount)
+                if (machineCount != this.ReadyMachinesCount)
                 {
-                    this.RemainingMachinesCount = machineCount;
+                    this.ReadyMachinesCount = machineCount;
 
                     this.UpdateText();
 
-                    if (this.RemainingMachinesCount > 0)
+                    if (this.ReadyMachinesCount > 0)
                     {
                         this.MarkUncompleted();
                     }
@@ -48,13 +48,13 @@ namespace AutomaticTodoList.Components.TodoItems
             if (!IsChecked)
             {
                 var machineCount = this.Location.getNumberOfMachinesReadyForHarvest();
-                if (machineCount != this.RemainingMachinesCount)
+                if (machineCount != this.ReadyMachinesCount)
                 {
-                    this.RemainingMachinesCount = machineCount;
+                    this.ReadyMachinesCount = machineCount;
 
                     this.UpdateText();
 
-                    if (this.RemainingMachinesCount == 0)
+                    if (this.ReadyMachinesCount == 0)
                     {
                         this.MarkCompleted();
                     }
@@ -64,7 +64,7 @@ namespace AutomaticTodoList.Components.TodoItems
 
         public override bool Equals(object? obj)
         {
-            return obj is HarvestableMachinesTodoItem otherItem && this.Location.Name == otherItem.Location.Name;
+            return obj is ReadyMachinesTodoItem otherItem && this.Location.Name == otherItem.Location.Name;
         }
 
         public override int GetHashCode()
@@ -74,7 +74,7 @@ namespace AutomaticTodoList.Components.TodoItems
 
         private void UpdateText()
         {
-            this.Text = $"Harvest machines ({this.Location.GetDisplayName() ?? this.Location.Name}) ({this.RemainingMachinesCount} remaining)";
+            this.Text = $"Empty ready machines ({this.Location.GetDisplayName() ?? this.Location.Name}) ({this.ReadyMachinesCount} remaining)";
         }
 
 

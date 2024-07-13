@@ -10,7 +10,7 @@ namespace AutomaticTodoList.Models
 
         bool IsChecked { get; set; }
 
-        int Priority { get; set; }
+        TaskPriority Priority { get; set; }
 
         void OnDayStarted(DayStartedEventArgs e);
 
@@ -19,6 +19,8 @@ namespace AutomaticTodoList.Models
         void OnOneSecondUpdateTicked(OneSecondUpdateTickedEventArgs e);
 
         void OnUpdateTicked(UpdateTickedEventArgs e);
+
+        void OnMenuChanged(MenuChangedEventArgs e);
 
         void Draw(SpriteBatch b, Vector2 position);
 

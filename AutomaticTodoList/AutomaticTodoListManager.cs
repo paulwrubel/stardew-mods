@@ -92,7 +92,10 @@ namespace AutomaticTodoList
 
         internal void OnMenuChanged(MenuChangedEventArgs e)
         {
-            // Empty for now
+            foreach (IEngine engine in this.engines)
+            {
+                engine.OnMenuChanged(e);
+            }
         }
 
         private ICollection<ITodoItem> GatherItems()
@@ -114,7 +117,7 @@ namespace AutomaticTodoList
                     return checkedComp;
                 }
 
-                int priorityComp = -a.Priority.CompareTo(b.Priority);
+                int priorityComp = a.Priority.CompareTo(b.Priority);
                 if (priorityComp != 0)
                 {
                     return priorityComp;
@@ -136,14 +139,15 @@ namespace AutomaticTodoList
 
             this.engines.Clear();
 
-            this.engines.Add(new TestEngine(Log, () => false));
             this.engines.Add(new BirthdayEngine(Log, () => this.Config.CheckBirthdays));
-            this.engines.Add(new HarvestableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
-            this.engines.Add(new WaterableCropsEngine(Log, () => this.Config.CheckWaterableCrops));
-            this.engines.Add(new HarvestableMachinesEngine(Log, () => this.Config.CheckHarvestableMachines));
-            this.engines.Add(new ToolPickupEngine(Log, () => this.Config.CheckToolPickup));
             this.engines.Add(new BulletinBoardEngine(Log, () => this.Config.CheckDailyQuestBulletinBoard));
+            this.engines.Add(new HarvestableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
+            this.engines.Add(new ReadyMachinesEngine(Log, () => this.Config.CheckHarvestableMachines));
             this.engines.Add(new SpecialOrdersBoardEngine(Log, () => this.Config.CheckSpecialOrdersBoard));
+            this.engines.Add(new TestEngine(Log, () => false));
+            this.engines.Add(new ToolPickupEngine(Log, () => this.Config.CheckToolPickup));
+            this.engines.Add(new TravelingMerchantEngine(Log, () => this.Config.CheckTravelingMerchant));
+            this.engines.Add(new WaterableCropsEngine(Log, () => this.Config.CheckWaterableCrops));
         }
     }
 }
