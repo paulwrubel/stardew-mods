@@ -76,7 +76,5 @@ namespace AutomaticTodoList.Components.TodoItems
         {
             this.Text = $"Empty ready machines ({this.Location.GetDisplayName() ?? this.Location.Name}) ({this.ReadyMachinesCount} remaining)";
         }
-
-
     }
 }
