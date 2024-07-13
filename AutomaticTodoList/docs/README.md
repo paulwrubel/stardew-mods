@@ -24,6 +24,7 @@ Here is a list of currently supported tasks:
 - Tools ready for pickup
 - Checking the daily quest board outside Pierre's General Store
 - Checking the Special Orders Boards
+- Traveling Merchant's cart
 
 Each task type can be toggled off or on individually in the settings. All settings are fully compatible with Generic Mod Config Menu
 
