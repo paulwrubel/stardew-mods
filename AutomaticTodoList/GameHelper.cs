@@ -37,22 +37,14 @@ namespace AutomaticTodoList
 
     internal static class GameHelper
     {
-        public static IEnumerator<GameLocation?> EndlessLocationsEnumerator()
+        public static IEnumerator<GameLocation> LocationsEnumerator()
         {
-            while (true)
+            // copy the list in case the reference changes between enumerator steps
+            var locations = new List<GameLocation>(Game1.locations);
+
+            foreach (GameLocation location in locations)
             {
-                var locations = Game1.locations;
-                if (locations.Count == 0)
-                {
-                    yield return null;
-                }
-                else
-                {
-                    foreach (GameLocation location in Game1.locations)
-                    {
-                        yield return location;
-                    }
-                }
+                yield return location;
             }
         }
     }
