@@ -21,7 +21,7 @@ namespace AutomaticTodoList.Engines
                     return true;
                 }
 
-                int harvestableCount = gameLocation.getNumberOfMachinesReadyForHarvest();
+                int harvestableCount = gameLocation.GetNumberOfReadyMachinesExcludingBuildings();
                 if (harvestableCount > 0)
                 {
                     items.Add(new ReadyMachinesTodoItem(gameLocation));
