@@ -25,7 +25,7 @@ namespace AutomaticTodoList.Engines
 
             GameLocation thisLocation = locations.Current;
 
-            this.Log($"Checking waterable crops in {thisLocation.Name}", StardewModdingAPI.LogLevel.Debug);
+            this.Log($"Checking waterable crops in {thisLocation.Name}", StardewModdingAPI.LogLevel.Trace);
 
             int waterableCount = thisLocation.GetTotalUnwateredCropsExcludingGinger();
             if (waterableCount > 0)
