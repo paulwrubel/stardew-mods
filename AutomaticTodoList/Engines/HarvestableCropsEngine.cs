@@ -2,33 +2,32 @@ using AutomaticTodoList.Components.TodoItems;
 using AutomaticTodoList.Models;
 using StardewValley;
 
-namespace AutomaticTodoList.Engines
+namespace AutomaticTodoList.Engines;
+
+internal class HarvestableCropsEngine(
+    Action<string, StardewModdingAPI.LogLevel> log,
+    Func<bool> isEnabled
+) : BaseEngine<HarvestableCropsTodoItem>(log, isEnabled, Frequency.OnceADay)
 {
-    internal class HarvestableCropsEngine(
-        Action<string, StardewModdingAPI.LogLevel> log,
-        Func<bool> isEnabled
-    ) : BaseEngine<HarvestableCropsTodoItem>(log, isEnabled, Frequency.OnceADay)
+    public override void UpdateItems()
     {
-        public override void UpdateItems()
+        // check if there are harvestable crops in various locations
+        //
+        // this operation hurts, but it only happens once per day so it's mostly ok
+        Utility.ForEachLocation((gameLocation) =>
         {
-            // check if there are harvestable crops in various locations
-            //
-            // this operation hurts, but it only happens once per day so it's mostly ok
-            Utility.ForEachLocation((gameLocation) =>
+            if (gameLocation is null)
             {
-                if (gameLocation is null)
-                {
-                    return true;
-                }
-
-                int harvestableCount = gameLocation.getTotalCropsReadyForHarvest();
-                if (harvestableCount > 0)
-                {
-                    items.Add(new HarvestableCropsTodoItem(gameLocation));
-                }
-
                 return true;
-            });
-        }
+            }
+
+            int harvestableCount = gameLocation.getTotalCropsReadyForHarvest();
+            if (harvestableCount > 0)
+            {
+                items.Add(new HarvestableCropsTodoItem(gameLocation));
+            }
+
+            return true;
+        });
     }
 }
