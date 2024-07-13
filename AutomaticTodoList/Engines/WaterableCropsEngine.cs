@@ -2,36 +2,35 @@ using AutomaticTodoList.Components.TodoItems;
 using AutomaticTodoList.Models;
 using StardewValley;
 
-namespace AutomaticTodoList.Engines
+namespace AutomaticTodoList.Engines;
+
+internal class WaterableCropsEngine(
+    Action<string, StardewModdingAPI.LogLevel> log,
+    Func<bool> isEnabled
+) : BaseEngine<WaterableCropsTodoItem>(log, isEnabled, Frequency.EveryTick)
 {
-    internal class WaterableCropsEngine(
-        Action<string, StardewModdingAPI.LogLevel> log,
-        Func<bool> isEnabled
-    ) : BaseEngine<WaterableCropsTodoItem>(log, isEnabled, Frequency.EveryTick)
+    private IEnumerator<GameLocation>? locations = null;
+
+    public override void UpdateItems()
     {
-        private IEnumerator<GameLocation>? locations = null;
+        locations ??= GameHelper.LocationsEnumerator();
 
-        public override void UpdateItems()
+        // only try to check one location each update, for performance reasons
+        if (!locations.MoveNext() || locations.Current is null)
         {
-            locations ??= GameHelper.LocationsEnumerator();
+            // try again next time!
+            locations = null;
+            return;
+        }
 
-            // only try to check one location each update, for performance reasons
-            if (!locations.MoveNext() || locations.Current is null)
-            {
-                // try again next time!
-                locations = null;
-                return;
-            }
+        GameLocation thisLocation = locations.Current;
 
-            GameLocation thisLocation = locations.Current;
+        this.Log($"Checking waterable crops in {thisLocation.Name}", StardewModdingAPI.LogLevel.Trace);
 
-            this.Log($"Checking waterable crops in {thisLocation.Name}", StardewModdingAPI.LogLevel.Trace);
-
-            int waterableCount = thisLocation.GetTotalUnwateredCropsExcludingGinger();
-            if (waterableCount > 0)
-            {
-                items.Add(new WaterableCropsTodoItem(thisLocation));
-            }
+        int waterableCount = thisLocation.GetTotalUnwateredCropsExcludingGinger();
+        if (waterableCount > 0)
+        {
+            items.Add(new WaterableCropsTodoItem(thisLocation));
         }
     }
 }

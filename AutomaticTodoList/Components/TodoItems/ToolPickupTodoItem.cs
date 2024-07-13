@@ -2,41 +2,40 @@ using AutomaticTodoList.Models;
 using StardewModdingAPI.Events;
 using StardewValley;
 
-namespace AutomaticTodoList.Components.TodoItems
+namespace AutomaticTodoList.Components.TodoItems;
+
+/// <summary>A ToolPickupTodoItem todo item.</summary>
+/// <remarks>Initializes a new instance of the <see cref="ToolPickupTodoItem"/> class.</remarks>
+/// <param name="text">The text of the todo item.</param>
+internal class ToolPickupTodoItem : BaseTodoItem
 {
-    /// <summary>A ToolPickupTodoItem todo item.</summary>
-    /// <remarks>Initializes a new instance of the <see cref="ToolPickupTodoItem"/> class.</remarks>
-    /// <param name="text">The text of the todo item.</param>
-    internal class ToolPickupTodoItem : BaseTodoItem
+    private Item ReadyTool { get; set; }
+
+    public ToolPickupTodoItem(Tool tool, bool isChecked = false)
+        : base("", isChecked, TaskPriority.ToolPickup)
     {
-        private Item ReadyTool { get; set; }
+        this.ReadyTool = tool;
+        this.Text = $"Pick up {tool.DisplayName} from Clint";
+    }
 
-        public ToolPickupTodoItem(Tool tool, bool isChecked = false)
-            : base("", isChecked, TaskPriority.ToolPickup)
+    public override void OnUpdateTicked(UpdateTickedEventArgs e)
+    {
+        if (!IsChecked)
         {
-            this.ReadyTool = tool;
-            this.Text = $"Pick up {tool.DisplayName} from Clint";
-        }
-
-        public override void OnUpdateTicked(UpdateTickedEventArgs e)
-        {
-            if (!IsChecked)
+            if (Game1.player.toolBeingUpgraded.Value is null)
             {
-                if (Game1.player.toolBeingUpgraded.Value is null)
-                {
-                    this.MarkCompleted();
-                }
+                this.MarkCompleted();
             }
         }
+    }
 
-        public override bool Equals(object? obj)
-        {
-            return obj is ToolPickupTodoItem otherItem && this.ReadyTool.Name == otherItem.ReadyTool.Name;
-        }
+    public override bool Equals(object? obj)
+    {
+        return obj is ToolPickupTodoItem otherItem && this.ReadyTool.Name == otherItem.ReadyTool.Name;
+    }
 
-        public override int GetHashCode()
-        {
-            return (this.GetType(), this.ReadyTool.Name).GetHashCode();
-        }
+    public override int GetHashCode()
+    {
+        return (this.GetType(), this.ReadyTool.Name).GetHashCode();
     }
 }
