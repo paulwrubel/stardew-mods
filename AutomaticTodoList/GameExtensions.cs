@@ -1,6 +1,7 @@
 
 using StardewValley;
 using StardewValley.Locations;
+using StardewValley.Objects;
 using StardewValley.TerrainFeatures;
 
 namespace AutomaticTodoList;
@@ -10,10 +11,16 @@ internal static class GameExtensions
     public static int GetNumberOfReadyMachinesExcludingBuildings(this GameLocation location)
     {
         int num = 0;
-        foreach (StardewValley.Object value in location.objects.Values)
+        foreach (StardewValley.Object obj in location.objects.Values)
         {
-            if (value.IsConsideredReadyMachineForComputer())
+            if (obj.IsConsideredReadyMachineForComputer())
             {
+                if (obj is ItemPedestal itemPedestal && itemPedestal.isIslandShrinePedestal.Value)
+                {
+                    // skip if this is an island shrine pedestal
+                    continue;
+                }
+
                 num++;
             }
         }
