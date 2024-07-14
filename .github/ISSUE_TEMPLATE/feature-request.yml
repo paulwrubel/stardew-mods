@@ -1,7 +1,7 @@
 name: Feature Request
 description: Submit a feature request.
 title: "[MODNAME]: "
-labels: ["enhancement"]
+labels: ["enhancement", "unreviewed"]
 assignees:
   - paulwrubel
 body:
