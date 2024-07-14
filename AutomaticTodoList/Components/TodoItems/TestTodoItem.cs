@@ -20,6 +20,6 @@ internal class TestTodoItem(string text, bool isChecked = false)
 
     public override int GetHashCode()
     {
-        return (this.GetType(), text).GetHashCode();
+        return (this.GetType(), Text()).GetHashCode();
     }
 }
