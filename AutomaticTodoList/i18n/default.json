@@ -1,8 +1,10 @@
 {
+    // controls configuration section
     "config.controls.title": "Controls",
     "config.controls.toggle-keybind.name": "Toggle Automatic Todo List",
     "config.controls.toggle-keybind.description": "The keybind to toggle the Automatic Todo List panel.",
 
+    // checks configuration section
     "config.checks.title": "Checks",
     "config.checks.birthdays.name": "Check Birthdays",
     "config.checks.birthdays.description": "Whether or not to add todo items for gifting villagers on their birthdays",
@@ -21,8 +23,10 @@
     "config.checks.traveling-merchant.name": "Check Traveling Merchant",
     "config.checks.traveling-merchant.description": "Whether or not to add todo items to visit the Traveling Merchant's cart",
 
+    // title of the in-game todo list
     "panel-title": "Todo List",
 
+    // text of the actual line items on the in-game list
     "items.birthday.text": "Give {{npc}} a birthday gift",
     "items.bulletin-board.text": "Check the daily quest bulletin board",
     "items.harvestable-crops.text": "Harvest crops ({{location}}) ({{remaining}} remaining)",
@@ -32,5 +36,4 @@
     "items.tool-pickup.text": "Pick up {{tool}} from Clint",
     "items.traveling-merchant.text": "Visit the Traveling Merchant's cart",
     "items.waterable-crops.text": "Water crops ({{location}}) ({{remaining}} remaining)"
-
 }
