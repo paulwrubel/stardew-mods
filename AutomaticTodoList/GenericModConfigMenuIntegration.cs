@@ -60,59 +60,73 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: I18n.Config_Checks_Birthdays_Name,
-            tooltip: I18n.Config_Checks_Birthdays_Description,
+            name: I18n.Config_Checks_Birthdays_Toggle_Name,
+            tooltip: I18n.Config_Checks_Birthdays_Toggle_Description,
             getValue: () => this.Config.CheckBirthdays,
             setValue: value => this.Config.CheckBirthdays = value
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: I18n.Config_Checks_HarvestableCrops_Name,
-            tooltip: I18n.Config_Checks_HarvestableCrops_Description,
+            name: I18n.Config_Checks_HarvestableCrops_Toggle_Name,
+            tooltip: I18n.Config_Checks_HarvestableCrops_Toggle_Description,
             getValue: () => this.Config.CheckHarvestableCrops,
             setValue: value => this.Config.CheckHarvestableCrops = value
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: I18n.Config_Checks_WaterableCrops_Name,
-            tooltip: I18n.Config_Checks_WaterableCrops_Description,
+            name: I18n.Config_Checks_WaterableCrops_Toggle_Name,
+            tooltip: I18n.Config_Checks_WaterableCrops_Toggle_Description,
             getValue: () => this.Config.CheckWaterableCrops,
             setValue: value => this.Config.CheckWaterableCrops = value
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: I18n.Config_Checks_ReadyMachines_Name,
-            tooltip: I18n.Config_Checks_ReadyMachines_Description,
+            name: I18n.Config_Checks_ReadyMachines_Toggle_Name,
+            tooltip: I18n.Config_Checks_ReadyMachines_Toggle_Description,
             getValue: () => this.Config.CheckReadyMachines,
             setValue: value => this.Config.CheckReadyMachines = value
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: I18n.Config_Checks_ToolPickup_Name,
-            tooltip: I18n.Config_Checks_ToolPickup_Description,
+            name: I18n.Config_Checks_ToolPickup_Toggle_Name,
+            tooltip: I18n.Config_Checks_ToolPickup_Toggle_Description,
             getValue: () => this.Config.CheckToolPickup,
             setValue: value => this.Config.CheckToolPickup = value
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: I18n.Config_Checks_BulletinBoard_Name,
-            tooltip: I18n.Config_Checks_BulletinBoard_Description,
+            name: I18n.Config_Checks_BulletinBoard_Toggle_Name,
+            tooltip: I18n.Config_Checks_BulletinBoard_Toggle_Description,
             getValue: () => this.Config.CheckDailyQuestBulletinBoard,
             setValue: value => this.Config.CheckDailyQuestBulletinBoard = value
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: I18n.Config_Checks_SpecialOrdersBoard_Name,
-            tooltip: I18n.Config_Checks_SpecialOrdersBoard_Description,
+            name: I18n.Config_Checks_SpecialOrdersBoard_Toggle_Name,
+            tooltip: I18n.Config_Checks_SpecialOrdersBoard_Toggle_Description,
             getValue: () => this.Config.CheckSpecialOrdersBoard,
             setValue: value => this.Config.CheckSpecialOrdersBoard = value
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: I18n.Config_Checks_TravelingMerchant_Name,
-            tooltip: I18n.Config_Checks_TravelingMerchant_Description,
+            name: I18n.Config_Checks_TravelingMerchant_Toggle_Name,
+            tooltip: I18n.Config_Checks_TravelingMerchant_Toggle_Description,
             getValue: () => this.Config.CheckTravelingMerchant,
             setValue: value => this.Config.CheckTravelingMerchant = value
+        );
+        configMenu.AddBoolOption(
+            mod: this.Manifest,
+            name: I18n.Config_Checks_GiftingNpcs_Toggle_Name,
+            tooltip: I18n.Config_Checks_GiftingNpcs_Toggle_Description,
+            getValue: () => this.Config.CheckGiftingNPCs,
+            setValue: value => this.Config.CheckGiftingNPCs = value
+        );
+        configMenu.AddTextOption(
+            mod: this.Manifest,
+            name: I18n.Config_Checks_GiftingNpcs_Npcs_Name,
+            tooltip: I18n.Config_Checks_GiftingNpcs_Npcs_Description,
+            getValue: () => this.Config.GiftingNPCsString,
+            setValue: value => this.Config.GiftingNPCsString = value
         );
 
         if (this.Update is not null)
@@ -143,5 +157,6 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
         this.Config.CheckDailyQuestBulletinBoard = defaults.CheckDailyQuestBulletinBoard;
         this.Config.CheckSpecialOrdersBoard = defaults.CheckSpecialOrdersBoard;
         this.Config.CheckTravelingMerchant = defaults.CheckTravelingMerchant;
+        this.Config.CheckGiftingNPCs = defaults.CheckGiftingNPCs;
     }
 }

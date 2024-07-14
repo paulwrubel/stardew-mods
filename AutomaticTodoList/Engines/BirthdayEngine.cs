@@ -9,13 +9,12 @@ internal class BirthdayEngine(
     Func<bool> isEnabled
 ) : BaseEngine<BirthdayTodoItem>(log, isEnabled, Frequency.OnceADay)
 {
-
     public override void UpdateItems()
     {
         // check if it is anyone's birthday today
         Utility.ForEachCharacter((npc) =>
         {
-            if (!npc.isBirthday())
+            if (!npc.CanReceiveGifts() || !npc.isBirthday())
             {
                 return true;
             }

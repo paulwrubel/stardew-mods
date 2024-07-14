@@ -8,6 +8,7 @@ public enum TaskPriority
     ReadyMachines,
     HarvestableCrops,
     WaterableCrops,
+    Gifting,
     TravelingMerchant,
     SpecialOrders,
     BulletinBoard,

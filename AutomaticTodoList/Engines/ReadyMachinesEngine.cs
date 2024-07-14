@@ -9,7 +9,6 @@ internal class ReadyMachinesEngine(
     Func<bool> isEnabled
 ) : BaseEngine<ReadyMachinesTodoItem>(log, isEnabled, Frequency.EveryTimeChange)
 {
-
     public override void UpdateItems()
     {
         // check if there are harvestable machine in various locations

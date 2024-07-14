@@ -10,16 +10,11 @@ internal abstract class BaseEngine<T>(
     Frequency resetFrequency = Frequency.OnceADay
 ) : IEngine where T : ITodoItem
 {
-
-    public bool Debug { get; set; } = false;
-
-    public Func<bool> IsEnabled { get; } = isEnabled;
-
     protected readonly HashSet<T> items = [];
-    public IEnumerable<ITodoItem> Items
-    {
-        get => (IEnumerable<ITodoItem>)items;
-    }
+
+    public virtual bool IsEnabled() => isEnabled();
+
+    public virtual IEnumerable<ITodoItem> Items() => (IEnumerable<ITodoItem>)items;
 
     public abstract void UpdateItems();
 

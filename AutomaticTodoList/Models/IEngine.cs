@@ -4,9 +4,9 @@ namespace AutomaticTodoList.Models;
 
 public interface IEngine
 {
-    Func<bool> IsEnabled { get; }
+    bool IsEnabled();
 
-    IEnumerable<ITodoItem> Items { get; }
+    IEnumerable<ITodoItem> Items();
 
     void UpdateItems();
 

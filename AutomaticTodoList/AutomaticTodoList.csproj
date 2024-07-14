@@ -4,11 +4,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>12.0</LangVersion>
+    <ModZipPath>./_releases</ModZipPath>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.1.1" />
     <PackageReference Include="Pathoschild.Stardew.ModTranslationClassBuilder" Version="2.1.0" />
   </ItemGroup>
-
 </Project>
