@@ -22,6 +22,7 @@
     "config.checks.special-orders-board.description": "是否为 接受特别订单板上特别订单 添加待办事项",
     "config.checks.traveling-merchant.name": "检查旅行商人",
     "config.checks.traveling-merchant.description": "是否为 访问旅行商人的货车 添加待办事项",
+
     // title of the in-game todo list
     "panel-title": "待办事项",
 
