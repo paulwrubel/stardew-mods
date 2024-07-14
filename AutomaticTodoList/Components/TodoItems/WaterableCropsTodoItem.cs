@@ -7,19 +7,19 @@ namespace AutomaticTodoList.Components.TodoItems;
 /// <summary>A WaterableCropsTodoItem todo item.</summary>
 /// <remarks>Initializes a new instance of the <see cref="WaterableCropsTodoItem"/> class.</remarks>
 /// <param name="text">The text of the todo item.</param>
-internal class WaterableCropsTodoItem : BaseTodoItem
+internal class WaterableCropsTodoItem(GameLocation location, bool isChecked = false)
+    : BaseTodoItem(isChecked, TaskPriority.WaterableCrops)
 {
-    internal readonly GameLocation Location;
+    internal readonly GameLocation Location = location;
 
-    private int RemainingUnwateredCount { get; set; }
+    private int RemainingUnwateredCount { get; set; } = location.getTotalUnwateredCrops();
 
-    public WaterableCropsTodoItem(GameLocation location, bool isChecked = false)
-        : base("", isChecked, TaskPriority.WaterableCrops)
+    public override string Text()
     {
-        this.Location = location;
-        this.RemainingUnwateredCount = location.getTotalUnwateredCrops();
-
-        this.UpdateText();
+        return I18n.Items_WaterableCrops_Text(
+            this.Location.GetDisplayName() ?? this.Location.Name,
+            this.RemainingUnwateredCount
+        );
     }
 
     public override void OnOneSecondUpdateTicked(OneSecondUpdateTickedEventArgs e)
@@ -30,8 +30,6 @@ internal class WaterableCropsTodoItem : BaseTodoItem
             if (unwateredCount != this.RemainingUnwateredCount)
             {
                 this.RemainingUnwateredCount = unwateredCount;
-
-                this.UpdateText();
 
                 if (this.RemainingUnwateredCount == 0)
                 {
@@ -49,10 +47,5 @@ internal class WaterableCropsTodoItem : BaseTodoItem
     public override int GetHashCode()
     {
         return (this.GetType(), this.Location.Name).GetHashCode();
-    }
-
-    private void UpdateText()
-    {
-        this.Text = $"Water crops ({this.Location.GetDisplayName() ?? this.Location.Name}) ({this.RemainingUnwateredCount} remaining)";
     }
 }

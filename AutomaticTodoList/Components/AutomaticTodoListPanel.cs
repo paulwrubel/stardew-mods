@@ -10,9 +10,7 @@ namespace AutomaticTodoList.Components;
 /// <remarks>Initializes a new instance of the <see cref="AutomaticTodoListPanel"/> class.</remarks>
 internal class AutomaticTodoListPanel(Vector2 position, Func<ICollection<ITodoItem>> getItems) : IClickableMenu
 {
-    private static string TitleText { get; } = "Todo List";
-
-    private static string DividerText { get; } = "----------";
+    private static string TitleText { get; } = I18n.PanelTitle();
 
     private Vector2 BoxPosition = position;
     private readonly int GutterLength = 4 * Game1.pixelZoom;
@@ -29,7 +27,7 @@ internal class AutomaticTodoListPanel(Vector2 position, Func<ICollection<ITodoIt
         int maxWidth = (int)spriteFont.MeasureString(TitleText).X;
         foreach (ITodoItem item in items)
         {
-            int todoItemWidth = (int)spriteFont.MeasureString(item.Text).X;
+            int todoItemWidth = (int)spriteFont.MeasureString(item.Text()).X;
             if (todoItemWidth > maxWidth)
             {
                 maxWidth = todoItemWidth;
@@ -98,7 +96,7 @@ internal class AutomaticTodoListPanel(Vector2 position, Func<ICollection<ITodoIt
         foreach (ITodoItem item in items)
         {
             item.Draw(spriteBatch, currentPosition);
-            currentPosition.Y += (int)spriteFont.MeasureString(item.Text).Y + this.LineSpacing;
+            currentPosition.Y += (int)spriteFont.MeasureString(item.Text()).Y + this.LineSpacing;
         }
     }
 }

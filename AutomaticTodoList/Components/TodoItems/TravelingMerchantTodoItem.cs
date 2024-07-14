@@ -9,8 +9,13 @@ namespace AutomaticTodoList.Components.TodoItems;
 /// <remarks>Initializes a new instance of the <see cref="TravelingMerchantTodoItem"/> class.</remarks>
 /// <param name="text">The text of the todo item.</param>
 internal class TravelingMerchantTodoItem(bool isChecked = false)
-    : BaseTodoItem("Visit the traveling merchant", isChecked, TaskPriority.TravelingMerchant)
+    : BaseTodoItem(isChecked, TaskPriority.TravelingMerchant)
 {
+    public override string Text()
+    {
+        return I18n.Items_TravelingMerchant_Text();
+    }
+
     public override void OnMenuChanged(MenuChangedEventArgs e)
     {
         if (!IsChecked)

@@ -7,14 +7,14 @@ namespace AutomaticTodoList.Components.TodoItems;
 /// <summary>A BulletinBoardTodoItem todo item.</summary>
 /// <remarks>Initializes a new instance of the <see cref="BulletinBoardTodoItem"/> class.</remarks>
 /// <param name="text">The text of the todo item.</param>
-internal class BulletinBoardTodoItem(
-    bool isChecked = false
-) : BaseTodoItem(
-    "Check the daily quest bulletin board",
-    isChecked,
-    TaskPriority.BulletinBoard
-)
+internal class BulletinBoardTodoItem(bool isChecked = false)
+    : BaseTodoItem(isChecked, TaskPriority.BulletinBoard)
 {
+    public override string Text()
+    {
+        return I18n.Items_BulletinBoard_Text();
+    }
+
     public override void OnUpdateTicked(UpdateTickedEventArgs e)
     {
         if (!IsChecked)

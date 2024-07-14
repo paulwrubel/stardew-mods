@@ -6,11 +6,11 @@ namespace AutomaticTodoList.Models;
 
 public interface ITodoItem
 {
-    string Text { get; set; }
-
     bool IsChecked { get; set; }
 
     TaskPriority Priority { get; set; }
+
+    string Text();
 
     void OnDayStarted(DayStartedEventArgs e);
 

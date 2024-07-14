@@ -7,19 +7,19 @@ namespace AutomaticTodoList.Components.TodoItems;
 /// <summary>A HarvestableCropsTodoItem todo item.</summary>
 /// <remarks>Initializes a new instance of the <see cref="HarvestableCropsTodoItem"/> class.</remarks>
 /// <param name="text">The text of the todo item.</param>
-internal class HarvestableCropsTodoItem : BaseTodoItem
+internal class HarvestableCropsTodoItem(GameLocation location, bool isChecked = false)
+    : BaseTodoItem(isChecked, TaskPriority.HarvestableCrops)
 {
-    internal readonly GameLocation Location;
+    internal readonly GameLocation Location = location;
 
-    private int RemainingHarvestCount { get; set; }
+    private int RemainingHarvestCount { get; set; } = location.getTotalCropsReadyForHarvest();
 
-    public HarvestableCropsTodoItem(GameLocation location, bool isChecked = false)
-        : base("", isChecked, TaskPriority.HarvestableCrops)
+    public override string Text()
     {
-        this.Location = location;
-        this.RemainingHarvestCount = location.getTotalCropsReadyForHarvest();
-
-        this.UpdateText();
+        return I18n.Items_HarvestableCrops_Text(
+            this.Location.GetDisplayName() ?? this.Location.Name,
+            this.RemainingHarvestCount
+        );
     }
 
     public override void OnUpdateTicked(UpdateTickedEventArgs e)
@@ -30,8 +30,6 @@ internal class HarvestableCropsTodoItem : BaseTodoItem
             if (unharvestedCount != this.RemainingHarvestCount)
             {
                 this.RemainingHarvestCount = unharvestedCount;
-
-                this.UpdateText();
 
                 if (this.RemainingHarvestCount == 0)
                 {
@@ -49,10 +47,5 @@ internal class HarvestableCropsTodoItem : BaseTodoItem
     public override int GetHashCode()
     {
         return (this.GetType(), this.Location.Name).GetHashCode();
-    }
-
-    private void UpdateText()
-    {
-        this.Text = $"Harvest crops ({this.Location.GetDisplayName() ?? this.Location.Name}) ({this.RemainingHarvestCount} remaining)";
     }
 }
