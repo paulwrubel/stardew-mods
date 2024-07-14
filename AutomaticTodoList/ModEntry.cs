@@ -21,6 +21,8 @@ internal sealed class ModEntry : Mod
     /// <param name="helper">Provides simplified APIs for writing mods.</param>
     public override void Entry(IModHelper helper)
     {
+        I18n.Init(helper.Translation);
+
         this.Config = Helper.ReadConfig<ModConfig>();
         this.AutomaticTodoListManager = new(this.Config, this.Monitor.Log);
 

@@ -1,0 +1,36 @@
+{
+    "config.controls.title": "Controls",
+    "config.controls.toggle-keybind.name": "Toggle Automatic Todo List",
+    "config.controls.toggle-keybind.description": "The keybind to toggle the Automatic Todo List panel.",
+
+    "config.checks.title": "Checks",
+    "config.checks.birthdays.name": "Check Birthdays",
+    "config.checks.birthdays.description": "Whether or not to add todo items for gifting villagers on their birthdays",
+    "config.checks.harvestable-crops.name": "Check Harvestable Crops",
+    "config.checks.harvestable-crops.description": "Whether or not to add items for harvesting crops in various locations",
+    "config.checks.waterable-crops.name": "Check Waterable Crops",
+    "config.checks.waterable-crops.description": "Whether or not to add items for watering crops in various locations",
+    "config.checks.ready-machines.name": "Check Ready Machines",
+    "config.checks.ready-machines.description": "Whether or not to add items for emptying ready machines in various locations",
+    "config.checks.tool-pickup.name": "Check Tool Pickup",
+    "config.checks.tool-pickup.description": "Whether or not to add items for picking up upgraded tools from Clint",
+    "config.checks.bulletin-board.name": "Check Bulletin Board",
+    "config.checks.bulletin-board.description": "Whether or not to add todo items to accept the daily quest from the bulletin board outside Pierre's General Store",
+    "config.checks.special-orders-board.name": "Check Special Orders Boards",
+    "config.checks.special-orders-board.description": "Whether or not to add todo items to accept special orders from special orders boards",
+    "config.checks.traveling-merchant.name": "Check Traveling Merchant",
+    "config.checks.traveling-merchant.description": "Whether or not to add todo items to visit the Traveling Merchant's cart",
+
+    "panel-title": "Todo List",
+
+    "items.birthday.text": "Give {{npc}} a birthday gift",
+    "items.bulletin-board.text": "Check the daily quest bulletin board",
+    "items.harvestable-crops.text": "Harvest crops ({{location}}) ({{remaining}} remaining)",
+    "items.ready-machines.text": "Empty ready machines ({{location}}) ({{remaining}} remaining)",
+    "items.special-orders-board.standard.text": "Check the special orders board in town",
+    "items.special-orders-board.qi.text": "Check the special orders board in Mr. Qi's Walnut Room",
+    "items.tool-pickup.text": "Pick up {{tool}} from Clint",
+    "items.traveling-merchant.text": "Visit the Traveling Merchant's cart",
+    "items.waterable-crops.text": "Water crops ({{location}}) ({{remaining}} remaining)"
+
+}

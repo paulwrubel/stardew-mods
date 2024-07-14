@@ -5,7 +5,7 @@ namespace AutomaticTodoList;
 
 /// <summary>Registers the mod configuration with Generic Mod Config Menu.</summary>
 /// <remarks>Construct an instance.</remarks>
-/// <param name="manifest">The CJB Cheats Menu manifest.</param>
+/// <param name="manifest">The Automatic Todo List manifest.</param>
 /// <param name="modRegistry">An API for fetching metadata about loaded mods.</param>
 /// <param name="config">Get the current mod config.</param>
 /// <param name="save">Save the mod's current config to the <c>config.json</c> file.</param>
@@ -14,7 +14,7 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
     /*********
     ** Fields
     *********/
-    /// <summary>The CJB Cheats Menu manifest.</summary>
+    /// <summary>The Automatic Todo List manifest.</summary>
     private readonly IManifest Manifest = manifest;
 
     /// <summary>The Generic Mod Config Menu integration.</summary>
@@ -43,12 +43,12 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
         // controls
         configMenu.AddSectionTitle(
             mod: this.Manifest,
-            text: () => "Controls"
+            text: I18n.Config_Controls_Title
         );
         configMenu.AddKeybindList(
             mod: this.Manifest,
-            name: () => "Toggle Automatic Todo List",
-            tooltip: () => "Start or stop displaying the automatic todo list panel in the HUD",
+            name: I18n.Config_Controls_ToggleKeybind_Name,
+            tooltip: I18n.Config_Controls_ToggleKeybind_Description,
             getValue: () => this.Config.ToggleTodoList,
             setValue: value => this.Config.ToggleTodoList = value
         );
@@ -56,61 +56,61 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
         // engines
         configMenu.AddSectionTitle(
             mod: this.Manifest,
-            text: () => "Checks"
+            text: I18n.Config_Checks_Title
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: () => "Check Birthdays",
-            tooltip: () => "Whether or not to add todo items for gifting villagers on their birthdays",
+            name: I18n.Config_Checks_Birthdays_Name,
+            tooltip: I18n.Config_Checks_Birthdays_Description,
             getValue: () => this.Config.CheckBirthdays,
             setValue: value => this.Config.CheckBirthdays = value
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: () => "Check Harvestable Crops",
-            tooltip: () => "Whether or not to add items for harvesting crops in various locations",
+            name: I18n.Config_Checks_HarvestableCrops_Name,
+            tooltip: I18n.Config_Checks_HarvestableCrops_Description,
             getValue: () => this.Config.CheckHarvestableCrops,
             setValue: value => this.Config.CheckHarvestableCrops = value
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: () => "Check Waterable Crops",
-            tooltip: () => "Whether or not to add items for watering crops in various locations",
+            name: I18n.Config_Checks_WaterableCrops_Name,
+            tooltip: I18n.Config_Checks_WaterableCrops_Description,
             getValue: () => this.Config.CheckWaterableCrops,
             setValue: value => this.Config.CheckWaterableCrops = value
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: () => "Check Harvestable Machines",
-            tooltip: () => "Whether or not to add items for harvesting machines in various locations",
-            getValue: () => this.Config.CheckHarvestableMachines,
-            setValue: value => this.Config.CheckHarvestableMachines = value
+            name: I18n.Config_Checks_ReadyMachines_Name,
+            tooltip: I18n.Config_Checks_ReadyMachines_Description,
+            getValue: () => this.Config.CheckReadyMachines,
+            setValue: value => this.Config.CheckReadyMachines = value
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: () => "Check Tools Pickup",
-            tooltip: () => "Whether or not to add items for picking up upgraded tools from Clint",
+            name: I18n.Config_Checks_ToolPickup_Name,
+            tooltip: I18n.Config_Checks_ToolPickup_Description,
             getValue: () => this.Config.CheckToolPickup,
             setValue: value => this.Config.CheckToolPickup = value
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: () => "Check Bulletin Board",
-            tooltip: () => "Whether or not to add todo items to accept the daily quest from the bulletin board outside Pierre's General Store",
+            name: I18n.Config_Checks_BulletinBoard_Name,
+            tooltip: I18n.Config_Checks_BulletinBoard_Description,
             getValue: () => this.Config.CheckDailyQuestBulletinBoard,
             setValue: value => this.Config.CheckDailyQuestBulletinBoard = value
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: () => "Check Special Orders Boards",
-            tooltip: () => "Whether or not to add todo items to accept special orders from special orders boards",
+            name: I18n.Config_Checks_SpecialOrdersBoard_Name,
+            tooltip: I18n.Config_Checks_SpecialOrdersBoard_Description,
             getValue: () => this.Config.CheckSpecialOrdersBoard,
             setValue: value => this.Config.CheckSpecialOrdersBoard = value
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
-            name: () => "Check Traveling Merchant",
-            tooltip: () => "Whether or not to add todo items to visit the Traveling Merchant's cart",
+            name: I18n.Config_Checks_TravelingMerchant_Name,
+            tooltip: I18n.Config_Checks_TravelingMerchant_Description,
             getValue: () => this.Config.CheckTravelingMerchant,
             setValue: value => this.Config.CheckTravelingMerchant = value
         );
@@ -138,7 +138,10 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
         this.Config.CheckBirthdays = defaults.CheckBirthdays;
         this.Config.CheckHarvestableCrops = defaults.CheckHarvestableCrops;
         this.Config.CheckWaterableCrops = defaults.CheckWaterableCrops;
-        this.Config.CheckHarvestableMachines = defaults.CheckHarvestableMachines;
+        this.Config.CheckReadyMachines = defaults.CheckReadyMachines;
         this.Config.CheckToolPickup = defaults.CheckToolPickup;
+        this.Config.CheckDailyQuestBulletinBoard = defaults.CheckDailyQuestBulletinBoard;
+        this.Config.CheckSpecialOrdersBoard = defaults.CheckSpecialOrdersBoard;
+        this.Config.CheckTravelingMerchant = defaults.CheckTravelingMerchant;
     }
 }

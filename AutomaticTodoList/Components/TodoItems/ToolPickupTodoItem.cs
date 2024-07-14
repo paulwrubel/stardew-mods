@@ -7,15 +7,14 @@ namespace AutomaticTodoList.Components.TodoItems;
 /// <summary>A ToolPickupTodoItem todo item.</summary>
 /// <remarks>Initializes a new instance of the <see cref="ToolPickupTodoItem"/> class.</remarks>
 /// <param name="text">The text of the todo item.</param>
-internal class ToolPickupTodoItem : BaseTodoItem
+internal class ToolPickupTodoItem(Tool tool, bool isChecked = false)
+    : BaseTodoItem(isChecked, TaskPriority.ToolPickup)
 {
-    private Item ReadyTool { get; set; }
+    private Item ReadyTool { get; } = tool;
 
-    public ToolPickupTodoItem(Tool tool, bool isChecked = false)
-        : base("", isChecked, TaskPriority.ToolPickup)
+    public override string Text()
     {
-        this.ReadyTool = tool;
-        this.Text = $"Pick up {tool.DisplayName} from Clint";
+        return I18n.Items_ToolPickup_Text(this.ReadyTool.DisplayName);
     }
 
     public override void OnUpdateTicked(UpdateTickedEventArgs e)

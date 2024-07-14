@@ -121,7 +121,7 @@ internal sealed class AutomaticTodoListManager
                 return priorityComp;
             }
 
-            return a.Text.CompareTo(b.Text);
+            return a.Text().CompareTo(b.Text());
         });
 
         return allItems;
@@ -140,7 +140,7 @@ internal sealed class AutomaticTodoListManager
         this.engines.Add(new BirthdayEngine(Log, () => this.Config.CheckBirthdays));
         this.engines.Add(new BulletinBoardEngine(Log, () => this.Config.CheckDailyQuestBulletinBoard));
         this.engines.Add(new HarvestableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
-        this.engines.Add(new ReadyMachinesEngine(Log, () => this.Config.CheckHarvestableMachines));
+        this.engines.Add(new ReadyMachinesEngine(Log, () => this.Config.CheckReadyMachines));
         this.engines.Add(new SpecialOrdersBoardEngine(Log, () => this.Config.CheckSpecialOrdersBoard));
         this.engines.Add(new TestEngine(Log, () => false));
         this.engines.Add(new ToolPickupEngine(Log, () => this.Config.CheckToolPickup));

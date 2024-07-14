@@ -7,21 +7,19 @@ namespace AutomaticTodoList.Components.TodoItems;
 /// <summary>A ReadyMachinesTodoItem todo item.</summary>
 /// <remarks>Initializes a new instance of the <see cref="ReadyMachinesTodoItem"/> class.</remarks>
 /// <param name="text">The text of the todo item.</param>
-internal class ReadyMachinesTodoItem : BaseTodoItem
+internal class ReadyMachinesTodoItem(GameLocation location, bool isChecked = false)
+    : BaseTodoItem(isChecked, TaskPriority.ReadyMachines)
 {
-    public readonly GameLocation Location;
+    public readonly GameLocation Location = location;
 
-    private int ReadyMachinesCount { get; set; }
+    private int ReadyMachinesCount { get; set; } = location.GetNumberOfReadyMachinesExcludingBuildings();
 
-    public ReadyMachinesTodoItem(
-        GameLocation location,
-        bool isChecked = false
-    ) : base("", isChecked, TaskPriority.ReadyMachines)
+    public override string Text()
     {
-        this.Location = location;
-        this.ReadyMachinesCount = location.GetNumberOfReadyMachinesExcludingBuildings();
-
-        this.UpdateText();
+        return I18n.Items_ReadyMachines_Text(
+            this.Location.GetDisplayName() ?? this.Location.Name,
+            this.ReadyMachinesCount
+        );
     }
 
     public override void OnTimeChanged(TimeChangedEventArgs e)
@@ -32,8 +30,6 @@ internal class ReadyMachinesTodoItem : BaseTodoItem
             if (machineCount != this.ReadyMachinesCount)
             {
                 this.ReadyMachinesCount = machineCount;
-
-                this.UpdateText();
 
                 if (this.ReadyMachinesCount > 0)
                 {
@@ -52,8 +48,6 @@ internal class ReadyMachinesTodoItem : BaseTodoItem
             {
                 this.ReadyMachinesCount = machineCount;
 
-                this.UpdateText();
-
                 if (this.ReadyMachinesCount == 0)
                 {
                     this.MarkCompleted();
@@ -70,10 +64,5 @@ internal class ReadyMachinesTodoItem : BaseTodoItem
     public override int GetHashCode()
     {
         return (this.GetType(), this.Location.Name).GetHashCode();
-    }
-
-    private void UpdateText()
-    {
-        this.Text = $"Empty ready machines ({this.Location.GetDisplayName() ?? this.Location.Name}) ({this.ReadyMachinesCount} remaining)";
     }
 }

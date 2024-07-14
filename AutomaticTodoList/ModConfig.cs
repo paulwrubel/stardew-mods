@@ -13,7 +13,7 @@ public sealed class ModConfig
 
     public bool CheckWaterableCrops { get; set; } = true;
 
-    public bool CheckHarvestableMachines { get; set; } = true;
+    public bool CheckReadyMachines { get; set; } = true;
 
     public bool CheckToolPickup { get; set; } = true;
 

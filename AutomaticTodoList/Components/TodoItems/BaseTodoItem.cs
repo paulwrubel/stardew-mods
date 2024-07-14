@@ -10,15 +10,10 @@ namespace AutomaticTodoList.Components.TodoItems;
 /// <remarks>Initializes a new instance of the <see cref="BaseTodoItem"/> class.</remarks>
 /// <param name="text">The text of the todo item.</param>
 internal abstract class BaseTodoItem(
-    string text,
     bool isChecked = false,
     TaskPriority priority = TaskPriority.Default
 ) : ITodoItem
 {
-
-    /// <summary>The text of the todo item.</summary>
-    public string Text { get; set; } = text;
-
     /// <summary>The checkbox state of the todo item.</summary>
     public bool IsChecked { get; set; } = isChecked;
 
@@ -34,6 +29,8 @@ internal abstract class BaseTodoItem(
 
     /// <summary>A blank pixel which can be colorized and stretched to draw geometric shapes.</summary>
     public static Texture2D Pixel => LazyPixel.Value;
+
+    public abstract string Text();
 
     public virtual void MarkCompleted()
     {
@@ -63,13 +60,13 @@ internal abstract class BaseTodoItem(
         if (!this.IsChecked)
         {
             // Utility.drawBoldText(b, Text, font, position, textColor);
-            Utility.drawTextWithShadow(b, Text, font, position, textColor);
+            Utility.drawTextWithShadow(b, Text(), font, position, textColor);
         }
         else
         {
-            Utility.drawTextWithShadow(b, Text, font, position, textColor);
+            Utility.drawTextWithShadow(b, Text(), font, position, textColor);
 
-            Vector2 textSize = font.MeasureString(this.Text);
+            Vector2 textSize = font.MeasureString(Text());
             b.Draw(
                 Pixel,
                 new Rectangle(
