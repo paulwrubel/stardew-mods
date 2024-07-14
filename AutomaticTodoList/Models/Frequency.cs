@@ -6,4 +6,5 @@ public enum Frequency
     EveryTimeChange,
     EverySecond,
     EveryTick,
+    EveryConfigChange,
 }

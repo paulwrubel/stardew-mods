@@ -4,6 +4,7 @@ using AutomaticTodoList.Engines;
 using AutomaticTodoList.Models;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.Extensions;
 
 namespace AutomaticTodoList;
 
@@ -102,7 +103,7 @@ internal sealed class AutomaticTodoListManager
         {
             if (engine.IsEnabled())
             {
-                accumulatedItems.AddRange(engine.Items);
+                accumulatedItems.AddRange(engine.Items());
             }
             return accumulatedItems;
         });
@@ -139,6 +140,7 @@ internal sealed class AutomaticTodoListManager
 
         this.engines.Add(new BirthdayEngine(Log, () => this.Config.CheckBirthdays));
         this.engines.Add(new BulletinBoardEngine(Log, () => this.Config.CheckDailyQuestBulletinBoard));
+        this.engines.Add(new GiftingEngine(Log, () => this.Config.CheckGiftingNPCs, () => this.Config.GiftingNPCsString));
         this.engines.Add(new HarvestableCropsEngine(Log, () => this.Config.CheckHarvestableCrops));
         this.engines.Add(new ReadyMachinesEngine(Log, () => this.Config.CheckReadyMachines));
         this.engines.Add(new SpecialOrdersBoardEngine(Log, () => this.Config.CheckSpecialOrdersBoard));
