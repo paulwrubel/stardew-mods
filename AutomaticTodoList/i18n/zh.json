@@ -1,0 +1,38 @@
+{
+    // controls configuration section
+    "config.controls.title": "控制",
+    "config.controls.toggle-keybind.name": "切换自动待办事项列表",
+    "config.controls.toggle-keybind.description": "用于切换自动待办事项列表面板的快捷键。",
+
+    // checks configuration section
+    "config.checks.title": "检查",
+    "config.checks.birthdays.name": "检查生日",
+    "config.checks.birthdays.description": "是否为 村民生日时赠送礼物 添加待办事项",
+    "config.checks.harvestable-crops.name": "检查可收获的作物",
+    "config.checks.harvestable-crops.description": "是否为 在不同地点收获作物 添加待办事项事项",
+    "config.checks.waterable-crops.name": "检查可浇水的作物",
+    "config.checks.waterable-crops.description": "是否为 在不同地点给作物浇水 添加待办事项事项",
+    "config.checks.ready-machines.name": "检查完工的机器",
+    "config.checks.ready-machines.description": "是否为 在不同地点采收完工机器 添加待办事项事项",
+    "config.checks.tool-pickup.name": "检查工具领取",
+    "config.checks.tool-pickup.description": "是否为 从克林特处领取升级工具 添加待办事项事项",
+    "config.checks.bulletin-board.name": "检查公告板",
+    "config.checks.bulletin-board.description": "是否为 接受皮埃尔杂货店外公告板上日常任务 添加待办事项",
+    "config.checks.special-orders-board.name": "检查特别订单板",
+    "config.checks.special-orders-board.description": "是否为 接受特别订单板上特别订单 添加待办事项",
+    "config.checks.traveling-merchant.name": "检查旅行商人",
+    "config.checks.traveling-merchant.description": "是否为 访问旅行商人的货车 添加待办事项",
+    // title of the in-game todo list
+    "panel-title": "待办事项",
+
+    // text of the actual line items on the in-game list
+    "items.birthday.text": "给 {{npc}} 送生日礼物",
+    "items.bulletin-board.text": "查看每日任务公告板",
+    "items.harvestable-crops.text": "收获作物（{{location}}），还剩 {{remaining}} 个",
+    "items.ready-machines.text": "采收完工的机器（{{location}}），还剩 {{remaining}} 个",
+    "items.special-orders-board.standard.text": "查看城镇中的特别订单看板",
+    "items.special-orders-board.qi.text": "查看 Mr. Qi 的核桃房中的特别订单看板",
+    "items.tool-pickup.text": "从克林特处领取 {{tool}}",
+    "items.traveling-merchant.text": "访问旅行商人的货车",
+    "items.waterable-crops.text": "给作物浇水（{{location}}），还剩 {{remaining}} 个"
+}
