@@ -28,6 +28,23 @@ internal static class GameExtensions
         return num;
     }
 
+    public static int GetTotalCropsReadyForHarvestExcludingForagables(this GameLocation location)
+    {
+        int num = 0;
+        foreach (TerrainFeature value in location.terrainFeatures.Values)
+        {
+            if (
+                value is HoeDirt hoeDirt && hoeDirt.readyForHarvest() && // existing checks
+                hoeDirt.crop is not null && !hoeDirt.crop.forageCrop.Value // added to exclude foragables
+            )
+            {
+                num++;
+            }
+        }
+
+        return num;
+    }
+
     public static int GetTotalUnwateredCropsExcludingGinger(this GameLocation location)
     {
         if (location.IsGingerIslandLocation())

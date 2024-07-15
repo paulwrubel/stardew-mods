@@ -1,5 +1,5 @@
 {
-    // controls configuration section
+    // general configuration section
     "config.general.title": "General", // TODO
     "config.general.toggle-keybind.name": "切换自动待办事项列表",
     "config.general.toggle-keybind.description": "用于切换自动待办事项列表面板的快捷键。",
@@ -31,7 +31,6 @@
     "config.checks.gifting-npcs.npcs.name": "Villagers To Gift", // TODO
     "config.checks.gifting-npcs.npcs.description": "A comma-separated list of villagers to gift. If left blank, all villagers will be selected.", // TODO
 
-
     // title of the in-game todo list
     "panel-title": "待办事项",
 
@@ -39,7 +38,6 @@
     "items.birthday.text": "给 {{npc}} 送生日礼物",
     "items.bulletin-board.text": "查看每日任务公告板",
     "items.gifting.text": "Give {{npc}} a gift ({{num}}/2)", // TODO
-    "items.gifting.all-filter-key": "*", // TODO
     "items.harvestable-crops.text": "收获作物（{{location}}），还剩 {{remaining}} 个",
     "items.ready-machines.text": "采收完工的机器（{{location}}），还剩 {{remaining}} 个",
     "items.special-orders-board.standard.text": "查看城镇中的特别订单看板",
