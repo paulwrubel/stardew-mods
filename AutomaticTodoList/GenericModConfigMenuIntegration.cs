@@ -57,14 +57,16 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
             name: I18n.Config_General_PanelPositionX_Name,
             tooltip: I18n.Config_General_PanelPositionX_Description,
             getValue: () => (int)this.Config.PanelPosition.X,
-            setValue: value => this.Config.PanelPosition = new(value, this.Config.PanelPosition.Y)
+            setValue: value => this.Config.PanelPosition = new(value, this.Config.PanelPosition.Y),
+            min: 0
         );
         configMenu.AddNumberOption(
             mod: this.Manifest,
             name: I18n.Config_General_PanelPositionY_Name,
             tooltip: I18n.Config_General_PanelPositionY_Description,
             getValue: () => (int)this.Config.PanelPosition.Y,
-            setValue: value => this.Config.PanelPosition = new(this.Config.PanelPosition.X, value)
+            setValue: value => this.Config.PanelPosition = new(this.Config.PanelPosition.X, value),
+            min: 0
         );
 
 
