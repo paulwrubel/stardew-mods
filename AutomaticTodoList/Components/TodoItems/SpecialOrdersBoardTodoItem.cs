@@ -20,7 +20,7 @@ internal class SpecialOrdersBoardTodoItem(SpecialOrderType specialOrderType, boo
         {
             SpecialOrderType.Standard => I18n.Items_SpecialOrdersBoard_Standard_Text(),
             SpecialOrderType.Qi => I18n.Items_SpecialOrdersBoard_Qi_Text(),
-            _ => throw new InvalidEnumArgumentException(nameof(Type), (int)SpecialOrderType, typeof(SpecialOrderType))
+            _ => throw new InvalidEnumArgumentException(nameof(SpecialOrderType), (int)SpecialOrderType, typeof(SpecialOrderType))
         };
     }
 

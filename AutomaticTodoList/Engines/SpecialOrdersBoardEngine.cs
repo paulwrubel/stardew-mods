@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using AutomaticTodoList.Components.TodoItems;
 using AutomaticTodoList.Models;
 using StardewValley;
@@ -14,11 +15,16 @@ internal class SpecialOrdersBoardEngine(
     {
         SpecialOrderType[] typesToCheck = [
             SpecialOrderType.Standard,
-                SpecialOrderType.Qi
+            SpecialOrderType.Qi
         ];
 
         foreach (SpecialOrderType type in typesToCheck)
         {
+            if (!type.IsBoardUnlocked())
+            {
+                continue;
+            }
+
             SpecialOrder leftOrder = Game1.player.team.GetAvailableSpecialOrder(0, type.ToStardewSpecialOrderTypeString());
             SpecialOrder rightOrder = Game1.player.team.GetAvailableSpecialOrder(1, type.ToStardewSpecialOrderTypeString());
 
