@@ -21,7 +21,7 @@ internal class HarvestableCropsEngine(
                 return true;
             }
 
-            int harvestableCount = gameLocation.getTotalCropsReadyForHarvest();
+            int harvestableCount = gameLocation.GetTotalCropsReadyForHarvestExcludingForagables();
             if (harvestableCount > 0)
             {
                 items.Add(new HarvestableCropsTodoItem(gameLocation));

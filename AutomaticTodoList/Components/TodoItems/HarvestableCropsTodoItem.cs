@@ -12,7 +12,7 @@ internal class HarvestableCropsTodoItem(GameLocation location, bool isChecked = 
 {
     internal readonly GameLocation Location = location;
 
-    private int RemainingHarvestCount { get; set; } = location.getTotalCropsReadyForHarvest();
+    private int RemainingHarvestCount { get; set; } = location.GetTotalCropsReadyForHarvestExcludingForagables();
 
     public override string Text()
     {
@@ -26,7 +26,7 @@ internal class HarvestableCropsTodoItem(GameLocation location, bool isChecked = 
     {
         if (!IsChecked)
         {
-            var unharvestedCount = this.Location.getTotalCropsReadyForHarvest();
+            var unharvestedCount = this.Location.GetTotalCropsReadyForHarvestExcludingForagables();
             if (unharvestedCount != this.RemainingHarvestCount)
             {
                 this.RemainingHarvestCount = unharvestedCount;
