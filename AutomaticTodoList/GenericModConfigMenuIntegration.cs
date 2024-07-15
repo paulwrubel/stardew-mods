@@ -43,15 +43,30 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
         // controls
         configMenu.AddSectionTitle(
             mod: this.Manifest,
-            text: I18n.Config_Controls_Title
+            text: I18n.Config_General_Title
         );
         configMenu.AddKeybindList(
             mod: this.Manifest,
-            name: I18n.Config_Controls_ToggleKeybind_Name,
-            tooltip: I18n.Config_Controls_ToggleKeybind_Description,
+            name: I18n.Config_General_ToggleKeybind_Name,
+            tooltip: I18n.Config_General_ToggleKeybind_Description,
             getValue: () => this.Config.ToggleTodoList,
             setValue: value => this.Config.ToggleTodoList = value
         );
+        configMenu.AddNumberOption(
+            mod: this.Manifest,
+            name: I18n.Config_General_PanelPositionX_Name,
+            tooltip: I18n.Config_General_PanelPositionX_Description,
+            getValue: () => (int)this.Config.PanelPosition.X,
+            setValue: value => this.Config.PanelPosition = new(value, this.Config.PanelPosition.Y)
+        );
+        configMenu.AddNumberOption(
+            mod: this.Manifest,
+            name: I18n.Config_General_PanelPositionY_Name,
+            tooltip: I18n.Config_General_PanelPositionY_Description,
+            getValue: () => (int)this.Config.PanelPosition.Y,
+            setValue: value => this.Config.PanelPosition = new(this.Config.PanelPosition.X, value)
+        );
+
 
         // engines
         configMenu.AddSectionTitle(

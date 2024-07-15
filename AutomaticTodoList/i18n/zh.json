@@ -1,8 +1,12 @@
 {
     // controls configuration section
-    "config.controls.title": "控制",
-    "config.controls.toggle-keybind.name": "切换自动待办事项列表",
-    "config.controls.toggle-keybind.description": "用于切换自动待办事项列表面板的快捷键。",
+    "config.general.title": "General", // TODO
+    "config.general.toggle-keybind.name": "切换自动待办事项列表",
+    "config.general.toggle-keybind.description": "用于切换自动待办事项列表面板的快捷键。",
+    "config.general.panel-position-x.name": "Panel Position X", // TODO
+    "config.general.panel-position-x.description": "The X position of the Automatic Todo List panel.", // TODO
+    "config.general.panel-position-y.name": "Panel Position Y", // TODO
+    "config.general.panel-position-y.description": "The Y position of the Automatic Todo List panel.", // TODO
 
     // checks configuration section
     "config.checks.title": "检查",

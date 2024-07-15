@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Utilities;
 
@@ -6,6 +7,8 @@ namespace AutomaticTodoList;
 public sealed class ModConfig
 {
     public KeybindList ToggleTodoList { get; set; } = KeybindList.Parse($"{SButton.LeftShift} + {SButton.L}");
+
+    public Vector2 PanelPosition { get; set; } = new(10, 100);
 
     public bool CheckBirthdays { get; set; } = true;
 
