@@ -20,13 +20,7 @@ internal class SpecialOrdersBoardEngine(
 
         foreach (SpecialOrderType type in typesToCheck)
         {
-            bool unlocked = type switch
-            {
-                SpecialOrderType.Standard => SpecialOrder.IsSpecialOrdersBoardUnlocked(),
-                SpecialOrderType.Qi => Math.Max(0, Game1.netWorldState.Value.GoldenWalnutsFound - 1) >= 100,
-                _ => throw new InvalidEnumArgumentException(nameof(type), (int)type, typeof(SpecialOrderType))
-            };
-            if (!unlocked)
+            if (!type.IsBoardUnlocked())
             {
                 continue;
             }
