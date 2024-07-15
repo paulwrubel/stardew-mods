@@ -1,8 +1,12 @@
 {
-    // controls configuration section
-    "config.controls.title": "Controls",
-    "config.controls.toggle-keybind.name": "Toggle Automatic Todo List",
-    "config.controls.toggle-keybind.description": "The keybind to toggle the Automatic Todo List panel.",
+    // general configuration section
+    "config.general.title": "General",
+    "config.general.toggle-keybind.name": "Toggle Automatic Todo List",
+    "config.general.toggle-keybind.description": "The keybind to toggle the Automatic Todo List panel.",
+    "config.general.panel-position-x.name": "Panel Position X",
+    "config.general.panel-position-x.description": "The X position of the Automatic Todo List panel.",
+    "config.general.panel-position-y.name": "Panel Position Y",
+    "config.general.panel-position-y.description": "The Y position of the Automatic Todo List panel.",
 
     // checks configuration section
     "config.checks.title": "Checks",

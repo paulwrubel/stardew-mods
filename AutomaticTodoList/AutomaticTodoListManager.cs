@@ -18,8 +18,6 @@ internal sealed class AutomaticTodoListManager
     private readonly Action<string, StardewModdingAPI.LogLevel> Log;
 
     private readonly HashSet<IEngine> engines = [];
-
-    private static readonly Vector2 initialAutomaticTodoListPanelPosition = new(10, 100);
     private AutomaticTodoListPanel automaticTodoListPanel = null!; // initialized in OnGameLaunched
 
     private bool isPanelOpen = true;
@@ -36,7 +34,7 @@ internal sealed class AutomaticTodoListManager
     internal void OnGameLaunched(GameLaunchedEventArgs e)
     {
         this.automaticTodoListPanel = new(
-            initialAutomaticTodoListPanelPosition,
+            () => this.Config.PanelPosition,
             this.GatherItems
         );
     }

@@ -8,11 +8,11 @@ namespace AutomaticTodoList.Components;
 
 /// <summary>Manages the Automatic Todo List Panel UI.</summary>
 /// <remarks>Initializes a new instance of the <see cref="AutomaticTodoListPanel"/> class.</remarks>
-internal class AutomaticTodoListPanel(Vector2 position, Func<ICollection<ITodoItem>> getItems) : IClickableMenu
+internal class AutomaticTodoListPanel(Func<Vector2> position, Func<ICollection<ITodoItem>> getItems) : IClickableMenu
 {
     private static string TitleText { get; } = I18n.PanelTitle();
 
-    private Vector2 BoxPosition = position;
+    private readonly Func<Vector2> BoxPosition = position;
     private readonly int GutterLength = 4 * Game1.pixelZoom;
 
     private int LineSpacing { get; } = 2;
@@ -38,7 +38,6 @@ internal class AutomaticTodoListPanel(Vector2 position, Func<ICollection<ITodoIt
         int lineHeight = (int)spriteFont.MeasureString(TitleText).Y;
         int height = (GutterLength * 2) + (items.Count + 1) * (lineHeight + LineSpacing) + 4;
 
-
         this.DrawTextureBox(width, height);
         this.DrawTitleText(maxWidth, out int nextYPosition);
         this.DrawTodoItems(nextYPosition, items);
@@ -52,8 +51,8 @@ internal class AutomaticTodoListPanel(Vector2 position, Func<ICollection<ITodoIt
             Game1.spriteBatch,
             Game1.menuTexture,
             new Rectangle(0, 256, 60, 60),
-            (int)BoxPosition.X,
-            (int)BoxPosition.Y,
+            (int)BoxPosition().X,
+            (int)BoxPosition().Y,
             width,
             height,
             Color.White * 1
@@ -68,11 +67,11 @@ internal class AutomaticTodoListPanel(Vector2 position, Func<ICollection<ITodoIt
 
         int xOffset = (totalWidth - (int)titleTextSize.X) / 2;
 
-        var titleTextPosition = new Vector2(BoxPosition.X + GutterLength + xOffset, BoxPosition.Y + GutterLength);
+        var titleTextPosition = new Vector2(BoxPosition().X + GutterLength + xOffset, BoxPosition().Y + GutterLength);
 
         Utility.drawTextWithShadow(spriteBatch, TitleText, titleFont, titleTextPosition, Game1.textColor);
 
-        var dividerPosition = new Vector2(BoxPosition.X + GutterLength, titleTextPosition.Y + (int)titleTextSize.Y + LineSpacing);
+        var dividerPosition = new Vector2(BoxPosition().X + GutterLength, titleTextPosition.Y + (int)titleTextSize.Y + LineSpacing);
 
         Utility.drawLineWithScreenCoordinates(
             (int)dividerPosition.X, (int)dividerPosition.Y,
@@ -81,7 +80,6 @@ internal class AutomaticTodoListPanel(Vector2 position, Func<ICollection<ITodoIt
             Game1.textColor,
             thickness: 1
         );
-        // Utility.drawTextWithShadow(spriteBatch, DividerText, spriteFont, dividerPosition, Game1.textColor);
 
         nextYPosition = (int)dividerPosition.Y + (int)4 + this.LineSpacing;
     }
@@ -91,7 +89,7 @@ internal class AutomaticTodoListPanel(Vector2 position, Func<ICollection<ITodoIt
         var spriteBatch = Game1.spriteBatch;
         var spriteFont = Game1.smallFont;
 
-        var currentPosition = new Vector2(BoxPosition.X + GutterLength, initialYPosition);
+        var currentPosition = new Vector2(BoxPosition().X + GutterLength, initialYPosition);
 
         foreach (ITodoItem item in items)
         {
