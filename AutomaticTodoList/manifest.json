@@ -1,7 +1,7 @@
 {
     "Name": "Automatic To-do List",
     "Author": "VoxaelFox",
-    "Version": "1.2.0",
+    "Version": "1.3.0",
     "Description": "Automatic task management for common tasks.",
     "UniqueID": "VoxaelFox.AutomaticTodoList",
     "EntryDll": "AutomaticTodoList.dll",
