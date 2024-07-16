@@ -6,9 +6,11 @@ namespace AutomaticTodoList;
 
 public sealed class ModConfig
 {
-    public KeybindList ToggleTodoList { get; set; } = KeybindList.Parse($"{SButton.LeftShift} + {SButton.L}");
+    public KeybindList ToggleTodoListKeybind { get; set; } = KeybindList.Parse($"{SButton.LeftShift} + {SButton.L}");
 
-    public Vector2 PanelPosition { get; set; } = new(10, 100);
+    public Vector2 PanelPosition { get; set; } = new(10, 80);
+
+    public int VisibleItemCount { get; set; } = 10;
 
     public bool CheckBirthdays { get; set; } = true;
 

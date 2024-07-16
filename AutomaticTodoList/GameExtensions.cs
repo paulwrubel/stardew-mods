@@ -1,4 +1,3 @@
-
 using StardewValley;
 using StardewValley.Locations;
 using StardewValley.Objects;

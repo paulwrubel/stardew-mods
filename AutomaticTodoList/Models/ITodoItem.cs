@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI.Events;
 
 namespace AutomaticTodoList.Models;
@@ -21,8 +19,4 @@ public interface ITodoItem
     void OnUpdateTicked(UpdateTickedEventArgs e);
 
     void OnMenuChanged(MenuChangedEventArgs e);
-
-    void Draw(SpriteBatch b, Vector2 position);
-
-
 }
