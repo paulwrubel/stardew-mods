@@ -14,21 +14,23 @@ internal class AutomaticTodoListPanel(
 )
 {
     private readonly string TitleText = I18n.Panel_Title();
+
     private const int GutterLength = 4 * Game1.pixelZoom;
 
     private const int LineSpacing = 2;
 
     private static readonly SpriteFont Font = Game1.smallFont;
 
-    public void Draw(Vector2 position)
+    public void Draw(SpriteBatch b, Vector2 position)
     {
-        var items = getItems();
+        var allItems = getItems();
+        var renderedItems = allItems.Take(visibleItemCount()).ToList();
 
-        bool showOverflowIndicator = items.Count > visibleItemCount();
+        bool showOverflowIndicator = allItems.Count > renderedItems.Count;
 
         // find the longest text, which determines the width of the panel
         int maxTextWidth = (int)Font.MeasureString(TitleText).X;
-        foreach (ITodoItem item in items)
+        foreach (ITodoItem item in renderedItems)
         {
             int todoItemWidth = (int)Font.MeasureString(item.Text()).X;
             if (todoItemWidth > maxTextWidth)
@@ -39,26 +41,26 @@ internal class AutomaticTodoListPanel(
 
         int numRows =
             1 + // the title row
-            Math.Min(items.Count, visibleItemCount()) + // the todo items
+            renderedItems.Count + // the todo items
             (showOverflowIndicator ? 1 : 0); // the optional overflow indicator
 
         // draw the surrounding box
-        DrawTextureBox(position, maxTextWidth, numRows, out Vector2 titlePosition);
+        DrawTextureBox(b, position, maxTextWidth, numRows, out Vector2 titlePosition);
 
         // draw the title text and dividing line
-        DrawTitleTextAndDividingLine(titlePosition, maxTextWidth, out Vector2 todoItemPosition);
+        DrawTitleTextAndDividingLine(b, titlePosition, maxTextWidth, out Vector2 todoItemPosition);
 
         // draw the todo items
-        DrawTodoItems(todoItemPosition, items, out Vector2 overflowIndicatorPosition);
+        DrawTodoItems(b, todoItemPosition, renderedItems, out Vector2 overflowIndicatorPosition);
 
         // draw the overflow indicator
         if (showOverflowIndicator)
         {
-            DrawOverflowIndicator(overflowIndicatorPosition, items.Count - visibleItemCount());
+            DrawOverflowIndicator(b, overflowIndicatorPosition, allItems.Count - renderedItems.Count);
         }
     }
 
-    private void DrawTextureBox(Vector2 position, int maxTextWidth, int numRows, out Vector2 nextContentPosition)
+    private void DrawTextureBox(SpriteBatch b, Vector2 position, int maxTextWidth, int numRows, out Vector2 nextContentPosition)
     {
         // assume the size of each text line
         int lineHeight = (int)Font.MeasureString(TitleText).Y;
@@ -75,7 +77,7 @@ internal class AutomaticTodoListPanel(
 
         // draw the texture box
         IClickableMenu.drawTextureBox(
-            Game1.spriteBatch,
+            b,
             Game1.menuTexture,
             new Rectangle(0, 256, 60, 60), // not sure what these numbers end up meaning, if anything
             (int)position.X,
@@ -87,17 +89,17 @@ internal class AutomaticTodoListPanel(
 
         nextContentPosition = new Vector2(position.X + GutterLength, position.Y + GutterLength);
     }
-    private void DrawTitleTextAndDividingLine(Vector2 position, int totalWidth, out Vector2 nextContentPosition)
+    private void DrawTitleTextAndDividingLine(SpriteBatch b, Vector2 position, int totalWidth, out Vector2 nextContentPosition)
     {
         CenteredTextRow titleRow = new(TitleText, position, totalWidth);
-        titleRow.Draw();
+        titleRow.Draw(b);
 
         var dividerPosition = new Vector2(position.X, position.Y + (int)Font.MeasureString(TitleText).Y + LineSpacing);
 
         Utility.drawLineWithScreenCoordinates(
             (int)dividerPosition.X, (int)dividerPosition.Y,
             (int)dividerPosition.X + totalWidth, (int)dividerPosition.Y,
-            Game1.spriteBatch,
+            b,
             Game1.textColor,
             thickness: 1
         );
@@ -105,23 +107,23 @@ internal class AutomaticTodoListPanel(
         nextContentPosition = new Vector2(dividerPosition.X, (int)dividerPosition.Y + 4 + LineSpacing);
     }
 
-    private void DrawTodoItems(Vector2 position, ICollection<ITodoItem> items, out Vector2 nextContentPosition)
+    private void DrawTodoItems(SpriteBatch b, Vector2 position, ICollection<ITodoItem> items, out Vector2 nextContentPosition)
     {
         Vector2 currentPosition = position;
 
         foreach (ITodoItem item in items.Take(visibleItemCount()))
         {
             TodoItemTextRow itemRow = new(item, currentPosition);
-            itemRow.Draw();
+            itemRow.Draw(b);
             currentPosition.Y += (int)Font.MeasureString(item.Text()).Y + LineSpacing;
         }
 
         nextContentPosition = currentPosition;
     }
 
-    private static void DrawOverflowIndicator(Vector2 position, int numRemaining)
+    private static void DrawOverflowIndicator(SpriteBatch b, Vector2 position, int numRemaining)
     {
         TextRow overflowIndicatorRow = new(I18n.Panel_OverflowIndicator(numRemaining), position);
-        overflowIndicatorRow.Draw();
+        overflowIndicatorRow.Draw(b);
     }
 }
