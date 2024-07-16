@@ -73,7 +73,7 @@ internal sealed class AutomaticTodoListManager
 
     internal void OnRendered(RenderedEventArgs e)
     {
-        if (isPanelOpen && this.automaticTodoListPanel is not null)
+        if (isPanelOpen && this.automaticTodoListPanel is not null && Game1.activeClickableMenu is null)
         {
             this.automaticTodoListPanel.draw(Game1.spriteBatch);
         }
