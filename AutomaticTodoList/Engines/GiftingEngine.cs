@@ -13,10 +13,7 @@ internal class GiftingEngine(
 
     public override IEnumerable<ITodoItem> Items()
     {
-        return this.items.Where(item =>
-        {
-            return EnabledForNPC(item.NPC.Name);
-        });
+        return this.items.Where(item => IsEnabledForNPC(item.NPC.Name));
     }
 
     public override void UpdateItems()
@@ -26,14 +23,16 @@ internal class GiftingEngine(
         {
             if (npc.CanReceiveGifts() && Game1.player.friendshipData.TryGetValue(npc.Name, out Friendship friendship) && friendship.GiftsThisWeek < 2)
             {
-                items.Add(new GiftingTodoItem(npc, friendship));
+                WeeklyGiftOrdinal ordinal = friendship.GiftsThisWeek == 0 ? WeeklyGiftOrdinal.First : WeeklyGiftOrdinal.Second;
+
+                items.Add(new GiftingTodoItem(npc, friendship, ordinal));
             }
 
             return true;
         });
     }
 
-    private bool EnabledForNPC(string npcName)
+    private bool IsEnabledForNPC(string npcName)
     {
         bool all = enabledNPCsString().Trim() == "";
 
