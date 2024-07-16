@@ -15,9 +15,8 @@ internal class TodoItemTextRow(ITodoItem item, Vector2 position)
     /// <summary>A blank pixel which can be colorized and stretched to draw geometric shapes.</summary>
     public static Texture2D Pixel => lazyPixel.Value;
 
-    public void Draw()
+    public void Draw(SpriteBatch b)
     {
-        SpriteBatch b = Game1.spriteBatch;
         SpriteFont font = Game1.smallFont;
         Color textColor = item.IsChecked ? Color.DarkSlateGray : Color.Black;
         string text = item.Text();

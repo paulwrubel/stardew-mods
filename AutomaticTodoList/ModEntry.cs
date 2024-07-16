@@ -32,10 +32,9 @@ internal sealed class ModEntry : Mod
         helper.Events.GameLoop.OneSecondUpdateTicked += this.OnOneSecondUpdateTicked;
         helper.Events.GameLoop.UpdateTicked += this.OnUpdateTicked;
         helper.Events.Input.ButtonsChanged += this.OnButtonsChanged;
-        helper.Events.Display.Rendered += this.OnRendered;
+        helper.Events.Display.RenderedHud += this.OnRenderedHud;
         helper.Events.Display.MenuChanged += this.OnMenuChanged;
     }
-
 
     /*********
     ** Private methods
@@ -104,7 +103,7 @@ internal sealed class ModEntry : Mod
         this.AutomaticTodoListManager.OnButtonsChanged(e);
     }
 
-    private void OnRendered(object? sender, RenderedEventArgs e)
+    private void OnRenderedHud(object? sender, RenderedHudEventArgs e)
     {
         // ignore if player hasn't loaded a save yet
         if (!Context.IsWorldReady)
@@ -112,7 +111,7 @@ internal sealed class ModEntry : Mod
             return;
         }
 
-        AutomaticTodoListManager.OnRendered(e);
+        AutomaticTodoListManager.OnRenderedHud(e);
     }
 
     private void OnMenuChanged(object? sender, MenuChangedEventArgs e)
