@@ -14,6 +14,7 @@ internal class AutomaticTodoListPanel(
 )
 {
     private readonly string TitleText = I18n.Panel_Title();
+
     private const int GutterLength = 4 * Game1.pixelZoom;
 
     private const int LineSpacing = 2;
@@ -22,13 +23,14 @@ internal class AutomaticTodoListPanel(
 
     public void Draw(SpriteBatch b, Vector2 position)
     {
-        var items = getItems();
+        var allItems = getItems();
+        var renderedItems = allItems.Take(visibleItemCount()).ToList();
 
-        bool showOverflowIndicator = items.Count > visibleItemCount();
+        bool showOverflowIndicator = allItems.Count > renderedItems.Count;
 
         // find the longest text, which determines the width of the panel
         int maxTextWidth = (int)Font.MeasureString(TitleText).X;
-        foreach (ITodoItem item in items)
+        foreach (ITodoItem item in renderedItems)
         {
             int todoItemWidth = (int)Font.MeasureString(item.Text()).X;
             if (todoItemWidth > maxTextWidth)
@@ -39,7 +41,7 @@ internal class AutomaticTodoListPanel(
 
         int numRows =
             1 + // the title row
-            Math.Min(items.Count, visibleItemCount()) + // the todo items
+            renderedItems.Count + // the todo items
             (showOverflowIndicator ? 1 : 0); // the optional overflow indicator
 
         // draw the surrounding box
@@ -49,12 +51,12 @@ internal class AutomaticTodoListPanel(
         DrawTitleTextAndDividingLine(b, titlePosition, maxTextWidth, out Vector2 todoItemPosition);
 
         // draw the todo items
-        DrawTodoItems(b, todoItemPosition, items, out Vector2 overflowIndicatorPosition);
+        DrawTodoItems(b, todoItemPosition, renderedItems, out Vector2 overflowIndicatorPosition);
 
         // draw the overflow indicator
         if (showOverflowIndicator)
         {
-            DrawOverflowIndicator(b, overflowIndicatorPosition, items.Count - visibleItemCount());
+            DrawOverflowIndicator(b, overflowIndicatorPosition, allItems.Count - renderedItems.Count);
         }
     }
 
