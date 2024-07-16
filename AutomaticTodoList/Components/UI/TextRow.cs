@@ -1,4 +1,3 @@
-using AutomaticTodoList.Models;
 using Microsoft.Xna.Framework;
 using StardewValley;
 
