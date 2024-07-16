@@ -40,7 +40,8 @@
     // text of the actual line items on the in-game list
     "items.birthday.text": "给 {{npc}} 送生日礼物",
     "items.bulletin-board.text": "查看每日任务公告板",
-    "items.gifting.text": "Give {{npc}} a gift ({{num}}/2)", // TODO
+    "items.gifting.first-gift.text": "Give {{npc}} a gift (1st this week)", // TODO
+    "items.gifting.second-gift.text": "Give {{npc}} a gift (2nd this week)", // TODO
     "items.harvestable-crops.text": "收获作物（{{location}}），还剩 {{remaining}} 个",
     "items.ready-machines.text": "采收完工的机器（{{location}}），还剩 {{remaining}} 个",
     "items.special-orders-board.standard.text": "查看城镇中的特别订单看板",

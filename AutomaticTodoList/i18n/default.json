@@ -40,7 +40,8 @@
     // text of the actual line items on the in-game list
     "items.birthday.text": "Give {{npc}} a birthday gift",
     "items.bulletin-board.text": "Check the daily quest bulletin board",
-    "items.gifting.text": "Give {{npc}} a gift ({{num}}/2)",
+    "items.gifting.first-gift.text": "Give {{npc}} a gift (1st this week)",
+    "items.gifting.second-gift.text": "Give {{npc}} a gift (2nd this week)",
     "items.harvestable-crops.text": "Harvest crops ({{location}}) ({{remaining}} remaining)",
     "items.ready-machines.text": "Empty ready machines ({{location}}) ({{remaining}} remaining)",
     "items.special-orders-board.standard.text": "Check the special orders board in town",
