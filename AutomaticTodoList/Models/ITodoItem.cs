@@ -21,8 +21,4 @@ public interface ITodoItem
     void OnUpdateTicked(UpdateTickedEventArgs e);
 
     void OnMenuChanged(MenuChangedEventArgs e);
-
-    void Draw(SpriteBatch b, Vector2 position);
-
-
 }

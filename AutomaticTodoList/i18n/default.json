@@ -2,11 +2,13 @@
     // general configuration section
     "config.general.title": "General",
     "config.general.toggle-keybind.name": "Toggle Automatic Todo List",
-    "config.general.toggle-keybind.description": "The keybind to toggle the Automatic Todo List panel.",
+    "config.general.toggle-keybind.description": "The keybind to toggle the Automatic Todo List panel",
+    "config.general.visible-item-count.name": "Number of Visible Items",
+    "config.general.visible-item-count.description": "The number of items to show at once in the Automatic Todo List panel. If more todo items than this number exist, the panel will display an overflow indicator",
     "config.general.panel-position-x.name": "Panel Position X",
-    "config.general.panel-position-x.description": "The X position of the Automatic Todo List panel.",
+    "config.general.panel-position-x.description": "The X position of the Automatic Todo List panel",
     "config.general.panel-position-y.name": "Panel Position Y",
-    "config.general.panel-position-y.description": "The Y position of the Automatic Todo List panel.",
+    "config.general.panel-position-y.description": "The Y position of the Automatic Todo List panel",
 
     // checks configuration section
     "config.checks.title": "Checks",
@@ -29,10 +31,11 @@
     "config.checks.gifting-npcs.toggle.name": "Check Gifting Specific Villagers",
     "config.checks.gifting-npcs.toggle.description": "Whether or not to add to-do items to give gifts to specific villagers each week",
     "config.checks.gifting-npcs.npcs.name": "Villagers To Gift",
-    "config.checks.gifting-npcs.npcs.description": "A comma-separated list of villagers to gift. If left blank, all villagers will be selected.",
+    "config.checks.gifting-npcs.npcs.description": "A comma-separated list of villagers to gift. If left blank, all villagers will be selected",
 
-    // title of the in-game todo list
-    "panel-title": "Todo List",
+    // panel text
+    "panel.title": "Todo List",
+    "panel.overflow-indicator": "... ({{count}} more not shown)",
 
     // text of the actual line items on the in-game list
     "items.birthday.text": "Give {{npc}} a birthday gift",

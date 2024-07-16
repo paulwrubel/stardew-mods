@@ -1,10 +1,8 @@
-using Microsoft.Xna.Framework;
-using AutomaticTodoList.Components;
+using AutomaticTodoList.Components.UI;
 using AutomaticTodoList.Engines;
 using AutomaticTodoList.Models;
 using StardewModdingAPI.Events;
 using StardewValley;
-using StardewValley.Extensions;
 
 namespace AutomaticTodoList;
 
@@ -34,7 +32,7 @@ internal sealed class AutomaticTodoListManager
     internal void OnGameLaunched(GameLaunchedEventArgs e)
     {
         this.automaticTodoListPanel = new(
-            () => this.Config.PanelPosition,
+            () => this.Config.VisibleItemCount,
             this.GatherItems
         );
     }
@@ -75,13 +73,13 @@ internal sealed class AutomaticTodoListManager
     {
         if (isPanelOpen && this.automaticTodoListPanel is not null && Game1.activeClickableMenu is null)
         {
-            this.automaticTodoListPanel.draw(Game1.spriteBatch);
+            this.automaticTodoListPanel.Draw(this.Config.PanelPosition);
         }
     }
 
     internal void OnButtonsChanged(ButtonsChangedEventArgs e)
     {
-        if (this.Config.ToggleTodoList.JustPressed())
+        if (this.Config.ToggleTodoListKeybind.JustPressed())
         {
             isPanelOpen = !isPanelOpen;
         }

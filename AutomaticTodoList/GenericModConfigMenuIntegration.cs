@@ -49,8 +49,17 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
             mod: this.Manifest,
             name: I18n.Config_General_ToggleKeybind_Name,
             tooltip: I18n.Config_General_ToggleKeybind_Description,
-            getValue: () => this.Config.ToggleTodoList,
-            setValue: value => this.Config.ToggleTodoList = value
+            getValue: () => this.Config.ToggleTodoListKeybind,
+            setValue: value => this.Config.ToggleTodoListKeybind = value
+        );
+        configMenu.AddNumberOption(
+            mod: this.Manifest,
+            name: I18n.Config_General_VisibleItemCount_Name,
+            tooltip: I18n.Config_General_VisibleItemCount_Description,
+            getValue: () => this.Config.VisibleItemCount,
+            setValue: value => this.Config.VisibleItemCount = value,
+            min: 1,
+            max: 30
         );
         configMenu.AddNumberOption(
             mod: this.Manifest,
@@ -164,7 +173,9 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
     {
         ModConfig defaults = new();
 
-        this.Config.ToggleTodoList = defaults.ToggleTodoList;
+        this.Config.ToggleTodoListKeybind = defaults.ToggleTodoListKeybind;
+        this.Config.VisibleItemCount = defaults.VisibleItemCount;
+        this.Config.PanelPosition = defaults.PanelPosition;
 
         this.Config.CheckBirthdays = defaults.CheckBirthdays;
         this.Config.CheckHarvestableCrops = defaults.CheckHarvestableCrops;
@@ -175,5 +186,6 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
         this.Config.CheckSpecialOrdersBoard = defaults.CheckSpecialOrdersBoard;
         this.Config.CheckTravelingMerchant = defaults.CheckTravelingMerchant;
         this.Config.CheckGiftingNPCs = defaults.CheckGiftingNPCs;
+        this.Config.GiftingNPCsString = defaults.GiftingNPCsString;
     }
 }

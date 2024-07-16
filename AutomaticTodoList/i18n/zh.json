@@ -3,10 +3,12 @@
     "config.general.title": "General", // TODO
     "config.general.toggle-keybind.name": "切换自动待办事项列表",
     "config.general.toggle-keybind.description": "用于切换自动待办事项列表面板的快捷键。",
+    "config.general.visible-items-count.name": "Visible Items Count", // TODO
+    "config.general.visible-items-count.description": "The number of items to show at once in the Automatic Todo List panel. If more todo items than this number exist, the panel will be scrollable", // TODO
     "config.general.panel-position-x.name": "Panel Position X", // TODO
-    "config.general.panel-position-x.description": "The X position of the Automatic Todo List panel.", // TODO
+    "config.general.panel-position-x.description": "The X position of the Automatic Todo List panel", // TODO
     "config.general.panel-position-y.name": "Panel Position Y", // TODO
-    "config.general.panel-position-y.description": "The Y position of the Automatic Todo List panel.", // TODO
+    "config.general.panel-position-y.description": "The Y position of the Automatic Todo List panel", // TODO
 
     // checks configuration section
     "config.checks.title": "检查",
@@ -29,10 +31,11 @@
     "config.checks.gifting-npcs.toggle.name": "Check Gifting Specific Villagers", // TODO
     "config.checks.gifting-npcs.toggle.description": "Whether or not to add to-do items to give gifts to specific villagers each week", // TODO
     "config.checks.gifting-npcs.npcs.name": "Villagers To Gift", // TODO
-    "config.checks.gifting-npcs.npcs.description": "A comma-separated list of villagers to gift. If left blank, all villagers will be selected.", // TODO
+    "config.checks.gifting-npcs.npcs.description": "A comma-separated list of villagers to gift. If left blank, all villagers will be selected", // TODO
 
-    // title of the in-game todo list
-    "panel-title": "待办事项",
+    // panel text
+    "panel.title": "待办事项",
+    "panel.overflow-indicator": "... ({{count}} more not shown)", // TODO
 
     // text of the actual line items on the in-game list
     "items.birthday.text": "给 {{npc}} 送生日礼物",
