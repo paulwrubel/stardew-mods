@@ -15,7 +15,7 @@ By default, the to-do list will appear in the top right corner of your screen. T
 
 For example, the morning of a villager's birthday, an item labelled "Give XYZ a birthday gift" will appear. Gifting the villager that day checks off the item.
 
-Here is a list of currently supported tasks:
+Here is a list of currently supported to-do items:
 
 - Villager's birthdays
 - Harvestable crops
@@ -25,6 +25,8 @@ Here is a list of currently supported tasks:
 - Checking the daily quest board outside Pierre's General Store
 - Checking the Special Orders Boards
 - Traveling Merchant's cart
+- Gifting specified villagers
+- Watching Queen of Sauce
 
 Each task type can be toggled off or on individually in the settings. All settings are fully compatible with Generic Mod Config Menu
 

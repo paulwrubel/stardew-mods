@@ -8,7 +8,7 @@ documentation.
 ## Mods
 
 Active mods:
-- **Automatic To-Do List** <small>([Nexus](https://www.nexusmods.com/stardewvalley/mods/26008) | [source](Automate))</small>  
+- **Automatic To-Do List** <small>([Nexus](https://www.nexusmods.com/stardewvalley/mods/26008) | [source](AutomaticTodoList))</small>  
   _An automatically updating to-do list for common repeating tasks. Never forget to give a birthday gift, harvest a crop, or check the traveling cart again!_
 
 ## Translating the mods
