@@ -10,6 +10,7 @@ public enum TaskPriority
     WaterableCrops,
     Gifting,
     TravelingMerchant,
+    QueenOfSauce,
     SpecialOrders,
     BulletinBoard,
     Test,
