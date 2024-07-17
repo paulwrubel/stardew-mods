@@ -142,6 +142,13 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
+            name: I18n.Config_Checks_QueenOfSauce_Toggle_Name,
+            tooltip: I18n.Config_Checks_QueenOfSauce_Toggle_Description,
+            getValue: () => this.Config.CheckQueenOfSauce,
+            setValue: value => this.Config.CheckQueenOfSauce = value
+        );
+        configMenu.AddBoolOption(
+            mod: this.Manifest,
             name: I18n.Config_Checks_GiftingNpcs_Toggle_Name,
             tooltip: I18n.Config_Checks_GiftingNpcs_Toggle_Description,
             getValue: () => this.Config.CheckGiftingNPCs,
@@ -185,6 +192,7 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
         this.Config.CheckDailyQuestBulletinBoard = defaults.CheckDailyQuestBulletinBoard;
         this.Config.CheckSpecialOrdersBoard = defaults.CheckSpecialOrdersBoard;
         this.Config.CheckTravelingMerchant = defaults.CheckTravelingMerchant;
+        this.Config.CheckQueenOfSauce = defaults.CheckQueenOfSauce;
         this.Config.CheckGiftingNPCs = defaults.CheckGiftingNPCs;
         this.Config.GiftingNPCsString = defaults.GiftingNPCsString;
     }

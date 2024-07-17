@@ -28,6 +28,8 @@ public sealed class ModConfig
 
     public bool CheckTravelingMerchant { get; set; } = true;
 
+    public bool CheckQueenOfSauce { get; set; } = true;
+
     public bool CheckGiftingNPCs { get; set; } = false;
 
     public string GiftingNPCsString { get; set; } = "";
