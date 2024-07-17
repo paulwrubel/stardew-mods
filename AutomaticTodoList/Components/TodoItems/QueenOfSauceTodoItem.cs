@@ -8,7 +8,7 @@ namespace AutomaticTodoList.Components.TodoItems;
 /// <remarks>Initializes a new instance of the <see cref="QueenOfSauceTodoItem"/> class.</remarks>
 /// <param name="text">The text of the todo item.</param>
 internal class QueenOfSauceTodoItem(string recipeName, bool isChecked = false)
-    : BaseTodoItem(isChecked, TaskPriority.Birthday)
+    : BaseTodoItem(isChecked, TaskPriority.QueenOfSauce)
 {
     internal string RecipeName { get; } = recipeName;
 
