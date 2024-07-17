@@ -28,6 +28,8 @@
     "config.checks.special-orders-board.toggle.description": "是否为 接受特别订单板上特别订单 添加待办事项",
     "config.checks.traveling-merchant.toggle.name": "检查旅行商人",
     "config.checks.traveling-merchant.toggle.description": "是否为 访问旅行商人的货车 添加待办事项",
+    "config.checks.queen-of-sauce.toggle.name": "Check Queen of Sauce", // TODO
+    "config.checks.queen-of-sauce.toggle.description": "Whether or not to add to-do items to watch the Queen of Sauce to learn new recipes. To-do items will not be created for reruns of learned recipes.", // TODO
     "config.checks.gifting-npcs.toggle.name": "Check Gifting Specific Villagers", // TODO
     "config.checks.gifting-npcs.toggle.description": "Whether or not to add to-do items to give gifts to specific villagers each week", // TODO
     "config.checks.gifting-npcs.npcs.name": "Villagers To Gift", // TODO
@@ -42,6 +44,7 @@
     "items.bulletin-board.text": "查看每日任务公告板",
     "items.gifting.text": "Give {{npc}} a gift ({{num}}/2)", // TODO
     "items.harvestable-crops.text": "收获作物（{{location}}），还剩 {{remaining}} 个",
+    "items.queen-of-sauce.text": "Watch The Queen of Sauce ({{recipeName}})", // TODO
     "items.ready-machines.text": "采收完工的机器（{{location}}），还剩 {{remaining}} 个",
     "items.special-orders-board.standard.text": "查看城镇中的特别订单看板",
     "items.special-orders-board.qi.text": "查看 Mr. Qi 的核桃房中的特别订单看板",
