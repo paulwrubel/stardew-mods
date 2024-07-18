@@ -14,7 +14,7 @@ internal class BirthdayEngine(
         // check if it is anyone's birthday today
         Utility.ForEachCharacter((npc) =>
         {
-            if (!npc.CanReceiveGifts() || !npc.isBirthday())
+            if (!npc.CanReceiveGifts() || !npc.isBirthday() || !Game1.player.friendshipData.ContainsKey(npc.Name))
             {
                 return true;
             }
