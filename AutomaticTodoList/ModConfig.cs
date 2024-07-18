@@ -6,6 +6,16 @@ namespace AutomaticTodoList;
 
 public sealed class ModConfig
 {
+    /**
+     * System settings, set by the mod internally.
+     */
+
+    public bool IsPanelVisible { get; set; } = true;
+
+    /**
+     * User settings, changable by the player in-game using the Generic Mod Config Menu.
+     */
+
     public KeybindList ToggleTodoListKeybind { get; set; } = KeybindList.Parse($"{SButton.LeftShift} + {SButton.L}");
 
     public Vector2 PanelPosition { get; set; } = new(10, 80);

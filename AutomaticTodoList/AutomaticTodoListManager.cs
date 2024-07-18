@@ -13,17 +13,18 @@ internal sealed class AutomaticTodoListManager
     /// <summary>The config for the mod.</summary>
     public ModConfig Config { get; set; }
 
+    public Action SaveConfig { get; set; }
+
     private readonly Action<string, StardewModdingAPI.LogLevel> Log;
 
     private readonly HashSet<IEngine> engines = [];
     private AutomaticTodoListPanel automaticTodoListPanel = null!; // initialized in OnGameLaunched
 
-    private bool isPanelOpen = true;
-
     /// <summary>Initializes a new instance of the <see cref="AutomaticTodoListManager"/> class.</summary>
-    public AutomaticTodoListManager(ModConfig config, Action<string, StardewModdingAPI.LogLevel> log)
+    public AutomaticTodoListManager(ModConfig config, Action saveConfig, Action<string, StardewModdingAPI.LogLevel> log)
     {
         this.Config = config;
+        this.SaveConfig = saveConfig;
         this.Log = log;
 
         this.InitEngines();
@@ -78,7 +79,8 @@ internal sealed class AutomaticTodoListManager
     {
         if (this.Config.ToggleTodoListKeybind.JustPressed())
         {
-            isPanelOpen = !isPanelOpen;
+            this.Config.IsPanelVisible = !this.Config.IsPanelVisible;
+            SaveConfig();
         }
     }
 
@@ -92,7 +94,7 @@ internal sealed class AutomaticTodoListManager
 
     private void TryRenderPanel(SpriteBatch b)
     {
-        if (isPanelOpen && this.automaticTodoListPanel is not null)
+        if (this.Config.IsPanelVisible && this.automaticTodoListPanel is not null)
         {
             this.automaticTodoListPanel.Draw(b, this.Config.PanelPosition);
         }
