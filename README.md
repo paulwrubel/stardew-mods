@@ -23,4 +23,4 @@ on the wiki for help contributing translations.
 
 |         | Automatic To-Do List                |
 | :------ | :---------------------------------- |
-| Chinese | [↻](AutomaticTodoList/i18n/zh.json) |
+| Chinese | [✓](AutomaticTodoList/i18n/zh.json) |
