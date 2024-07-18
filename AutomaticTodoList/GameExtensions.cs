@@ -79,4 +79,16 @@ internal static class GameExtensions
     {
         return crop is not null && crop.forageCrop.Value && crop.whichForageCrop.Value == "2";
     }
+
+    public static bool IsInPassiveFestivalLocation(this Character character, string festivalID)
+    {
+        return festivalID switch
+        {
+            "NightMarket" => character.currentLocation is BeachNightMarket,
+            "DesertFestival" => character.currentLocation is DesertFestival,
+            "TroutDerby" => character.currentLocation is Forest,
+            "SquidFest" => character.currentLocation is Beach,
+            _ => false
+        };
+    }
 }

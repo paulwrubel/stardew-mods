@@ -24,6 +24,8 @@ public sealed class ModConfig
 
     public bool CheckBirthdays { get; set; } = true;
 
+    public bool CheckFestivals { get; set; } = true;
+
     public bool CheckHarvestableCrops { get; set; } = true;
 
     public bool CheckWaterableCrops { get; set; } = true;
