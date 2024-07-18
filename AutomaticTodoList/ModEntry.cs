@@ -24,7 +24,7 @@ internal sealed class ModEntry : Mod
         I18n.Init(helper.Translation);
 
         this.Config = Helper.ReadConfig<ModConfig>();
-        this.AutomaticTodoListManager = new(this.Config, this.Monitor.Log);
+        this.AutomaticTodoListManager = new(this.Config, () => helper.WriteConfig(this.Config), this.Monitor.Log);
 
         helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
         helper.Events.GameLoop.DayStarted += this.OnDayStarted;
