@@ -42,13 +42,13 @@
     "panel.overflow-indicator": "... (还有{{count}}项未显示)",
 
     // text of the actual line items on the in-game list
+    "items.active-festival.text-without-article": "Attend {{festival}}", // TODO
+    "items.active-festival.text-with-article": "Attend the {{festival}}", // TODO
     "items.birthday.text": "给 {{npc}} 送生日礼物",
     "items.bulletin-board.text": "查看每日任务公告板",
     "items.gifting.first-gift.text": "给{{npc}}送礼（本周第一次）",
     "items.gifting.second-gift.text": "给{{npc}}送礼（本周第二次）",
     "items.harvestable-crops.text": "收获作物（{{location}}），还剩 {{remaining}} 个",
-    "items.active-festival.text-without-article": "Attend {{festival}}", // TODO
-    "items.active-festival.text-with-article": "Attend the {{festival}}", // TODO
     "items.passive-festival.text-without-article": "Attend {{festival}} (day {{day}})", // TODO
     "items.passive-festival.text-with-article": "Attend the {{festival}} (day {{day}})", // TODO
     "items.queen-of-sauce.text": "观看酱料女王： ({{recipeName}})",
