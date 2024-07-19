@@ -21,22 +21,22 @@ internal class PassiveFestival(string id, PassiveFestivalData data)
             // this is probably the Night Market or the Desert Festival, so use the article text
             //
             // if this is custom content, we just have to cross our fingers that this is correct
-            return I18n.Items_Festival_TextWithArticle(parsedI18nName, day);
+            return I18n.Items_PassiveFestival_TextWithArticle(parsedI18nName, day);
         }
 
         return this.ID switch
         {
-            "TroutDerby" => I18n.Items_Festival_TextWithArticle(
+            "TroutDerby" => I18n.Items_PassiveFestival_TextWithArticle(
                 Game1.content.LoadString("Strings\\1_6_Strings:TroutDerby"),
                 day
             ),
-            "SquidFest" => I18n.Items_Festival_TextWithoutArticle(
+            "SquidFest" => I18n.Items_PassiveFestival_TextWithoutArticle(
                 Game1.content.LoadString("Strings\\1_6_Strings:SquidFest"),
                 day
             ),
 
             // this triggers only for custom content without a DisplayName, so there's nothing we can do
-            _ => I18n.Items_Festival_TextWithArticle(this.ID, day)
+            _ => I18n.Items_PassiveFestival_TextWithArticle(this.ID, day)
         };
     }
 

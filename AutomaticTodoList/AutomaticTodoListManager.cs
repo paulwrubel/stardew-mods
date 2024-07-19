@@ -141,7 +141,7 @@ internal sealed class AutomaticTodoListManager
 
         this.engines.Clear();
 
-        // this.engines.Add(new ActiveFestivalEngine(Log, () => this.Config.CheckFestivals));
+        this.engines.Add(new ActiveFestivalEngine(Log, () => this.Config.CheckFestivals));
         this.engines.Add(new BirthdayEngine(Log, () => this.Config.CheckBirthdays));
         this.engines.Add(new BulletinBoardEngine(Log, () => this.Config.CheckDailyQuestBulletinBoard));
         this.engines.Add(new GiftingEngine(Log, () => this.Config.CheckGiftingNPCs, () => this.Config.GiftingNPCsString));

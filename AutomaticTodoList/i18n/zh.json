@@ -47,8 +47,10 @@
     "items.gifting.first-gift.text": "给{{npc}}送礼（本周第一次）",
     "items.gifting.second-gift.text": "给{{npc}}送礼（本周第二次）",
     "items.harvestable-crops.text": "收获作物（{{location}}），还剩 {{remaining}} 个",
-    "items.festival.text-without-article": "Attend {{festival}} (day {{day}})", // TODO
-    "items.festival.text-with-article": "Attend the {{festival}} (day {{day}})", // TODO
+    "items.active-festival.text-without-article": "Attend {{festival}}", // TODO
+    "items.active-festival.text-with-article": "Attend the {{festival}}", // TODO
+    "items.passive-festival.text-without-article": "Attend {{festival}} (day {{day}})", // TODO
+    "items.passive-festival.text-with-article": "Attend the {{festival}} (day {{day}})", // TODO
     "items.queen-of-sauce.text": "观看酱料女王： ({{recipeName}})",
     "items.ready-machines.text": "采收完工的机器（{{location}}），还剩 {{remaining}} 个",
     "items.special-orders-board.standard.text": "查看城镇中的特别订单看板",

@@ -5,10 +5,9 @@
 //
 // Originally licensed under the MIT license.
 
-using StardewValley;
 using StardewValley.Objects;
 
-namespace AutomaticTodoList;
+namespace AutomaticTodoList.Models;
 
 /// <summary>
 /// Virtual TV exists as an extension of TV
