@@ -93,6 +93,13 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
         );
         configMenu.AddBoolOption(
             mod: this.Manifest,
+            name: I18n.Config_Checks_Festivals_Toggle_Name,
+            tooltip: I18n.Config_Checks_Festivals_Toggle_Description,
+            getValue: () => this.Config.CheckFestivals,
+            setValue: value => this.Config.CheckFestivals = value
+        );
+        configMenu.AddBoolOption(
+            mod: this.Manifest,
             name: I18n.Config_Checks_HarvestableCrops_Toggle_Name,
             tooltip: I18n.Config_Checks_HarvestableCrops_Toggle_Description,
             getValue: () => this.Config.CheckHarvestableCrops,
@@ -185,6 +192,7 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
         this.Config.PanelPosition = defaults.PanelPosition;
 
         this.Config.CheckBirthdays = defaults.CheckBirthdays;
+        this.Config.CheckFestivals = defaults.CheckFestivals;
         this.Config.CheckHarvestableCrops = defaults.CheckHarvestableCrops;
         this.Config.CheckWaterableCrops = defaults.CheckWaterableCrops;
         this.Config.CheckReadyMachines = defaults.CheckReadyMachines;
