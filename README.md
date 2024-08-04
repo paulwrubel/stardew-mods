@@ -21,6 +21,8 @@ on the wiki for help contributing translations.
 
 (❑ = untranslated, ↻ = partly translated, ✓ = fully translated)
 
-|         | Automatic To-Do List                |
-| :------ | :---------------------------------- |
-| Chinese | [✓](AutomaticTodoList/i18n/zh.json) |
+|                      | Automatic To-Do List                     |
+| :------------------- | :--------------------------------------- |
+| English              | [✓](AutomaticTodoList/i18n/default.json) |
+| Chinese              | [↻](AutomaticTodoList/i18n/zh.json)      |
+| Brazilian Portuguese | [✓](AutomaticTodoList/i18n/pt.json)      |
