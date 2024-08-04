@@ -25,4 +25,4 @@ on the wiki for help contributing translations.
 | :------------------- | :--------------------------------------- |
 | English              | [✓](AutomaticTodoList/i18n/default.json) |
 | Chinese              | [↻](AutomaticTodoList/i18n/zh.json)      |
-| Brazilian Portuguese | [✓](AutomaticTodoList/i18n/pt.json)      |
+| Brazilian Portuguese | [↻](AutomaticTodoList/i18n/pt.json)      |

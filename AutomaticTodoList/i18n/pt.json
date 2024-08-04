@@ -9,6 +9,8 @@
     "config.general.panel-position-x.description": "A posição X (horizontal) do painel da Lista de Tarefas Automáticas",
     "config.general.panel-position-y.name": "Posição Y (vertical) do Painel",
     "config.general.panel-position-y.description": "A posição Y (vertical) do painel da Lista de Tarefas Automáticas",
+    "config.general.panel-opacity.name": "Panel Opacity", // TODO
+    "config.general.panel-opacity.description": "The opacity of the Automatic Todo List panel.", // TODO
 
     // checks configuration section
     "config.checks.title": "Checagens",

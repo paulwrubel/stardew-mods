@@ -77,6 +77,15 @@ internal class GenericModConfigMenuIntegration(IManifest manifest, IModRegistry 
             setValue: value => this.Config.PanelPosition = new(this.Config.PanelPosition.X, value),
             min: 0
         );
+        configMenu.AddNumberOption(
+            mod: this.Manifest,
+            name: I18n.Config_General_PanelOpacity_Name,
+            tooltip: I18n.Config_General_PanelOpacity_Description,
+            getValue: () => (int)this.Config.PanelOpacityPercentage,
+            setValue: value => this.Config.PanelOpacityPercentage = value,
+            min: 0,
+            max: 100
+        );
 
 
         // engines

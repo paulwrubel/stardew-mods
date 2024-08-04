@@ -9,6 +9,8 @@
     "config.general.panel-position-x.description": "The X position of the Automatic Todo List panel",
     "config.general.panel-position-y.name": "Panel Position Y",
     "config.general.panel-position-y.description": "The Y position of the Automatic Todo List panel",
+    "config.general.panel-opacity.name": "Panel Opacity",
+    "config.general.panel-opacity.description": "The opacity of the Automatic Todo List panel.",
 
     // checks configuration section
     "config.checks.title": "Checks",

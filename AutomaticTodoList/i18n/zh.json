@@ -9,6 +9,8 @@
     "config.general.panel-position-x.description": "自动待办事项列表面板的 X 坐标位置",
     "config.general.panel-position-y.name": "面板位置 Y",
     "config.general.panel-position-y.description": "自动待办事项列表面板的 Y 坐标位置",
+    "config.general.panel-opacity.name": "Panel Opacity", // TODO
+    "config.general.panel-opacity.description": "The opacity of the Automatic Todo List panel.", // TODO
 
     // checks configuration section
     "config.checks.title": "检查",

@@ -6,8 +6,8 @@ namespace AutomaticTodoList.Components.UI;
 
 internal class TextRow(string text, Vector2 position)
 {
-    public void Draw(SpriteBatch b)
+    public void Draw(SpriteBatch b, float opacity)
     {
-        Utility.drawTextWithShadow(b, text, Game1.smallFont, position, Game1.textColor);
+        Utility.drawTextWithShadow(b, text, Game1.smallFont, position, Game1.textColor * opacity);
     }
 }

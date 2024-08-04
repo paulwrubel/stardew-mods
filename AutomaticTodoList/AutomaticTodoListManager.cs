@@ -96,7 +96,7 @@ internal sealed class AutomaticTodoListManager
     {
         if (this.Config.IsPanelVisible && this.automaticTodoListPanel is not null)
         {
-            this.automaticTodoListPanel.Draw(b, this.Config.PanelPosition);
+            this.automaticTodoListPanel.Draw(b, this.Config.PanelPosition, this.Config.PanelOpacityPercentage / 100f);
         }
     }
 

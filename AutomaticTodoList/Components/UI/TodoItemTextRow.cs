@@ -15,10 +15,10 @@ internal class TodoItemTextRow(ITodoItem item, Vector2 position)
     /// <summary>A blank pixel which can be colorized and stretched to draw geometric shapes.</summary>
     public static Texture2D Pixel => lazyPixel.Value;
 
-    public void Draw(SpriteBatch b)
+    public void Draw(SpriteBatch b, float opacity)
     {
         SpriteFont font = Game1.smallFont;
-        Color textColor = item.IsChecked ? Color.DarkSlateGray : Color.Black;
+        Color textColor = (item.IsChecked ? Color.DarkSlateGray : Color.Black) * opacity;
         string text = item.Text();
 
         if (!item.IsChecked)
@@ -39,7 +39,7 @@ internal class TodoItemTextRow(ITodoItem item, Vector2 position)
                     (int)textSize.X,
                     1
                 ),
-                Color.Black
+                Color.Black * opacity
             );
         }
     }
