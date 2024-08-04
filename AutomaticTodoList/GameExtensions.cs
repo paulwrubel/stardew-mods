@@ -14,9 +14,9 @@ internal static class GameExtensions
         {
             if (obj.IsConsideredReadyMachineForComputer())
             {
-                if (obj is ItemPedestal itemPedestal && itemPedestal.isIslandShrinePedestal.Value)
+                if (obj is ItemPedestal itemPedestal)
                 {
-                    // skip if this is an island shrine pedestal
+                    // skip if this "machine" is a pedestal
                     continue;
                 }
 
